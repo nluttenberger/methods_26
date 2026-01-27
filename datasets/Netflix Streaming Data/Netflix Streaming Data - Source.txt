@@ -1,2 +1,0 @@
-Quelle:
-https://www.kaggle.com/datasets/ahmadrazakashif/netflix-streaming-data?resource=download
