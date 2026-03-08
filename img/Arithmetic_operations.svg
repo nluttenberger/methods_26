@@ -1,0 +1,12 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <rect x="40" y="90" width="120" height="20" style="fill: rgb(0, 156, 230); stroke: rgb(0, 156, 230);"></rect>
+  <rect x="90" y="40" width="20" height="120" style="fill: rgb(0, 156, 230); stroke: rgb(0, 156, 230);"></rect>
+  <rect x="240" y="90" width="120" height="20" style="fill: rgb(216, 216, 216); stroke: rgb(216, 216, 216);"></rect>
+  <rect x="40" y="290" width="120" height="20" style="fill: rgb(1, 155, 43); stroke: rgb(1, 155, 43);" transform="rotate(45, 100, 300)"></rect>
+  <rect x="90" y="240" width="20" height="120" style="fill: rgb(1, 155, 43); stroke: rgb(1, 155, 43);" transform="rotate(45, 100, 300)"></rect>
+  <rect x="240" y="90" width="120" height="20" style="fill: rgb(255, 156, 0); stroke: rgb(255, 156, 0);"></rect>
+  <rect x="240" y="290" width="120" height="20" style="fill: rgb(206, 98, 254); stroke: rgb(206, 98, 254);"></rect>
+  <ellipse style="fill: rgb(206, 98, 254); stroke: rgb(206, 98, 254);" cx="300" cy="249.993" rx="10" ry="10"></ellipse>
+  <ellipse style="fill: rgb(206, 98, 254); stroke: rgb(206, 98, 254);" cx="300" cy="350" rx="10" ry="10"></ellipse>
+</svg>
