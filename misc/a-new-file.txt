@@ -1,1 +1,1 @@
-I just wrote this to a text file. Alright!
+Now the file has some content! Now the file has more content!
