@@ -4,66 +4,2194 @@
   "graph": {},
   "nodes": [
     {
-      "color": "white",
+      "degree": 5,
+      "id": "Aemon"
+    },
+    {
+      "degree": 4,
+      "id": "Grenn"
+    },
+    {
+      "degree": 15,
+      "id": "Samwell"
+    },
+    {
+      "degree": 4,
+      "id": "Aerys"
+    },
+    {
+      "degree": 24,
+      "id": "Jaime"
+    },
+    {
+      "degree": 18,
+      "id": "Robert"
+    },
+    {
+      "degree": 36,
+      "id": "Tyrion"
+    },
+    {
+      "degree": 22,
+      "id": "Tywin"
+    },
+    {
       "degree": 3,
-      "weighted_degree": 6,
-      "betweenness": 0.16666666666666666,
-      "id": "a"
+      "id": "Alliser"
     },
     {
-      "color": "white",
-      "degree": 2,
-      "weighted_degree": 5,
-      "betweenness": 0.16666666666666666,
-      "id": "b"
-    },
-    {
-      "color": "green",
-      "degree": 2,
-      "weighted_degree": 7,
-      "betweenness": 0.16666666666666666,
-      "id": "c"
-    },
-    {
-      "color": "yellow",
-      "degree": 2,
-      "weighted_degree": 9,
-      "betweenness": 0.16666666666666666,
-      "id": "d"
+      "degree": 12,
+      "id": "Mance"
     },
     {
       "degree": 1,
-      "weighted_degree": 3,
-      "id": "e"
+      "id": "Amory"
+    },
+    {
+      "degree": 7,
+      "id": "Oberyn"
+    },
+    {
+      "degree": 19,
+      "id": "Arya"
+    },
+    {
+      "degree": 2,
+      "id": "Anguy"
+    },
+    {
+      "degree": 6,
+      "id": "Beric"
+    },
+    {
+      "degree": 14,
+      "id": "Bran"
+    },
+    {
+      "degree": 8,
+      "id": "Brynden"
+    },
+    {
+      "degree": 20,
+      "id": "Cersei"
+    },
+    {
+      "degree": 4,
+      "id": "Gendry"
+    },
+    {
+      "degree": 12,
+      "id": "Gregor"
+    },
+    {
+      "degree": 18,
+      "id": "Joffrey"
+    },
+    {
+      "degree": 26,
+      "id": "Jon"
+    },
+    {
+      "degree": 6,
+      "id": "Rickon"
+    },
+    {
+      "degree": 4,
+      "id": "Roose"
+    },
+    {
+      "degree": 13,
+      "id": "Sandor"
+    },
+    {
+      "degree": 5,
+      "id": "Thoros"
+    },
+    {
+      "degree": 6,
+      "id": "Balon"
+    },
+    {
+      "degree": 9,
+      "id": "Loras"
+    },
+    {
+      "degree": 4,
+      "id": "Belwas"
+    },
+    {
+      "degree": 6,
+      "id": "Barristan"
+    },
+    {
+      "degree": 1,
+      "id": "Illyrio"
+    },
+    {
+      "degree": 4,
+      "id": "Hodor"
+    },
+    {
+      "degree": 4,
+      "id": "Jojen"
+    },
+    {
+      "degree": 2,
+      "id": "Luwin"
+    },
+    {
+      "degree": 5,
+      "id": "Meera"
+    },
+    {
+      "degree": 2,
+      "id": "Nan"
+    },
+    {
+      "degree": 4,
+      "id": "Theon"
+    },
+    {
+      "degree": 7,
+      "id": "Brienne"
+    },
+    {
+      "degree": 4,
+      "id": "Bronn"
+    },
+    {
+      "degree": 5,
+      "id": "Podrick"
+    },
+    {
+      "degree": 5,
+      "id": "Lothar"
+    },
+    {
+      "degree": 8,
+      "id": "Walder"
+    },
+    {
+      "degree": 18,
+      "id": "Catelyn"
+    },
+    {
+      "degree": 8,
+      "id": "Edmure"
+    },
+    {
+      "degree": 3,
+      "id": "Hoster"
+    },
+    {
+      "degree": 2,
+      "id": "Jeyne"
+    },
+    {
+      "degree": 10,
+      "id": "Lysa"
+    },
+    {
+      "degree": 7,
+      "id": "Petyr"
+    },
+    {
+      "degree": 25,
+      "id": "Robb"
+    },
+    {
+      "degree": 4,
+      "id": "Roslin"
+    },
+    {
+      "degree": 26,
+      "id": "Sansa"
+    },
+    {
+      "degree": 14,
+      "id": "Stannis"
+    },
+    {
+      "degree": 5,
+      "id": "Elia"
+    },
+    {
+      "degree": 6,
+      "id": "Ilyn"
+    },
+    {
+      "degree": 7,
+      "id": "Meryn"
+    },
+    {
+      "degree": 4,
+      "id": "Pycelle"
+    },
+    {
+      "degree": 5,
+      "id": "Shae"
+    },
+    {
+      "degree": 7,
+      "id": "Varys"
+    },
+    {
+      "degree": 5,
+      "id": "Craster"
+    },
+    {
+      "degree": 1,
+      "id": "Karl"
+    },
+    {
+      "degree": 4,
+      "id": "Daario"
+    },
+    {
+      "degree": 4,
+      "id": "Drogo"
+    },
+    {
+      "degree": 4,
+      "id": "Irri"
+    },
+    {
+      "degree": 14,
+      "id": "Daenerys"
+    },
+    {
+      "degree": 1,
+      "id": "Aegon"
+    },
+    {
+      "degree": 6,
+      "id": "Jorah"
+    },
+    {
+      "degree": 1,
+      "id": "Kraznys"
+    },
+    {
+      "degree": 2,
+      "id": "Missandei"
+    },
+    {
+      "degree": 1,
+      "id": "Rakharo"
+    },
+    {
+      "degree": 6,
+      "id": "Rhaegar"
+    },
+    {
+      "degree": 3,
+      "id": "Viserys"
+    },
+    {
+      "degree": 1,
+      "id": "Worm"
+    },
+    {
+      "degree": 5,
+      "id": "Davos"
+    },
+    {
+      "degree": 1,
+      "id": "Cressen"
+    },
+    {
+      "degree": 1,
+      "id": "Salladhor"
+    },
+    {
+      "degree": 12,
+      "id": "Eddard"
+    },
+    {
+      "degree": 3,
+      "id": "Eddison"
+    },
+    {
+      "degree": 4,
+      "id": "Gilly"
+    },
+    {
+      "degree": 1,
+      "id": "Qyburn"
+    },
+    {
+      "degree": 8,
+      "id": "Renly"
+    },
+    {
+      "degree": 5,
+      "id": "Tommen"
+    },
+    {
+      "degree": 6,
+      "id": "Janos"
+    },
+    {
+      "degree": 2,
+      "id": "Bowen"
+    },
+    {
+      "degree": 6,
+      "id": "Kevan"
+    },
+    {
+      "degree": 7,
+      "id": "Margaery"
+    },
+    {
+      "degree": 4,
+      "id": "Myrcella"
+    },
+    {
+      "degree": 3,
+      "id": "Dalla"
+    },
+    {
+      "degree": 4,
+      "id": "Melisandre"
+    },
+    {
+      "degree": 1,
+      "id": "Orell"
+    },
+    {
+      "degree": 5,
+      "id": "Qhorin"
+    },
+    {
+      "degree": 4,
+      "id": "Rattleshirt"
+    },
+    {
+      "degree": 2,
+      "id": "Styr"
+    },
+    {
+      "degree": 4,
+      "id": "Val"
+    },
+    {
+      "degree": 4,
+      "id": "Ygritte"
+    },
+    {
+      "degree": 2,
+      "id": "Jon Arryn"
+    },
+    {
+      "degree": 1,
+      "id": "Lancel"
+    },
+    {
+      "degree": 2,
+      "id": "Olenna"
+    },
+    {
+      "degree": 3,
+      "id": "Marillion"
+    },
+    {
+      "degree": 3,
+      "id": "Robert Arryn"
+    },
+    {
+      "degree": 2,
+      "id": "Ellaria"
+    },
+    {
+      "degree": 3,
+      "id": "Mace"
+    },
+    {
+      "degree": 2,
+      "id": "Rickard"
+    },
+    {
+      "degree": 1,
+      "id": "Ramsay"
+    },
+    {
+      "degree": 2,
+      "id": "Chataya"
+    },
+    {
+      "degree": 1,
+      "id": "Shireen"
+    },
+    {
+      "degree": 1,
+      "id": "Doran"
+    },
+    {
+      "degree": 1,
+      "id": "Walton"
     }
   ],
   "edges": [
     {
-      "color": "green",
-      "weight": 1,
-      "source": "a",
-      "target": "b"
+      "Weight": 5,
+      "source": "Aemon",
+      "target": "Grenn"
     },
     {
-      "color": "black",
-      "weight": 2,
-      "source": "a",
-      "target": "c"
+      "Weight": 31,
+      "source": "Aemon",
+      "target": "Samwell"
     },
     {
-      "weight": 3,
-      "source": "a",
-      "target": "e"
+      "Weight": 30,
+      "source": "Aemon",
+      "target": "Jon"
     },
     {
-      "weight": 4,
-      "source": "b",
-      "target": "d"
+      "Weight": 4,
+      "source": "Aemon",
+      "target": "Robert"
     },
     {
-      "weight": 5,
-      "source": "c",
-      "target": "d"
+      "Weight": 4,
+      "source": "Aemon",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 8,
+      "source": "Grenn",
+      "target": "Eddison"
+    },
+    {
+      "Weight": 25,
+      "source": "Grenn",
+      "target": "Jon"
+    },
+    {
+      "Weight": 43,
+      "source": "Grenn",
+      "target": "Samwell"
+    },
+    {
+      "Weight": 11,
+      "source": "Samwell",
+      "target": "Bran"
+    },
+    {
+      "Weight": 11,
+      "source": "Samwell",
+      "target": "Jojen"
+    },
+    {
+      "Weight": 52,
+      "source": "Samwell",
+      "target": "Jon"
+    },
+    {
+      "Weight": 7,
+      "source": "Samwell",
+      "target": "Meera"
+    },
+    {
+      "Weight": 5,
+      "source": "Samwell",
+      "target": "Melisandre"
+    },
+    {
+      "Weight": 6,
+      "source": "Samwell",
+      "target": "Bowen"
+    },
+    {
+      "Weight": 34,
+      "source": "Samwell",
+      "target": "Craster"
+    },
+    {
+      "Weight": 12,
+      "source": "Samwell",
+      "target": "Eddison"
+    },
+    {
+      "Weight": 36,
+      "source": "Samwell",
+      "target": "Gilly"
+    },
+    {
+      "Weight": 6,
+      "source": "Samwell",
+      "target": "Janos"
+    },
+    {
+      "Weight": 10,
+      "source": "Samwell",
+      "target": "Mance"
+    },
+    {
+      "Weight": 5,
+      "source": "Samwell",
+      "target": "Qhorin"
+    },
+    {
+      "Weight": 13,
+      "source": "Samwell",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 18,
+      "source": "Aerys",
+      "target": "Jaime"
+    },
+    {
+      "Weight": 6,
+      "source": "Aerys",
+      "target": "Robert"
+    },
+    {
+      "Weight": 5,
+      "source": "Aerys",
+      "target": "Tyrion"
+    },
+    {
+      "Weight": 8,
+      "source": "Aerys",
+      "target": "Tywin"
+    },
+    {
+      "Weight": 11,
+      "source": "Jaime",
+      "target": "Arya"
+    },
+    {
+      "Weight": 19,
+      "source": "Jaime",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 36,
+      "source": "Jaime",
+      "target": "Cersei"
+    },
+    {
+      "Weight": 6,
+      "source": "Jaime",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 6,
+      "source": "Jaime",
+      "target": "Balon"
+    },
+    {
+      "Weight": 4,
+      "source": "Jaime",
+      "target": "Barristan"
+    },
+    {
+      "Weight": 88,
+      "source": "Jaime",
+      "target": "Brienne"
+    },
+    {
+      "Weight": 5,
+      "source": "Jaime",
+      "target": "Edmure"
+    },
+    {
+      "Weight": 4,
+      "source": "Jaime",
+      "target": "Elia"
+    },
+    {
+      "Weight": 6,
+      "source": "Jaime",
+      "target": "Gregor"
+    },
+    {
+      "Weight": 15,
+      "source": "Jaime",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 16,
+      "source": "Jaime",
+      "target": "Loras"
+    },
+    {
+      "Weight": 11,
+      "source": "Jaime",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 11,
+      "source": "Jaime",
+      "target": "Qyburn"
+    },
+    {
+      "Weight": 7,
+      "source": "Jaime",
+      "target": "Renly"
+    },
+    {
+      "Weight": 17,
+      "source": "Jaime",
+      "target": "Robert"
+    },
+    {
+      "Weight": 5,
+      "source": "Jaime",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 8,
+      "source": "Jaime",
+      "target": "Tommen"
+    },
+    {
+      "Weight": 31,
+      "source": "Jaime",
+      "target": "Tyrion"
+    },
+    {
+      "Weight": 15,
+      "source": "Jaime",
+      "target": "Robb"
+    },
+    {
+      "Weight": 10,
+      "source": "Jaime",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 13,
+      "source": "Jaime",
+      "target": "Tywin"
+    },
+    {
+      "Weight": 10,
+      "source": "Jaime",
+      "target": "Walton"
+    },
+    {
+      "Weight": 4,
+      "source": "Robert",
+      "target": "Arya"
+    },
+    {
+      "Weight": 16,
+      "source": "Robert",
+      "target": "Cersei"
+    },
+    {
+      "Weight": 5,
+      "source": "Robert",
+      "target": "Daenerys"
+    },
+    {
+      "Weight": 10,
+      "source": "Robert",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 5,
+      "source": "Robert",
+      "target": "Jon"
+    },
+    {
+      "Weight": 6,
+      "source": "Robert",
+      "target": "Jon Arryn"
+    },
+    {
+      "Weight": 6,
+      "source": "Robert",
+      "target": "Rhaegar"
+    },
+    {
+      "Weight": 5,
+      "source": "Robert",
+      "target": "Barristan"
+    },
+    {
+      "Weight": 4,
+      "source": "Robert",
+      "target": "Renly"
+    },
+    {
+      "Weight": 5,
+      "source": "Robert",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 4,
+      "source": "Robert",
+      "target": "Thoros"
+    },
+    {
+      "Weight": 6,
+      "source": "Robert",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 5,
+      "source": "Robert",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 9,
+      "source": "Robert",
+      "target": "Tyrion"
+    },
+    {
+      "Weight": 11,
+      "source": "Robert",
+      "target": "Tywin"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Arya"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 46,
+      "source": "Tyrion",
+      "target": "Cersei"
+    },
+    {
+      "Weight": 54,
+      "source": "Tyrion",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Lysa"
+    },
+    {
+      "Weight": 4,
+      "source": "Tyrion",
+      "target": "Myrcella"
+    },
+    {
+      "Weight": 12,
+      "source": "Tyrion",
+      "target": "Robb"
+    },
+    {
+      "Weight": 77,
+      "source": "Tyrion",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Tyrion",
+      "target": "Balon"
+    },
+    {
+      "Weight": 31,
+      "source": "Tyrion",
+      "target": "Bronn"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Chataya"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Doran"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Elia"
+    },
+    {
+      "Weight": 4,
+      "source": "Tyrion",
+      "target": "Ellaria"
+    },
+    {
+      "Weight": 22,
+      "source": "Tyrion",
+      "target": "Gregor"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Ilyn"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Janos"
+    },
+    {
+      "Weight": 11,
+      "source": "Tyrion",
+      "target": "Kevan"
+    },
+    {
+      "Weight": 6,
+      "source": "Tyrion",
+      "target": "Loras"
+    },
+    {
+      "Weight": 9,
+      "source": "Tyrion",
+      "target": "Mace"
+    },
+    {
+      "Weight": 7,
+      "source": "Tyrion",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 5,
+      "source": "Tyrion",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 25,
+      "source": "Tyrion",
+      "target": "Oberyn"
+    },
+    {
+      "Weight": 12,
+      "source": "Tyrion",
+      "target": "Petyr"
+    },
+    {
+      "Weight": 28,
+      "source": "Tyrion",
+      "target": "Podrick"
+    },
+    {
+      "Weight": 11,
+      "source": "Tyrion",
+      "target": "Pycelle"
+    },
+    {
+      "Weight": 6,
+      "source": "Tyrion",
+      "target": "Renly"
+    },
+    {
+      "Weight": 4,
+      "source": "Tyrion",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 21,
+      "source": "Tyrion",
+      "target": "Shae"
+    },
+    {
+      "Weight": 6,
+      "source": "Tyrion",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 18,
+      "source": "Tyrion",
+      "target": "Varys"
+    },
+    {
+      "Weight": 39,
+      "source": "Tyrion",
+      "target": "Tywin"
+    },
+    {
+      "Weight": 4,
+      "source": "Tyrion",
+      "target": "Viserys"
+    },
+    {
+      "Weight": 4,
+      "source": "Tywin",
+      "target": "Lysa"
+    },
+    {
+      "Weight": 12,
+      "source": "Tywin",
+      "target": "Robb"
+    },
+    {
+      "Weight": 5,
+      "source": "Tywin",
+      "target": "Balon"
+    },
+    {
+      "Weight": 4,
+      "source": "Tywin",
+      "target": "Brynden"
+    },
+    {
+      "Weight": 16,
+      "source": "Tywin",
+      "target": "Cersei"
+    },
+    {
+      "Weight": 7,
+      "source": "Tywin",
+      "target": "Gregor"
+    },
+    {
+      "Weight": 13,
+      "source": "Tywin",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 14,
+      "source": "Tywin",
+      "target": "Kevan"
+    },
+    {
+      "Weight": 5,
+      "source": "Tywin",
+      "target": "Mace"
+    },
+    {
+      "Weight": 6,
+      "source": "Tywin",
+      "target": "Oberyn"
+    },
+    {
+      "Weight": 4,
+      "source": "Tywin",
+      "target": "Petyr"
+    },
+    {
+      "Weight": 5,
+      "source": "Tywin",
+      "target": "Podrick"
+    },
+    {
+      "Weight": 5,
+      "source": "Tywin",
+      "target": "Pycelle"
+    },
+    {
+      "Weight": 15,
+      "source": "Tywin",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 4,
+      "source": "Tywin",
+      "target": "Tommen"
+    },
+    {
+      "Weight": 4,
+      "source": "Tywin",
+      "target": "Val"
+    },
+    {
+      "Weight": 6,
+      "source": "Tywin",
+      "target": "Varys"
+    },
+    {
+      "Weight": 4,
+      "source": "Tywin",
+      "target": "Walder"
+    },
+    {
+      "Weight": 5,
+      "source": "Alliser",
+      "target": "Mance"
+    },
+    {
+      "Weight": 9,
+      "source": "Alliser",
+      "target": "Janos"
+    },
+    {
+      "Weight": 15,
+      "source": "Alliser",
+      "target": "Jon"
+    },
+    {
+      "Weight": 4,
+      "source": "Mance",
+      "target": "Janos"
+    },
+    {
+      "Weight": 69,
+      "source": "Mance",
+      "target": "Jon"
+    },
+    {
+      "Weight": 11,
+      "source": "Mance",
+      "target": "Craster"
+    },
+    {
+      "Weight": 8,
+      "source": "Mance",
+      "target": "Dalla"
+    },
+    {
+      "Weight": 7,
+      "source": "Mance",
+      "target": "Gilly"
+    },
+    {
+      "Weight": 10,
+      "source": "Mance",
+      "target": "Qhorin"
+    },
+    {
+      "Weight": 9,
+      "source": "Mance",
+      "target": "Rattleshirt"
+    },
+    {
+      "Weight": 7,
+      "source": "Mance",
+      "target": "Styr"
+    },
+    {
+      "Weight": 8,
+      "source": "Mance",
+      "target": "Val"
+    },
+    {
+      "Weight": 12,
+      "source": "Mance",
+      "target": "Ygritte"
+    },
+    {
+      "Weight": 5,
+      "source": "Amory",
+      "target": "Oberyn"
+    },
+    {
+      "Weight": 24,
+      "source": "Oberyn",
+      "target": "Gregor"
+    },
+    {
+      "Weight": 4,
+      "source": "Oberyn",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 6,
+      "source": "Oberyn",
+      "target": "Ellaria"
+    },
+    {
+      "Weight": 6,
+      "source": "Oberyn",
+      "target": "Mace"
+    },
+    {
+      "Weight": 11,
+      "source": "Arya",
+      "target": "Anguy"
+    },
+    {
+      "Weight": 23,
+      "source": "Arya",
+      "target": "Beric"
+    },
+    {
+      "Weight": 9,
+      "source": "Arya",
+      "target": "Bran"
+    },
+    {
+      "Weight": 6,
+      "source": "Arya",
+      "target": "Brynden"
+    },
+    {
+      "Weight": 5,
+      "source": "Arya",
+      "target": "Cersei"
+    },
+    {
+      "Weight": 43,
+      "source": "Arya",
+      "target": "Gendry"
+    },
+    {
+      "Weight": 7,
+      "source": "Arya",
+      "target": "Gregor"
+    },
+    {
+      "Weight": 6,
+      "source": "Arya",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 7,
+      "source": "Arya",
+      "target": "Jon"
+    },
+    {
+      "Weight": 8,
+      "source": "Arya",
+      "target": "Rickon"
+    },
+    {
+      "Weight": 5,
+      "source": "Arya",
+      "target": "Roose"
+    },
+    {
+      "Weight": 46,
+      "source": "Arya",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 18,
+      "source": "Arya",
+      "target": "Thoros"
+    },
+    {
+      "Weight": 18,
+      "source": "Arya",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 15,
+      "source": "Arya",
+      "target": "Robb"
+    },
+    {
+      "Weight": 22,
+      "source": "Arya",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Anguy",
+      "target": "Beric"
+    },
+    {
+      "Weight": 4,
+      "source": "Beric",
+      "target": "Gendry"
+    },
+    {
+      "Weight": 21,
+      "source": "Beric",
+      "target": "Thoros"
+    },
+    {
+      "Weight": 8,
+      "source": "Beric",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 15,
+      "source": "Beric",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 96,
+      "source": "Bran",
+      "target": "Hodor"
+    },
+    {
+      "Weight": 46,
+      "source": "Bran",
+      "target": "Jojen"
+    },
+    {
+      "Weight": 12,
+      "source": "Bran",
+      "target": "Jon"
+    },
+    {
+      "Weight": 4,
+      "source": "Bran",
+      "target": "Luwin"
+    },
+    {
+      "Weight": 54,
+      "source": "Bran",
+      "target": "Meera"
+    },
+    {
+      "Weight": 14,
+      "source": "Bran",
+      "target": "Nan"
+    },
+    {
+      "Weight": 35,
+      "source": "Bran",
+      "target": "Rickon"
+    },
+    {
+      "Weight": 11,
+      "source": "Bran",
+      "target": "Theon"
+    },
+    {
+      "Weight": 4,
+      "source": "Bran",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 15,
+      "source": "Bran",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 23,
+      "source": "Bran",
+      "target": "Robb"
+    },
+    {
+      "Weight": 10,
+      "source": "Bran",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Brynden",
+      "target": "Lothar"
+    },
+    {
+      "Weight": 5,
+      "source": "Brynden",
+      "target": "Walder"
+    },
+    {
+      "Weight": 8,
+      "source": "Brynden",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 7,
+      "source": "Brynden",
+      "target": "Edmure"
+    },
+    {
+      "Weight": 4,
+      "source": "Brynden",
+      "target": "Rickard"
+    },
+    {
+      "Weight": 17,
+      "source": "Brynden",
+      "target": "Robb"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 5,
+      "source": "Cersei",
+      "target": "Brienne"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Bronn"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Elia"
+    },
+    {
+      "Weight": 6,
+      "source": "Cersei",
+      "target": "Gregor"
+    },
+    {
+      "Weight": 7,
+      "source": "Cersei",
+      "target": "Ilyn"
+    },
+    {
+      "Weight": 23,
+      "source": "Cersei",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 10,
+      "source": "Cersei",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Pycelle"
+    },
+    {
+      "Weight": 6,
+      "source": "Cersei",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Shae"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Varys"
+    },
+    {
+      "Weight": 6,
+      "source": "Cersei",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 4,
+      "source": "Cersei",
+      "target": "Lysa"
+    },
+    {
+      "Weight": 16,
+      "source": "Cersei",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 7,
+      "source": "Gendry",
+      "target": "Thoros"
+    },
+    {
+      "Weight": 5,
+      "source": "Gendry",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 5,
+      "source": "Gregor",
+      "target": "Bronn"
+    },
+    {
+      "Weight": 9,
+      "source": "Gregor",
+      "target": "Elia"
+    },
+    {
+      "Weight": 7,
+      "source": "Gregor",
+      "target": "Ilyn"
+    },
+    {
+      "Weight": 7,
+      "source": "Gregor",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 12,
+      "source": "Gregor",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 5,
+      "source": "Gregor",
+      "target": "Joffrey"
+    },
+    {
+      "Weight": 4,
+      "source": "Joffrey",
+      "target": "Ilyn"
+    },
+    {
+      "Weight": 8,
+      "source": "Joffrey",
+      "target": "Kevan"
+    },
+    {
+      "Weight": 7,
+      "source": "Joffrey",
+      "target": "Loras"
+    },
+    {
+      "Weight": 28,
+      "source": "Joffrey",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 5,
+      "source": "Joffrey",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 5,
+      "source": "Joffrey",
+      "target": "Myrcella"
+    },
+    {
+      "Weight": 14,
+      "source": "Joffrey",
+      "target": "Sandor"
+    },
+    {
+      "Weight": 10,
+      "source": "Joffrey",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 9,
+      "source": "Joffrey",
+      "target": "Tommen"
+    },
+    {
+      "Weight": 10,
+      "source": "Joffrey",
+      "target": "Robb"
+    },
+    {
+      "Weight": 35,
+      "source": "Joffrey",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 8,
+      "source": "Jon",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 7,
+      "source": "Jon",
+      "target": "Craster"
+    },
+    {
+      "Weight": 6,
+      "source": "Jon",
+      "target": "Dalla"
+    },
+    {
+      "Weight": 4,
+      "source": "Jon",
+      "target": "Eddison"
+    },
+    {
+      "Weight": 9,
+      "source": "Jon",
+      "target": "Gilly"
+    },
+    {
+      "Weight": 8,
+      "source": "Jon",
+      "target": "Janos"
+    },
+    {
+      "Weight": 4,
+      "source": "Jon",
+      "target": "Meera"
+    },
+    {
+      "Weight": 7,
+      "source": "Jon",
+      "target": "Melisandre"
+    },
+    {
+      "Weight": 6,
+      "source": "Jon",
+      "target": "Orell"
+    },
+    {
+      "Weight": 31,
+      "source": "Jon",
+      "target": "Qhorin"
+    },
+    {
+      "Weight": 20,
+      "source": "Jon",
+      "target": "Rattleshirt"
+    },
+    {
+      "Weight": 9,
+      "source": "Jon",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 16,
+      "source": "Jon",
+      "target": "Styr"
+    },
+    {
+      "Weight": 8,
+      "source": "Jon",
+      "target": "Theon"
+    },
+    {
+      "Weight": 12,
+      "source": "Jon",
+      "target": "Val"
+    },
+    {
+      "Weight": 54,
+      "source": "Jon",
+      "target": "Ygritte"
+    },
+    {
+      "Weight": 14,
+      "source": "Jon",
+      "target": "Robb"
+    },
+    {
+      "Weight": 4,
+      "source": "Jon",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 8,
+      "source": "Rickon",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 8,
+      "source": "Rickon",
+      "target": "Theon"
+    },
+    {
+      "Weight": 15,
+      "source": "Rickon",
+      "target": "Robb"
+    },
+    {
+      "Weight": 7,
+      "source": "Rickon",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Roose",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 4,
+      "source": "Roose",
+      "target": "Robb"
+    },
+    {
+      "Weight": 4,
+      "source": "Roose",
+      "target": "Brienne"
+    },
+    {
+      "Weight": 5,
+      "source": "Sandor",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 4,
+      "source": "Sandor",
+      "target": "Ilyn"
+    },
+    {
+      "Weight": 4,
+      "source": "Sandor",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 10,
+      "source": "Sandor",
+      "target": "Thoros"
+    },
+    {
+      "Weight": 6,
+      "source": "Sandor",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Balon",
+      "target": "Loras"
+    },
+    {
+      "Weight": 6,
+      "source": "Balon",
+      "target": "Robb"
+    },
+    {
+      "Weight": 4,
+      "source": "Balon",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 7,
+      "source": "Loras",
+      "target": "Brienne"
+    },
+    {
+      "Weight": 9,
+      "source": "Loras",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 5,
+      "source": "Loras",
+      "target": "Olenna"
+    },
+    {
+      "Weight": 8,
+      "source": "Loras",
+      "target": "Renly"
+    },
+    {
+      "Weight": 14,
+      "source": "Loras",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 18,
+      "source": "Belwas",
+      "target": "Barristan"
+    },
+    {
+      "Weight": 10,
+      "source": "Belwas",
+      "target": "Illyrio"
+    },
+    {
+      "Weight": 26,
+      "source": "Belwas",
+      "target": "Daenerys"
+    },
+    {
+      "Weight": 13,
+      "source": "Belwas",
+      "target": "Jorah"
+    },
+    {
+      "Weight": 20,
+      "source": "Barristan",
+      "target": "Daenerys"
+    },
+    {
+      "Weight": 11,
+      "source": "Barristan",
+      "target": "Jorah"
+    },
+    {
+      "Weight": 5,
+      "source": "Barristan",
+      "target": "Rhaegar"
+    },
+    {
+      "Weight": 35,
+      "source": "Hodor",
+      "target": "Jojen"
+    },
+    {
+      "Weight": 41,
+      "source": "Hodor",
+      "target": "Meera"
+    },
+    {
+      "Weight": 5,
+      "source": "Hodor",
+      "target": "Robb"
+    },
+    {
+      "Weight": 33,
+      "source": "Jojen",
+      "target": "Meera"
+    },
+    {
+      "Weight": 4,
+      "source": "Luwin",
+      "target": "Nan"
+    },
+    {
+      "Weight": 11,
+      "source": "Theon",
+      "target": "Robb"
+    },
+    {
+      "Weight": 7,
+      "source": "Brienne",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 6,
+      "source": "Brienne",
+      "target": "Robb"
+    },
+    {
+      "Weight": 5,
+      "source": "Brienne",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 19,
+      "source": "Bronn",
+      "target": "Podrick"
+    },
+    {
+      "Weight": 4,
+      "source": "Podrick",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 8,
+      "source": "Podrick",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Lothar",
+      "target": "Edmure"
+    },
+    {
+      "Weight": 4,
+      "source": "Lothar",
+      "target": "Roslin"
+    },
+    {
+      "Weight": 10,
+      "source": "Lothar",
+      "target": "Robb"
+    },
+    {
+      "Weight": 12,
+      "source": "Lothar",
+      "target": "Walder"
+    },
+    {
+      "Weight": 19,
+      "source": "Walder",
+      "target": "Catelyn"
+    },
+    {
+      "Weight": 9,
+      "source": "Walder",
+      "target": "Edmure"
+    },
+    {
+      "Weight": 26,
+      "source": "Walder",
+      "target": "Robb"
+    },
+    {
+      "Weight": 6,
+      "source": "Walder",
+      "target": "Petyr"
+    },
+    {
+      "Weight": 6,
+      "source": "Walder",
+      "target": "Roslin"
+    },
+    {
+      "Weight": 16,
+      "source": "Catelyn",
+      "target": "Edmure"
+    },
+    {
+      "Weight": 9,
+      "source": "Catelyn",
+      "target": "Hoster"
+    },
+    {
+      "Weight": 10,
+      "source": "Catelyn",
+      "target": "Jeyne"
+    },
+    {
+      "Weight": 8,
+      "source": "Catelyn",
+      "target": "Lysa"
+    },
+    {
+      "Weight": 5,
+      "source": "Catelyn",
+      "target": "Petyr"
+    },
+    {
+      "Weight": 43,
+      "source": "Catelyn",
+      "target": "Robb"
+    },
+    {
+      "Weight": 6,
+      "source": "Catelyn",
+      "target": "Roslin"
+    },
+    {
+      "Weight": 8,
+      "source": "Catelyn",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Catelyn",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 5,
+      "source": "Catelyn",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 16,
+      "source": "Edmure",
+      "target": "Roslin"
+    },
+    {
+      "Weight": 9,
+      "source": "Edmure",
+      "target": "Hoster"
+    },
+    {
+      "Weight": 32,
+      "source": "Edmure",
+      "target": "Robb"
+    },
+    {
+      "Weight": 6,
+      "source": "Hoster",
+      "target": "Lysa"
+    },
+    {
+      "Weight": 18,
+      "source": "Jeyne",
+      "target": "Robb"
+    },
+    {
+      "Weight": 5,
+      "source": "Lysa",
+      "target": "Jon Arryn"
+    },
+    {
+      "Weight": 10,
+      "source": "Lysa",
+      "target": "Marillion"
+    },
+    {
+      "Weight": 29,
+      "source": "Lysa",
+      "target": "Petyr"
+    },
+    {
+      "Weight": 9,
+      "source": "Lysa",
+      "target": "Robert Arryn"
+    },
+    {
+      "Weight": 28,
+      "source": "Lysa",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 5,
+      "source": "Petyr",
+      "target": "Robb"
+    },
+    {
+      "Weight": 28,
+      "source": "Petyr",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 13,
+      "source": "Robb",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 4,
+      "source": "Robb",
+      "target": "Ramsay"
+    },
+    {
+      "Weight": 7,
+      "source": "Robb",
+      "target": "Rickard"
+    },
+    {
+      "Weight": 15,
+      "source": "Robb",
+      "target": "Sansa"
+    },
+    {
+      "Weight": 4,
+      "source": "Robb",
+      "target": "Stannis"
+    },
+    {
+      "Weight": 6,
+      "source": "Sansa",
+      "target": "Eddard"
+    },
+    {
+      "Weight": 5,
+      "source": "Sansa",
+      "target": "Kevan"
+    },
+    {
+      "Weight": 36,
+      "source": "Sansa",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 9,
+      "source": "Sansa",
+      "target": "Marillion"
+    },
+    {
+      "Weight": 4,
+      "source": "Sansa",
+      "target": "Myrcella"
+    },
+    {
+      "Weight": 7,
+      "source": "Sansa",
+      "target": "Olenna"
+    },
+    {
+      "Weight": 4,
+      "source": "Sansa",
+      "target": "Renly"
+    },
+    {
+      "Weight": 6,
+      "source": "Sansa",
+      "target": "Robert Arryn"
+    },
+    {
+      "Weight": 8,
+      "source": "Sansa",
+      "target": "Shae"
+    },
+    {
+      "Weight": 32,
+      "source": "Stannis",
+      "target": "Davos"
+    },
+    {
+      "Weight": 20,
+      "source": "Stannis",
+      "target": "Melisandre"
+    },
+    {
+      "Weight": 15,
+      "source": "Stannis",
+      "target": "Renly"
+    },
+    {
+      "Weight": 7,
+      "source": "Elia",
+      "target": "Rhaegar"
+    },
+    {
+      "Weight": 5,
+      "source": "Ilyn",
+      "target": "Meryn"
+    },
+    {
+      "Weight": 4,
+      "source": "Pycelle",
+      "target": "Varys"
+    },
+    {
+      "Weight": 4,
+      "source": "Shae",
+      "target": "Chataya"
+    },
+    {
+      "Weight": 8,
+      "source": "Shae",
+      "target": "Varys"
+    },
+    {
+      "Weight": 5,
+      "source": "Varys",
+      "target": "Kevan"
+    },
+    {
+      "Weight": 4,
+      "source": "Varys",
+      "target": "Renly"
+    },
+    {
+      "Weight": 6,
+      "source": "Craster",
+      "target": "Karl"
+    },
+    {
+      "Weight": 17,
+      "source": "Craster",
+      "target": "Gilly"
+    },
+    {
+      "Weight": 4,
+      "source": "Daario",
+      "target": "Drogo"
+    },
+    {
+      "Weight": 5,
+      "source": "Daario",
+      "target": "Irri"
+    },
+    {
+      "Weight": 14,
+      "source": "Daario",
+      "target": "Daenerys"
+    },
+    {
+      "Weight": 7,
+      "source": "Daario",
+      "target": "Jorah"
+    },
+    {
+      "Weight": 18,
+      "source": "Drogo",
+      "target": "Daenerys"
+    },
+    {
+      "Weight": 7,
+      "source": "Drogo",
+      "target": "Irri"
+    },
+    {
+      "Weight": 6,
+      "source": "Drogo",
+      "target": "Jorah"
+    },
+    {
+      "Weight": 17,
+      "source": "Irri",
+      "target": "Daenerys"
+    },
+    {
+      "Weight": 4,
+      "source": "Irri",
+      "target": "Missandei"
+    },
+    {
+      "Weight": 8,
+      "source": "Daenerys",
+      "target": "Aegon"
+    },
+    {
+      "Weight": 47,
+      "source": "Daenerys",
+      "target": "Jorah"
+    },
+    {
+      "Weight": 10,
+      "source": "Daenerys",
+      "target": "Kraznys"
+    },
+    {
+      "Weight": 26,
+      "source": "Daenerys",
+      "target": "Missandei"
+    },
+    {
+      "Weight": 7,
+      "source": "Daenerys",
+      "target": "Rakharo"
+    },
+    {
+      "Weight": 12,
+      "source": "Daenerys",
+      "target": "Rhaegar"
+    },
+    {
+      "Weight": 8,
+      "source": "Daenerys",
+      "target": "Viserys"
+    },
+    {
+      "Weight": 14,
+      "source": "Daenerys",
+      "target": "Worm"
+    },
+    {
+      "Weight": 5,
+      "source": "Jorah",
+      "target": "Rhaegar"
+    },
+    {
+      "Weight": 7,
+      "source": "Rhaegar",
+      "target": "Viserys"
+    },
+    {
+      "Weight": 4,
+      "source": "Davos",
+      "target": "Cressen"
+    },
+    {
+      "Weight": 16,
+      "source": "Davos",
+      "target": "Salladhor"
+    },
+    {
+      "Weight": 30,
+      "source": "Davos",
+      "target": "Melisandre"
+    },
+    {
+      "Weight": 5,
+      "source": "Davos",
+      "target": "Shireen"
+    },
+    {
+      "Weight": 7,
+      "source": "Renly",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 5,
+      "source": "Tommen",
+      "target": "Myrcella"
+    },
+    {
+      "Weight": 5,
+      "source": "Tommen",
+      "target": "Margaery"
+    },
+    {
+      "Weight": 5,
+      "source": "Janos",
+      "target": "Bowen"
+    },
+    {
+      "Weight": 7,
+      "source": "Kevan",
+      "target": "Lancel"
+    },
+    {
+      "Weight": 7,
+      "source": "Dalla",
+      "target": "Val"
+    },
+    {
+      "Weight": 6,
+      "source": "Qhorin",
+      "target": "Rattleshirt"
+    },
+    {
+      "Weight": 7,
+      "source": "Qhorin",
+      "target": "Ygritte"
+    },
+    {
+      "Weight": 9,
+      "source": "Rattleshirt",
+      "target": "Ygritte"
+    },
+    {
+      "Weight": 4,
+      "source": "Marillion",
+      "target": "Robert Arryn"
     }
   ]
 }

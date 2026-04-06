@@ -1,6 +1,7 @@
 [
     {
         "addr_id": "washington_1789",
+        "in_repo": "01",
         "pres_name": "George Washington",
         "party": "parteilos",
         "year": "1789",
@@ -9,6 +10,7 @@
     },
     {
         "addr_id": "washington_1793",
+        "in_repo": "02",
         "pres_name": "George Washington",
         "party": "parteilos",
         "year": "1793",
@@ -17,6 +19,7 @@
     },
     {
         "addr_id": "adams_john_1797",
+        "in_repo": "03",
         "pres_name": "John Adams",
         "party": "Föderalist",
         "year": "1797",
@@ -25,6 +28,7 @@
     },
     {
         "addr_id": "jefferson_1801",
+        "in_repo": "04",
         "pres_name": "Thomas Jefferson",
         "party": "Republikaner",
         "year": "1801",
@@ -33,6 +37,7 @@
     },
     {
         "addr_id": "jefferson_1805",
+        "in_repo": "05",
         "pres_name": "Thomas Jefferson",
         "party": "Republikaner",
         "year": "1805",
@@ -41,6 +46,7 @@
     },
     {
         "addr_id": "madison_1809",
+        "in_repo": "06",
         "pres_name": "James Madison",
         "party": "Republikaner",
         "year": "1809",
@@ -49,6 +55,7 @@
     },
     {
         "addr_id": "madison_1813",
+        "in_repo": "07",
         "pres_name": "James Madison",
         "party": "Republikaner",
         "year": "1813",
@@ -57,6 +64,7 @@
     },
     {
         "addr_id": "monroe_1817",
+        "in_repo": "08",
         "pres_name": "James Monroe",
         "party": "Republikaner",
         "year": "1817",
@@ -65,6 +73,7 @@
     },
     {
         "addr_id": "monroe_1821",
+        "in_repo": "09",
         "pres_name": "James Monroe",
         "party": "Republikaner",
         "year": "1821",
@@ -73,6 +82,7 @@
     },
     {
         "addr_id": "adams_john_quincy_1825",
+        "in_repo": "10",
         "pres_name": "John Quincy Adams",
         "party": "Föderalist",
         "year": "1825",
@@ -81,6 +91,7 @@
     },
     {
         "addr_id": "jackson_1829",
+        "in_repo": "11",
         "pres_name": "Andrew Jackson",
         "party": "Demokrat",
         "year": "1829",
@@ -89,6 +100,7 @@
     },
     {
         "addr_id": "jackson_1833",
+        "in_repo": "12",
         "pres_name": "Andrew Jackson",
         "party": "Demokrat",
         "year": "1833",
@@ -97,6 +109,7 @@
     },
     {
         "addr_id": "van_buren_1837",
+        "in_repo": "13",
         "pres_name": "Martin Van Buren",
         "party": "Demokrat",
         "year": "1837",
@@ -105,6 +118,7 @@
     },
     {
         "addr_id": "harrison_1841",
+        "in_repo": "14",
         "pres_name": "William Henry Harrison",
         "party": "Whig",
         "year": "1841",
@@ -113,6 +127,7 @@
     },
     {
         "addr_id": "polk_1845",
+        "in_repo": "15",
         "pres_name": "James K. Polk",
         "party": "Demokrat",
         "year": "1845",
@@ -121,6 +136,7 @@
     },
     {
         "addr_id": "taylor_1849",
+        "in_repo": "16",
         "pres_name": "Zachary Taylor",
         "party": "Whig",
         "year": "1849",
@@ -129,6 +145,7 @@
     },
     {
         "addr_id": "pierce_1853",
+        "in_repo": "17",
         "pres_name": "Franklin Pierce",
         "party": "Demokrat",
         "year": "1853",
@@ -137,6 +154,7 @@
     },
     {
         "addr_id": "buchanan_1857",
+        "in_repo": "18",
         "pres_name": "James Buchanan",
         "party": "Demokrat",
         "year": "1857",
@@ -145,6 +163,7 @@
     },
     {
         "addr_id": "lincoln_1861",
+        "in_repo": "19",
         "pres_name": "Abraham Lincoln",
         "party": "Republikaner",
         "year": "1861",
@@ -153,6 +172,7 @@
     },
     {
         "addr_id": "lincoln_1865",
+        "in_repo": "20",
         "pres_name": "Abraham Lincoln",
         "party": "Republikaner",
         "year": "1865",
@@ -161,6 +181,7 @@
     },
     {
         "addr_id": "grant_1869",
+        "in_repo": "21",
         "pres_name": "Ulysses S. Grant",
         "party": "Republikaner",
         "year": "1869",
@@ -169,6 +190,7 @@
     },
     {
         "addr_id": "grant_1873",
+        "in_repo": "22",
         "pres_name": "Ulysses S. Grant",
         "party": "Republikaner",
         "year": "1873",
@@ -177,6 +199,7 @@
     },
     {
         "addr_id": "hayes_1877",
+        "in_repo": "23",
         "pres_name": "Rutherford B. Hayes",
         "party": "Republikaner",
         "year": "1877",
@@ -185,6 +208,7 @@
     },
     {
         "addr_id": "garfield_1881",
+        "in_repo": "24",
         "pres_name": "James A. Garfield",
         "party": "Republikaner",
         "year": "1881",
@@ -193,6 +217,7 @@
     },
     {
         "addr_id": "cleveland_1885",
+        "in_repo": "25",
         "pres_name": "Grover Cleveland",
         "party": "Demokrat",
         "year": "1885",
@@ -201,6 +226,7 @@
     },
     {
         "addr_id": "harrison_1889",
+        "in_repo": "26",
         "pres_name": "Benjamin Harrison",
         "party": "Republikaner",
         "year": "1889",
@@ -209,6 +235,7 @@
     },
     {
         "addr_id": "cleveland_1893",
+        "in_repo": "27",
         "pres_name": "Grover Cleveland",
         "party": "Demokrat",
         "year": "1893",
@@ -217,6 +244,7 @@
     },
     {
         "addr_id": "mckinley_1897",
+        "in_repo": "28",
         "pres_name": "William McKinley",
         "party": "Republikaner",
         "year": "1897",
@@ -225,6 +253,7 @@
     },
     {
         "addr_id": "mckinley_1901",
+        "in_repo": "29",
         "pres_name": "William McKinley",
         "party": "Republikaner",
         "year": "1901",
@@ -233,6 +262,7 @@
     },
     {
         "addr_id": "roosevelt_theodore_1905",
+        "in_repo": "30",
         "pres_name": "Theodore Roosevelt",
         "party": "Republikaner",
         "year": "1905",
@@ -241,6 +271,7 @@
     },
     {
         "addr_id": "taft_1909",
+        "in_repo": "31",
         "pres_name": "William Howard Taft",
         "party": "Republikaner",
         "year": "1909",
@@ -249,6 +280,7 @@
     },
     {
         "addr_id": "wilson_1913",
+        "in_repo": "32",
         "pres_name": "Woodrow Wilson",
         "party": "Demokrat",
         "year": "1913",
@@ -257,6 +289,7 @@
     },
     {
         "addr_id": "wilson_1917",
+        "in_repo": "33",
         "pres_name": "Woodrow Wilson",
         "party": "Demokrat",
         "year": "1917",
@@ -265,6 +298,7 @@
     },
     {
         "addr_id": "harding_1921",
+        "in_repo": "34",
         "pres_name": "Warren G. Harding",
         "party": "Republikaner",
         "year": "1921",
@@ -273,6 +307,7 @@
     },
     {
         "addr_id": "coolidge_1925",
+        "in_repo": "35",
         "pres_name": "Calvin Coolidge",
         "party": "Republikaner",
         "year": "1925",
@@ -281,6 +316,7 @@
     },
     {
         "addr_id": "hoover_1929",
+        "in_repo": "36",
         "pres_name": "Herbert Hoover",
         "party": "Republikaner",
         "year": "1929",
@@ -289,6 +325,7 @@
     },
     {
         "addr_id": "roosevelt_franklin_1933",
+        "in_repo": "37",
         "pres_name": "Franklin D. Roosevelt",
         "party": "Demokrat",
         "year": "1933",
@@ -297,6 +334,7 @@
     },
     {
         "addr_id": "roosevelt_franklin_1937",
+        "in_repo": "38",
         "pres_name": "Franklin D. Roosevelt",
         "party": "Demokrat",
         "year": "1937",
@@ -305,6 +343,7 @@
     },
     {
         "addr_id": "roosevelt_franklin_1941",
+        "in_repo": "39",
         "pres_name": "Franklin D. Roosevelt",
         "party": "Demokrat",
         "year": "1941",
@@ -313,6 +352,7 @@
     },
     {
         "addr_id": "roosevelt_franklin_1945",
+        "in_repo": "40",
         "pres_name": "Franklin D. Roosevelt",
         "party": "Demokrat",
         "year": "1945",
@@ -321,6 +361,7 @@
     },
     {
         "addr_id": "truman_1949",
+        "in_repo": "41",
         "pres_name": "Harry S. Truman",
         "party": "Demokrat",
         "year": "1949",
@@ -329,6 +370,7 @@
     },
     {
         "addr_id": "eisenhower_1953",
+        "in_repo": "42",
         "pres_name": "Dwight D. Eisenhower",
         "party": "Republikaner",
         "year": "1953",
@@ -337,6 +379,7 @@
     },
     {
         "addr_id": "eisenhower_1957",
+        "in_repo": "43",
         "pres_name": "Dwight D. Eisenhower",
         "party": "Republikaner",
         "year": "1957",
@@ -345,6 +388,7 @@
     },
     {
         "addr_id": "kennedy_1961",
+        "in_repo": "44",
         "pres_name": "John F. Kennedy",
         "party": "Demokrat",
         "year": "1961",
@@ -353,6 +397,7 @@
     },
     {
         "addr_id": "johnson_1965",
+        "in_repo": "45",
         "pres_name": "Lyndon B. Johnson",
         "party": "Demokrat",
         "year": "1965",
@@ -361,6 +406,7 @@
     },
     {
         "addr_id": "nixon_1969",
+        "in_repo": "46",
         "pres_name": "Richard Nixon",
         "party": "Republikaner",
         "year": "1969",
@@ -369,6 +415,7 @@
     },
     {
         "addr_id": "nixon_1973",
+        "in_repo": "47",
         "pres_name": "Richard Nixon",
         "party": "Republikaner",
         "year": "1973",
@@ -377,6 +424,7 @@
     },
     {
         "addr_id": "carter_1977",
+        "in_repo": "48",
         "pres_name": "Jimmy Carter",
         "party": "Demokrat",
         "year": "1977",
@@ -385,6 +433,7 @@
     },
     {
         "addr_id": "reagan_1981",
+        "in_repo": "49",
         "pres_name": "Ronald Reagan",
         "party": "Republikaner",
         "year": "1981",
@@ -393,6 +442,7 @@
     },
     {
         "addr_id": "reagan_1985",
+        "in_repo": "50",
         "pres_name": "Ronald Reagan",
         "party": "Republikaner",
         "year": "1985",
@@ -401,6 +451,7 @@
     },
     {
         "addr_id": "bush_george_h_w_1989",
+        "in_repo": "51",
         "pres_name": "George H. W. Bush",
         "party": "Republikaner",
         "year": "1989",
@@ -409,6 +460,7 @@
     },
     {
         "addr_id": "clinton_1993",
+        "in_repo": "52",
         "pres_name": "Bill Clinton",
         "party": "Demokrat",
         "year": "1993",
@@ -417,6 +469,7 @@
     },
     {
         "addr_id": "clinton_1997",
+        "in_repo": "53",
         "pres_name": "Bill Clinton",
         "party": "Demokrat",
         "year": "1997",
@@ -425,6 +478,7 @@
     },
     {
         "addr_id": "bush_george_w_2001",
+        "in_repo": "54",
         "pres_name": "George W. Bush",
         "party": "Republikaner",
         "year": "2001",
@@ -433,6 +487,7 @@
     },
     {
         "addr_id": "bush_george_w_2005",
+        "in_repo": "55",
         "pres_name": "George W. Bush",
         "party": "Republikaner",
         "year": "2005",
@@ -441,6 +496,7 @@
     },
     {
         "addr_id": "obama_2009",
+        "in_repo": "56",
         "pres_name": "Barack Obama",
         "party": "Demokrat",
         "year": "2009",
@@ -449,6 +505,7 @@
     },
     {
         "addr_id": "obama_2013",
+        "in_repo": "57",
         "pres_name": "Barack Obama",
         "party": "Demokrat",
         "year": "2013",
@@ -457,6 +514,7 @@
     },
     {
         "addr_id": "trump_2017",
+        "in_repo": "58",
         "pres_name": "Donald Trump",
         "party": "Republikaner",
         "year": "2017",

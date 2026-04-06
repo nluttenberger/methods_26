@@ -1,0 +1,4964 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "created_by": "fruschtique"
+  },
+  "nodes": [
+    {
+      "bipartite": 1,
+      "id": "arrive",
+      "term_frq": 5,
+      "doc_frq": 5,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "ceremony",
+      "term_frq": 11,
+      "doc_frq": 8,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "distinguished",
+      "term_frq": 19,
+      "doc_frq": 14,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "entertain",
+      "term_frq": 18,
+      "doc_frq": 15,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "execution",
+      "term_frq": 13,
+      "doc_frq": 10,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "incur",
+      "term_frq": 4,
+      "doc_frq": 4,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "injunction",
+      "term_frq": 6,
+      "doc_frq": 4,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "instance",
+      "term_frq": 24,
+      "doc_frq": 11,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "knowingly",
+      "term_frq": 3,
+      "doc_frq": 3,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "magistrate",
+      "term_frq": 12,
+      "doc_frq": 8,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "oath",
+      "term_frq": 57,
+      "doc_frq": 34,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "official",
+      "term_frq": 23,
+      "doc_frq": 14,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "previous",
+      "term_frq": 3,
+      "doc_frq": 3,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "punishment",
+      "term_frq": 11,
+      "doc_frq": 9,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "repose",
+      "term_frq": 12,
+      "doc_frq": 10,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "upbraiding",
+      "term_frq": 1,
+      "doc_frq": 1,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "violate",
+      "term_frq": 13,
+      "doc_frq": 10,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "willingly",
+      "term_frq": 2,
+      "doc_frq": 2,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "witness",
+      "term_frq": 22,
+      "doc_frq": 15,
+      "degree": 18,
+      "betweenness": 0.0,
+      "closeness": 0.11842105263157894,
+      "used_in": [
+        "02_washington_1793"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "government",
+      "term_frq": 654,
+      "doc_frq": 55,
+      "degree": 39,
+      "betweenness": 0.1229657244405416,
+      "closeness": 0.41256366723259763,
+      "used_in": [
+        "03_adams_john_1797",
+        "04_jefferson_1801",
+        "08_monroe_1817",
+        "10_adams_john_quincy_1825",
+        "11_jackson_1829",
+        "12_jackson_1833",
+        "14_harrison_1841",
+        "15_polk_1845",
+        "16_taylor_1849",
+        "23_hayes_1877",
+        "24_garfield_1881",
+        "25_cleveland_1885",
+        "27_cleveland_1893",
+        "28_mckinley_1897",
+        "29_mckinley_1901",
+        "36_hoover_1929",
+        "38_roosevelt_franklin_1937",
+        "49_reagan_1981",
+        "50_reagan_1985"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "legislature",
+      "term_frq": 18,
+      "doc_frq": 6,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.32242370632463513,
+      "used_in": [
+        "03_adams_john_1797"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "nation",
+      "term_frq": 506,
+      "doc_frq": 57,
+      "degree": 32,
+      "betweenness": 0.0747635129867615,
+      "closeness": 0.3955507325013565,
+      "used_in": [
+        "03_adams_john_1797",
+        "06_madison_1809",
+        "39_roosevelt_franklin_1941",
+        "41_truman_1949",
+        "43_eisenhower_1957",
+        "45_johnson_1965",
+        "47_nixon_1973",
+        "48_carter_1977",
+        "53_clinton_1997",
+        "54_bush_george_w_2001",
+        "56_obama_2009"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "people",
+      "term_frq": 621,
+      "doc_frq": 56,
+      "degree": 53,
+      "betweenness": 0.203997570436225,
+      "closeness": 0.46790757381258025,
+      "used_in": [
+        "03_adams_john_1797",
+        "12_jackson_1833",
+        "13_van_buren_1837",
+        "14_harrison_1841",
+        "19_lincoln_1861",
+        "24_garfield_1881",
+        "25_cleveland_1885",
+        "26_harrison_1889",
+        "27_cleveland_1893",
+        "28_mckinley_1897",
+        "41_truman_1949",
+        "42_eisenhower_1953",
+        "43_eisenhower_1957",
+        "46_nixon_1969",
+        "50_reagan_1985",
+        "52_clinton_1993"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "pleasing",
+      "term_frq": 5,
+      "doc_frq": 2,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.32242370632463513,
+      "used_in": [
+        "03_adams_john_1797"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "principle",
+      "term_frq": 155,
+      "doc_frq": 39,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.26190048500089813,
+      "used_in": [
+        "04_jefferson_1801"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "false",
+      "term_frq": 17,
+      "doc_frq": 9,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.21494913754975672,
+      "used_in": [
+        "05_jefferson_1805"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "public",
+      "term_frq": 228,
+      "doc_frq": 42,
+      "degree": 5,
+      "betweenness": 0.009323806204252353,
+      "closeness": 0.30694736842105264,
+      "used_in": [
+        "05_jefferson_1805",
+        "11_jackson_1829",
+        "25_cleveland_1885"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "british",
+      "term_frq": 10,
+      "doc_frq": 5,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.023684210526315787,
+      "used_in": [
+        "07_madison_1813"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "savage",
+      "term_frq": 4,
+      "doc_frq": 2,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.023684210526315787,
+      "used_in": [
+        "07_madison_1813"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "war",
+      "term_frq": 200,
+      "doc_frq": 46,
+      "degree": 6,
+      "betweenness": 0.0006971070059254096,
+      "closeness": 0.039473684210526314,
+      "used_in": [
+        "07_madison_1813",
+        "20_lincoln_1865"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "great",
+      "term_frq": 434,
+      "doc_frq": 56,
+      "degree": 6,
+      "betweenness": 0.004671550565154607,
+      "closeness": 0.27702831084932544,
+      "used_in": [
+        "08_monroe_1817",
+        "09_monroe_1821",
+        "32_wilson_1913"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "invasion",
+      "term_frq": 18,
+      "doc_frq": 7,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.265525405208523,
+      "used_in": [
+        "08_monroe_1817"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "power",
+      "term_frq": 338,
+      "doc_frq": 49,
+      "degree": 10,
+      "betweenness": 0.0024969105484964685,
+      "closeness": 0.3210746531600969,
+      "used_in": [
+        "09_monroe_1821",
+        "14_harrison_1841",
+        "15_polk_1845"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "union",
+      "term_frq": 188,
+      "doc_frq": 31,
+      "degree": 22,
+      "betweenness": 0.03494391897363317,
+      "closeness": 0.3689271255060729,
+      "used_in": [
+        "10_adams_john_quincy_1825",
+        "12_jackson_1833",
+        "15_polk_1845",
+        "18_buchanan_1857",
+        "19_lincoln_1861",
+        "24_garfield_1881",
+        "45_johnson_1965"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "exercise",
+      "term_frq": 60,
+      "doc_frq": 25,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.31067547411037716,
+      "used_in": [
+        "12_jackson_1833"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "preservation",
+      "term_frq": 26,
+      "doc_frq": 17,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.31067547411037716,
+      "used_in": [
+        "12_jackson_1833"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "institution",
+      "term_frq": 88,
+      "doc_frq": 28,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.2831617789862109,
+      "used_in": [
+        "13_van_buren_1837"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "citizen",
+      "term_frq": 302,
+      "doc_frq": 54,
+      "degree": 8,
+      "betweenness": 0.0004531195538515162,
+      "closeness": 0.3132116004296455,
+      "used_in": [
+        "14_harrison_1841",
+        "25_cleveland_1885"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "constitution",
+      "term_frq": 213,
+      "doc_frq": 38,
+      "degree": 16,
+      "betweenness": 0.010698102873076725,
+      "closeness": 0.33954354913833257,
+      "used_in": [
+        "14_harrison_1841",
+        "18_buchanan_1857",
+        "19_lincoln_1861",
+        "24_garfield_1881"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "executive",
+      "term_frq": 97,
+      "doc_frq": 27,
+      "degree": 10,
+      "betweenness": 0.0032192443028100054,
+      "closeness": 0.314495254529767,
+      "used_in": [
+        "14_harrison_1841",
+        "29_mckinley_1901"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "grant",
+      "term_frq": 40,
+      "doc_frq": 16,
+      "degree": 6,
+      "betweenness": 0.0,
+      "closeness": 0.3094227504244482,
+      "used_in": [
+        "14_harrison_1841"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "revenue",
+      "term_frq": 73,
+      "doc_frq": 17,
+      "degree": 7,
+      "betweenness": 0.0008182519815492976,
+      "closeness": 0.314495254529767,
+      "used_in": [
+        "15_polk_1845",
+        "28_mckinley_1897"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "texas",
+      "term_frq": 11,
+      "doc_frq": 2,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27504244482173174,
+      "used_in": [
+        "15_polk_1845"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "question",
+      "term_frq": 101,
+      "doc_frq": 36,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.24753820033955856,
+      "used_in": [
+        "18_buchanan_1857"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "territory",
+      "term_frq": 55,
+      "doc_frq": 18,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.24753820033955856,
+      "used_in": [
+        "18_buchanan_1857"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "case",
+      "term_frq": 41,
+      "doc_frq": 15,
+      "degree": 8,
+      "betweenness": 0.0,
+      "closeness": 0.30818008877615727,
+      "used_in": [
+        "19_lincoln_1861"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "fugitive",
+      "term_frq": 5,
+      "doc_frq": 1,
+      "degree": 8,
+      "betweenness": 0.0,
+      "closeness": 0.30818008877615727,
+      "used_in": [
+        "19_lincoln_1861"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "law",
+      "term_frq": 268,
+      "doc_frq": 46,
+      "degree": 19,
+      "betweenness": 0.05319455509635015,
+      "closeness": 0.3441113995751711,
+      "used_in": [
+        "19_lincoln_1861",
+        "21_grant_1869",
+        "24_garfield_1881",
+        "26_harrison_1889",
+        "36_hoover_1929"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "minority",
+      "term_frq": 18,
+      "doc_frq": 8,
+      "degree": 8,
+      "betweenness": 0.0,
+      "closeness": 0.30818008877615727,
+      "used_in": [
+        "19_lincoln_1861"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "provision",
+      "term_frq": 33,
+      "doc_frq": 14,
+      "degree": 8,
+      "betweenness": 0.0,
+      "closeness": 0.30818008877615727,
+      "used_in": [
+        "19_lincoln_1861"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "slave",
+      "term_frq": 18,
+      "doc_frq": 10,
+      "degree": 8,
+      "betweenness": 0.0,
+      "closeness": 0.30818008877615727,
+      "used_in": [
+        "19_lincoln_1861"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "god",
+      "term_frq": 107,
+      "doc_frq": 38,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.029605263157894735,
+      "used_in": [
+        "20_lincoln_1865"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "insurgent",
+      "term_frq": 3,
+      "doc_frq": 2,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.029605263157894735,
+      "used_in": [
+        "20_lincoln_1865"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "offense",
+      "term_frq": 6,
+      "doc_frq": 2,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.029605263157894735,
+      "used_in": [
+        "20_lincoln_1865"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "woe",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.029605263157894735,
+      "used_in": [
+        "20_lincoln_1865"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "debt",
+      "term_frq": 34,
+      "doc_frq": 18,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.23538908621246366,
+      "used_in": [
+        "21_grant_1869"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "dollar",
+      "term_frq": 10,
+      "doc_frq": 5,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.23538908621246366,
+      "used_in": [
+        "21_grant_1869"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "pay",
+      "term_frq": 44,
+      "doc_frq": 23,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.23538908621246366,
+      "used_in": [
+        "21_grant_1869"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "payment",
+      "term_frq": 8,
+      "doc_frq": 6,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.23538908621246366,
+      "used_in": [
+        "21_grant_1869"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "specie",
+      "term_frq": 8,
+      "doc_frq": 5,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.23538908621246366,
+      "used_in": [
+        "21_grant_1869"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "domingo",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "22_grant_1873"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "proposition",
+      "term_frq": 11,
+      "doc_frq": 4,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "22_grant_1873"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "santo",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "22_grant_1873"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "transit",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "22_grant_1873"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "country",
+      "term_frq": 355,
+      "doc_frq": 55,
+      "degree": 7,
+      "betweenness": 0.009830953437175115,
+      "closeness": 0.30572447053889706,
+      "used_in": [
+        "23_hayes_1877",
+        "35_coolidge_1925",
+        "58_trump_2017"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "party",
+      "term_frq": 125,
+      "doc_frq": 34,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.27115491909986983,
+      "used_in": [
+        "23_hayes_1877"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "negro",
+      "term_frq": 18,
+      "doc_frq": 2,
+      "degree": 9,
+      "betweenness": 0.0362495643081213,
+      "closeness": 0.3293426699796702,
+      "used_in": [
+        "24_garfield_1881",
+        "31_taft_1909"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "partisan",
+      "term_frq": 15,
+      "doc_frq": 8,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.30572447053889706,
+      "used_in": [
+        "25_cleveland_1885"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "ballot",
+      "term_frq": 9,
+      "doc_frq": 2,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.2928887103254319,
+      "used_in": [
+        "26_harrison_1889"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "congress",
+      "term_frq": 130,
+      "doc_frq": 29,
+      "degree": 8,
+      "betweenness": 0.002509688957493071,
+      "closeness": 0.3094227504244482,
+      "used_in": [
+        "28_mckinley_1897",
+        "29_mckinley_1901"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "loan",
+      "term_frq": 9,
+      "doc_frq": 2,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.3045112781954887,
+      "used_in": [
+        "28_mckinley_1897"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "cuba",
+      "term_frq": 5,
+      "doc_frq": 1,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.265525405208523,
+      "used_in": [
+        "29_mckinley_1901"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "inhabitant",
+      "term_frq": 11,
+      "doc_frq": 7,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.265525405208523,
+      "used_in": [
+        "29_mckinley_1901"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "island",
+      "term_frq": 15,
+      "doc_frq": 6,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.265525405208523,
+      "used_in": [
+        "29_mckinley_1901"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "aright",
+      "term_frq": 2,
+      "doc_frq": 1,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.006578947368421052,
+      "used_in": [
+        "30_roosevelt_theodore_1905"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "problem",
+      "term_frq": 47,
+      "doc_frq": 22,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.006578947368421052,
+      "used_in": [
+        "30_roosevelt_theodore_1905"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "amendment",
+      "term_frq": 29,
+      "doc_frq": 8,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.22770576292362957,
+      "used_in": [
+        "31_taft_1909"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "business",
+      "term_frq": 69,
+      "doc_frq": 20,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.22770576292362957,
+      "used_in": [
+        "31_taft_1909"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "interstate",
+      "term_frq": 11,
+      "doc_frq": 1,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.22770576292362957,
+      "used_in": [
+        "31_taft_1909"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "tariff",
+      "term_frq": 33,
+      "doc_frq": 10,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.22770576292362957,
+      "used_in": [
+        "31_taft_1909"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "familiar",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.23113506658211794,
+      "used_in": [
+        "32_wilson_1913"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "life",
+      "term_frq": 183,
+      "doc_frq": 49,
+      "degree": 6,
+      "betweenness": 0.004913359557834988,
+      "closeness": 0.2780320366132723,
+      "used_in": [
+        "32_wilson_1913",
+        "39_roosevelt_franklin_1941"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "man",
+      "term_frq": 251,
+      "doc_frq": 51,
+      "degree": 8,
+      "betweenness": 0.004460551212468255,
+      "closeness": 0.2928887103254319,
+      "used_in": [
+        "32_wilson_1913",
+        "45_johnson_1965"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "action",
+      "term_frq": 78,
+      "doc_frq": 35,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.02631578947368421,
+      "used_in": [
+        "33_wilson_1917"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "counsel",
+      "term_frq": 27,
+      "doc_frq": 15,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.02631578947368421,
+      "used_in": [
+        "33_wilson_1917"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "purpose",
+      "term_frq": 136,
+      "doc_frq": 46,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.02631578947368421,
+      "used_in": [
+        "33_wilson_1917"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "stand",
+      "term_frq": 92,
+      "doc_frq": 41,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.02631578947368421,
+      "used_in": [
+        "33_wilson_1917"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "thought",
+      "term_frq": 39,
+      "doc_frq": 20,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.02631578947368421,
+      "used_in": [
+        "33_wilson_1917"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "america",
+      "term_frq": 224,
+      "doc_frq": 31,
+      "degree": 30,
+      "betweenness": 0.08138966345222878,
+      "closeness": 0.3707093821510297,
+      "used_in": [
+        "34_harding_1921",
+        "39_roosevelt_franklin_1941",
+        "47_nixon_1973",
+        "52_clinton_1993",
+        "53_clinton_1997",
+        "54_bush_george_w_2001",
+        "55_bush_george_w_2005",
+        "56_obama_2009",
+        "57_obama_2013",
+        "58_trump_2017"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "civilization",
+      "term_frq": 38,
+      "doc_frq": 20,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.24516562972927525,
+      "used_in": [
+        "34_harding_1921"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "relationship",
+      "term_frq": 11,
+      "doc_frq": 5,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.24516562972927525,
+      "used_in": [
+        "34_harding_1921"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "criminal",
+      "term_frq": 10,
+      "doc_frq": 4,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27504244482173174,
+      "used_in": [
+        "36_hoover_1929"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "enforcement",
+      "term_frq": 20,
+      "doc_frq": 6,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27504244482173174,
+      "used_in": [
+        "36_hoover_1929"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "progress",
+      "term_frq": 96,
+      "doc_frq": 36,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27504244482173174,
+      "used_in": [
+        "36_hoover_1929"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "leadership",
+      "term_frq": 21,
+      "doc_frq": 9,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.006578947368421052,
+      "used_in": [
+        "37_roosevelt_franklin_1933"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "stricken",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 1,
+      "betweenness": 0.0,
+      "closeness": 0.006578947368421052,
+      "used_in": [
+        "37_roosevelt_franklin_1933"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "democracy",
+      "term_frq": 62,
+      "doc_frq": 17,
+      "degree": 14,
+      "betweenness": 0.012136904573293557,
+      "closeness": 0.35858337432365955,
+      "used_in": [
+        "38_roosevelt_franklin_1937",
+        "39_roosevelt_franklin_1941",
+        "41_truman_1949"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "disaster",
+      "term_frq": 9,
+      "doc_frq": 6,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.2800614675374568,
+      "used_in": [
+        "38_roosevelt_franklin_1937"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "economic",
+      "term_frq": 49,
+      "doc_frq": 16,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.2800614675374568,
+      "used_in": [
+        "38_roosevelt_franklin_1937"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "learn",
+      "term_frq": 32,
+      "doc_frq": 19,
+      "degree": 6,
+      "betweenness": 0.0,
+      "closeness": 0.24595141700404857,
+      "used_in": [
+        "40_roosevelt_franklin_1945"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "mistake",
+      "term_frq": 12,
+      "doc_frq": 9,
+      "degree": 6,
+      "betweenness": 0.0,
+      "closeness": 0.24595141700404857,
+      "used_in": [
+        "40_roosevelt_franklin_1945"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "peace",
+      "term_frq": 254,
+      "doc_frq": 46,
+      "degree": 25,
+      "betweenness": 0.03885707646599945,
+      "closeness": 0.35526315789473684,
+      "used_in": [
+        "40_roosevelt_franklin_1945",
+        "41_truman_1949",
+        "43_eisenhower_1957",
+        "46_nixon_1969",
+        "47_nixon_1973"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "test",
+      "term_frq": 16,
+      "doc_frq": 11,
+      "degree": 6,
+      "betweenness": 0.0,
+      "closeness": 0.24595141700404857,
+      "used_in": [
+        "40_roosevelt_franklin_1945"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "today",
+      "term_frq": 100,
+      "doc_frq": 26,
+      "degree": 13,
+      "betweenness": 0.01767197380869392,
+      "closeness": 0.3336384439359268,
+      "used_in": [
+        "40_roosevelt_franklin_1945",
+        "52_clinton_1993"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "trend",
+      "term_frq": 3,
+      "doc_frq": 2,
+      "degree": 6,
+      "betweenness": 0.0,
+      "closeness": 0.24595141700404857,
+      "used_in": [
+        "40_roosevelt_franklin_1945"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "upward",
+      "term_frq": 6,
+      "doc_frq": 4,
+      "degree": 6,
+      "betweenness": 0.0,
+      "closeness": 0.24595141700404857,
+      "used_in": [
+        "40_roosevelt_franklin_1945"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "agreement",
+      "term_frq": 9,
+      "doc_frq": 5,
+      "degree": 9,
+      "betweenness": 0.0,
+      "closeness": 0.31973684210526315,
+      "used_in": [
+        "41_truman_1949"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "communism",
+      "term_frq": 13,
+      "doc_frq": 6,
+      "degree": 9,
+      "betweenness": 0.0,
+      "closeness": 0.31973684210526315,
+      "used_in": [
+        "41_truman_1949"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "freedom",
+      "term_frq": 192,
+      "doc_frq": 37,
+      "degree": 17,
+      "betweenness": 0.01081751891267402,
+      "closeness": 0.36196623634558095,
+      "used_in": [
+        "41_truman_1949",
+        "43_eisenhower_1957",
+        "50_reagan_1985",
+        "55_bush_george_w_2005"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "nations",
+      "term_frq": 9,
+      "doc_frq": 4,
+      "degree": 9,
+      "betweenness": 0.0,
+      "closeness": 0.31973684210526315,
+      "used_in": [
+        "41_truman_1949"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "program",
+      "term_frq": 19,
+      "doc_frq": 10,
+      "degree": 9,
+      "betweenness": 0.0,
+      "closeness": 0.31973684210526315,
+      "used_in": [
+        "41_truman_1949"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "recovery",
+      "term_frq": 11,
+      "doc_frq": 4,
+      "degree": 9,
+      "betweenness": 0.0,
+      "closeness": 0.31973684210526315,
+      "used_in": [
+        "41_truman_1949"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "faith",
+      "term_frq": 90,
+      "doc_frq": 38,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.28848436881677875,
+      "used_in": [
+        "42_eisenhower_1953"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "free",
+      "term_frq": 192,
+      "doc_frq": 49,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.28848436881677875,
+      "used_in": [
+        "42_eisenhower_1953"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "productivity",
+      "term_frq": 7,
+      "doc_frq": 2,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.28848436881677875,
+      "used_in": [
+        "42_eisenhower_1953"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "strength",
+      "term_frq": 78,
+      "doc_frq": 34,
+      "degree": 7,
+      "betweenness": 0.003923716576208734,
+      "closeness": 0.3119383825417201,
+      "used_in": [
+        "42_eisenhower_1953",
+        "48_carter_1977"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "seek",
+      "term_frq": 108,
+      "doc_frq": 45,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.3119383825417201,
+      "used_in": [
+        "43_eisenhower_1957"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "strive",
+      "term_frq": 25,
+      "doc_frq": 15,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.3119383825417201,
+      "used_in": [
+        "43_eisenhower_1957"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "pledge",
+      "term_frq": 56,
+      "doc_frq": 31,
+      "degree": 0,
+      "betweenness": 0.0,
+      "closeness": 0.0,
+      "used_in": [
+        "44_kennedy_1961"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "change",
+      "term_frq": 87,
+      "doc_frq": 29,
+      "degree": 12,
+      "betweenness": 0.006201190564209036,
+      "closeness": 0.34105263157894733,
+      "used_in": [
+        "45_johnson_1965",
+        "52_clinton_1993"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "covenant",
+      "term_frq": 14,
+      "doc_frq": 5,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.28848436881677875,
+      "used_in": [
+        "45_johnson_1965"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "mastery",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.28848436881677875,
+      "used_in": [
+        "45_johnson_1965"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "catch",
+      "term_frq": 4,
+      "doc_frq": 1,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2962812436496647,
+      "used_in": [
+        "46_nixon_1969"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "earth",
+      "term_frq": 62,
+      "doc_frq": 28,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2962812436496647,
+      "used_in": [
+        "46_nixon_1969"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "moment",
+      "term_frq": 43,
+      "doc_frq": 23,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2962812436496647,
+      "used_in": [
+        "46_nixon_1969"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "voice",
+      "term_frq": 41,
+      "doc_frq": 26,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2962812436496647,
+      "used_in": [
+        "46_nixon_1969"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "era",
+      "term_frq": 20,
+      "doc_frq": 11,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2800614675374568,
+      "used_in": [
+        "47_nixon_1973"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "responsibility",
+      "term_frq": 92,
+      "doc_frq": 33,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2800614675374568,
+      "used_in": [
+        "47_nixon_1973"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "role",
+      "term_frq": 13,
+      "doc_frq": 7,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2800614675374568,
+      "used_in": [
+        "47_nixon_1973"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "dream",
+      "term_frq": 40,
+      "doc_frq": 14,
+      "degree": 10,
+      "betweenness": 0.003538647944364223,
+      "closeness": 0.2800614675374568,
+      "used_in": [
+        "48_carter_1977",
+        "53_clinton_1997",
+        "58_trump_2017"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "enhance",
+      "term_frq": 9,
+      "doc_frq": 7,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.26279740447007927,
+      "used_in": [
+        "48_carter_1977"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "americans",
+      "term_frq": 72,
+      "doc_frq": 21,
+      "degree": 11,
+      "betweenness": 0.008239433245968621,
+      "closeness": 0.35039653929343906,
+      "used_in": [
+        "49_reagan_1981",
+        "52_clinton_1993",
+        "55_bush_george_w_2005"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "hero",
+      "term_frq": 11,
+      "doc_frq": 6,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.2780320366132723,
+      "used_in": [
+        "49_reagan_1981"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "nuclear",
+      "term_frq": 10,
+      "doc_frq": 5,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.30572447053889706,
+      "used_in": [
+        "50_reagan_1985"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "weapon",
+      "term_frq": 18,
+      "doc_frq": 9,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.30572447053889706,
+      "used_in": [
+        "50_reagan_1985"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "blow",
+      "term_frq": 9,
+      "doc_frq": 4,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "51_bush_george_h_w_1989"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "breeze",
+      "term_frq": 5,
+      "doc_frq": 1,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "51_bush_george_h_w_1989"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "friend",
+      "term_frq": 49,
+      "doc_frq": 22,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "51_bush_george_h_w_1989"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "word",
+      "term_frq": 11,
+      "doc_frq": 6,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.019736842105263157,
+      "used_in": [
+        "51_bush_george_h_w_1989"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "challenge",
+      "term_frq": 38,
+      "doc_frq": 17,
+      "degree": 7,
+      "betweenness": 0.0,
+      "closeness": 0.32515611061552185,
+      "used_in": [
+        "52_clinton_1993"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "idea",
+      "term_frq": 29,
+      "doc_frq": 16,
+      "degree": 7,
+      "betweenness": 0.0,
+      "closeness": 0.32515611061552185,
+      "used_in": [
+        "52_clinton_1993"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "renewal",
+      "term_frq": 8,
+      "doc_frq": 5,
+      "degree": 7,
+      "betweenness": 0.0,
+      "closeness": 0.32515611061552185,
+      "used_in": [
+        "52_clinton_1993"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "century",
+      "term_frq": 74,
+      "doc_frq": 28,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27020014825796884,
+      "used_in": [
+        "53_clinton_1997"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "promise",
+      "term_frq": 66,
+      "doc_frq": 25,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27020014825796884,
+      "used_in": [
+        "53_clinton_1997"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "civility",
+      "term_frq": 6,
+      "doc_frq": 3,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27020014825796884,
+      "used_in": [
+        "54_bush_george_w_2001"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "commitment",
+      "term_frq": 17,
+      "doc_frq": 9,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27020014825796884,
+      "used_in": [
+        "54_bush_george_w_2001"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "story",
+      "term_frq": 15,
+      "doc_frq": 6,
+      "degree": 4,
+      "betweenness": 0.0,
+      "closeness": 0.27020014825796884,
+      "used_in": [
+        "54_bush_george_w_2001"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "liberty",
+      "term_frq": 135,
+      "doc_frq": 44,
+      "degree": 3,
+      "betweenness": 0.0,
+      "closeness": 0.26279740447007927,
+      "used_in": [
+        "55_bush_george_w_2005"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "creed",
+      "term_frq": 15,
+      "doc_frq": 11,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.24516562972927525,
+      "used_in": [
+        "57_obama_2013"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "journey",
+      "term_frq": 21,
+      "doc_frq": 8,
+      "degree": 2,
+      "betweenness": 0.0,
+      "closeness": 0.24516562972927525,
+      "used_in": [
+        "57_obama_2013"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "american",
+      "term_frq": 164,
+      "doc_frq": 45,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2583732057416268,
+      "used_in": [
+        "58_trump_2017"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "job",
+      "term_frq": 18,
+      "doc_frq": 8,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2583732057416268,
+      "used_in": [
+        "58_trump_2017"
+      ]
+    },
+    {
+      "bipartite": 1,
+      "id": "obama",
+      "term_frq": 3,
+      "doc_frq": 1,
+      "degree": 5,
+      "betweenness": 0.0,
+      "closeness": 0.2583732057416268,
+      "used_in": [
+        "58_trump_2017"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "incur"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "distinguished"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "ceremony"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "execution"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "injunction"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "arrive",
+      "target": "entertain"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "incur"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "distinguished"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "execution"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "injunction"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "ceremony",
+      "target": "entertain"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "incur"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "execution"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "injunction"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "distinguished",
+      "target": "entertain"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "incur"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "execution"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "injunction"
+    },
+    {
+      "weight": 1,
+      "source": "entertain",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "incur"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "injunction"
+    },
+    {
+      "weight": 1,
+      "source": "execution",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "injunction"
+    },
+    {
+      "weight": 1,
+      "source": "incur",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "instance"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "injunction",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "knowingly"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "instance",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "magistrate"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "knowingly",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "oath"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "magistrate",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "official"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "oath",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "previous"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "official",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "previous",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "previous",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "previous",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "previous",
+      "target": "punishment"
+    },
+    {
+      "weight": 1,
+      "source": "previous",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "previous",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "punishment",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "punishment",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "punishment",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "punishment",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "punishment",
+      "target": "repose"
+    },
+    {
+      "weight": 1,
+      "source": "repose",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "repose",
+      "target": "upbraiding"
+    },
+    {
+      "weight": 1,
+      "source": "repose",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "repose",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "upbraiding",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "upbraiding",
+      "target": "violate"
+    },
+    {
+      "weight": 1,
+      "source": "upbraiding",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "violate",
+      "target": "willingly"
+    },
+    {
+      "weight": 1,
+      "source": "violate",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "willingly",
+      "target": "witness"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "inhabitant"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "economic"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "freedom"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "citizen"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "constitution"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "cuba"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "great"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "invasion"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "nuclear"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "partisan"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "pleasing"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "disaster"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "hero"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "public"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "executive"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "democracy"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "criminal"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "legislature"
+    },
+    {
+      "weight": 8,
+      "source": "government",
+      "target": "people"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "weapon"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "progress"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "principle"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "revenue"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "party"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "grant"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "loan"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "exercise"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "nation"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "texas"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "country"
+    },
+    {
+      "weight": 4,
+      "source": "government",
+      "target": "union"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "power"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "negro"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "congress"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "americans"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "island"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "enforcement"
+    },
+    {
+      "weight": 2,
+      "source": "government",
+      "target": "law"
+    },
+    {
+      "weight": 1,
+      "source": "government",
+      "target": "preservation"
+    },
+    {
+      "weight": 1,
+      "source": "legislature",
+      "target": "people"
+    },
+    {
+      "weight": 1,
+      "source": "legislature",
+      "target": "pleasing"
+    },
+    {
+      "weight": 1,
+      "source": "legislature",
+      "target": "nation"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "commitment"
+    },
+    {
+      "weight": 2,
+      "source": "nation",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "strive"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "life"
+    },
+    {
+      "weight": 3,
+      "source": "nation",
+      "target": "peace"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "story"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "man"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "strength"
+    },
+    {
+      "weight": 5,
+      "source": "nation",
+      "target": "america"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "pleasing"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "mastery"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "communism"
+    },
+    {
+      "weight": 2,
+      "source": "nation",
+      "target": "democracy"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "civility"
+    },
+    {
+      "weight": 3,
+      "source": "nation",
+      "target": "people"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "covenant"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "enhance"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "promise"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "agreement"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "seek"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "change"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "role"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "union"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "century"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "responsibility"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "era"
+    },
+    {
+      "weight": 1,
+      "source": "nation",
+      "target": "nations"
+    },
+    {
+      "weight": 2,
+      "source": "nation",
+      "target": "dream"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "provision"
+    },
+    {
+      "weight": 3,
+      "source": "people",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "strive"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "minority"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "voice"
+    },
+    {
+      "weight": 3,
+      "source": "people",
+      "target": "constitution"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "fugitive"
+    },
+    {
+      "weight": 3,
+      "source": "people",
+      "target": "peace"
+    },
+    {
+      "weight": 2,
+      "source": "people",
+      "target": "citizen"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "strength"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "free"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "challenge"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "america"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "nuclear"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "earth"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "partisan"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "pleasing"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "productivity"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "faith"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "public"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "communism"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "executive"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "democracy"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "institution"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "weapon"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "case"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "agreement"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "revenue"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "grant"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "loan"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "seek"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "exercise"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "today"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "change"
+    },
+    {
+      "weight": 3,
+      "source": "people",
+      "target": "union"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "catch"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "power"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "negro"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "congress"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "americans"
+    },
+    {
+      "weight": 3,
+      "source": "people",
+      "target": "law"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "idea"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "nations"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "moment"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "preservation"
+    },
+    {
+      "weight": 1,
+      "source": "people",
+      "target": "ballot"
+    },
+    {
+      "weight": 1,
+      "source": "false",
+      "target": "public"
+    },
+    {
+      "weight": 1,
+      "source": "public",
+      "target": "citizen"
+    },
+    {
+      "weight": 1,
+      "source": "public",
+      "target": "partisan"
+    },
+    {
+      "weight": 1,
+      "source": "british",
+      "target": "savage"
+    },
+    {
+      "weight": 1,
+      "source": "british",
+      "target": "war"
+    },
+    {
+      "weight": 1,
+      "source": "savage",
+      "target": "war"
+    },
+    {
+      "weight": 1,
+      "source": "war",
+      "target": "woe"
+    },
+    {
+      "weight": 1,
+      "source": "war",
+      "target": "insurgent"
+    },
+    {
+      "weight": 1,
+      "source": "war",
+      "target": "offense"
+    },
+    {
+      "weight": 1,
+      "source": "war",
+      "target": "god"
+    },
+    {
+      "weight": 1,
+      "source": "great",
+      "target": "power"
+    },
+    {
+      "weight": 1,
+      "source": "great",
+      "target": "familiar"
+    },
+    {
+      "weight": 1,
+      "source": "great",
+      "target": "life"
+    },
+    {
+      "weight": 1,
+      "source": "great",
+      "target": "invasion"
+    },
+    {
+      "weight": 1,
+      "source": "great",
+      "target": "man"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "texas"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "union"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "citizen"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "constitution"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "revenue"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "grant"
+    },
+    {
+      "weight": 1,
+      "source": "power",
+      "target": "executive"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "provision"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "covenant"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "case"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "minority"
+    },
+    {
+      "weight": 3,
+      "source": "union",
+      "target": "constitution"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "fugitive"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "revenue"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "exercise"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "man"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "change"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "texas"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "negro"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "mastery"
+    },
+    {
+      "weight": 2,
+      "source": "union",
+      "target": "law"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "question"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "preservation"
+    },
+    {
+      "weight": 1,
+      "source": "union",
+      "target": "territory"
+    },
+    {
+      "weight": 1,
+      "source": "exercise",
+      "target": "preservation"
+    },
+    {
+      "weight": 1,
+      "source": "citizen",
+      "target": "constitution"
+    },
+    {
+      "weight": 1,
+      "source": "citizen",
+      "target": "grant"
+    },
+    {
+      "weight": 1,
+      "source": "citizen",
+      "target": "executive"
+    },
+    {
+      "weight": 1,
+      "source": "citizen",
+      "target": "partisan"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "provision"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "case"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "minority"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "fugitive"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "grant"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "negro"
+    },
+    {
+      "weight": 2,
+      "source": "constitution",
+      "target": "law"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "question"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "executive"
+    },
+    {
+      "weight": 1,
+      "source": "constitution",
+      "target": "territory"
+    },
+    {
+      "weight": 1,
+      "source": "executive",
+      "target": "inhabitant"
+    },
+    {
+      "weight": 1,
+      "source": "executive",
+      "target": "congress"
+    },
+    {
+      "weight": 1,
+      "source": "executive",
+      "target": "island"
+    },
+    {
+      "weight": 1,
+      "source": "executive",
+      "target": "cuba"
+    },
+    {
+      "weight": 1,
+      "source": "executive",
+      "target": "grant"
+    },
+    {
+      "weight": 1,
+      "source": "revenue",
+      "target": "texas"
+    },
+    {
+      "weight": 1,
+      "source": "revenue",
+      "target": "congress"
+    },
+    {
+      "weight": 1,
+      "source": "revenue",
+      "target": "loan"
+    },
+    {
+      "weight": 1,
+      "source": "question",
+      "target": "territory"
+    },
+    {
+      "weight": 1,
+      "source": "case",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "case",
+      "target": "provision"
+    },
+    {
+      "weight": 1,
+      "source": "case",
+      "target": "law"
+    },
+    {
+      "weight": 1,
+      "source": "case",
+      "target": "minority"
+    },
+    {
+      "weight": 1,
+      "source": "case",
+      "target": "fugitive"
+    },
+    {
+      "weight": 1,
+      "source": "fugitive",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "fugitive",
+      "target": "provision"
+    },
+    {
+      "weight": 1,
+      "source": "fugitive",
+      "target": "law"
+    },
+    {
+      "weight": 1,
+      "source": "fugitive",
+      "target": "minority"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "specie"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "criminal"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "debt"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "provision"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "payment"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "progress"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "minority"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "dollar"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "pay"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "negro"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "enforcement"
+    },
+    {
+      "weight": 1,
+      "source": "law",
+      "target": "ballot"
+    },
+    {
+      "weight": 1,
+      "source": "minority",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "minority",
+      "target": "provision"
+    },
+    {
+      "weight": 1,
+      "source": "provision",
+      "target": "slave"
+    },
+    {
+      "weight": 1,
+      "source": "god",
+      "target": "woe"
+    },
+    {
+      "weight": 1,
+      "source": "god",
+      "target": "insurgent"
+    },
+    {
+      "weight": 1,
+      "source": "god",
+      "target": "offense"
+    },
+    {
+      "weight": 1,
+      "source": "insurgent",
+      "target": "woe"
+    },
+    {
+      "weight": 1,
+      "source": "insurgent",
+      "target": "offense"
+    },
+    {
+      "weight": 1,
+      "source": "offense",
+      "target": "woe"
+    },
+    {
+      "weight": 1,
+      "source": "debt",
+      "target": "specie"
+    },
+    {
+      "weight": 1,
+      "source": "debt",
+      "target": "payment"
+    },
+    {
+      "weight": 1,
+      "source": "debt",
+      "target": "dollar"
+    },
+    {
+      "weight": 1,
+      "source": "debt",
+      "target": "pay"
+    },
+    {
+      "weight": 1,
+      "source": "dollar",
+      "target": "specie"
+    },
+    {
+      "weight": 1,
+      "source": "dollar",
+      "target": "payment"
+    },
+    {
+      "weight": 1,
+      "source": "dollar",
+      "target": "pay"
+    },
+    {
+      "weight": 1,
+      "source": "pay",
+      "target": "specie"
+    },
+    {
+      "weight": 1,
+      "source": "pay",
+      "target": "payment"
+    },
+    {
+      "weight": 1,
+      "source": "payment",
+      "target": "specie"
+    },
+    {
+      "weight": 1,
+      "source": "domingo",
+      "target": "transit"
+    },
+    {
+      "weight": 1,
+      "source": "domingo",
+      "target": "santo"
+    },
+    {
+      "weight": 1,
+      "source": "domingo",
+      "target": "proposition"
+    },
+    {
+      "weight": 1,
+      "source": "proposition",
+      "target": "transit"
+    },
+    {
+      "weight": 1,
+      "source": "proposition",
+      "target": "santo"
+    },
+    {
+      "weight": 1,
+      "source": "santo",
+      "target": "transit"
+    },
+    {
+      "weight": 1,
+      "source": "country",
+      "target": "american"
+    },
+    {
+      "weight": 1,
+      "source": "country",
+      "target": "job"
+    },
+    {
+      "weight": 1,
+      "source": "country",
+      "target": "party"
+    },
+    {
+      "weight": 1,
+      "source": "country",
+      "target": "dream"
+    },
+    {
+      "weight": 1,
+      "source": "country",
+      "target": "obama"
+    },
+    {
+      "weight": 1,
+      "source": "country",
+      "target": "america"
+    },
+    {
+      "weight": 1,
+      "source": "negro",
+      "target": "interstate"
+    },
+    {
+      "weight": 1,
+      "source": "negro",
+      "target": "business"
+    },
+    {
+      "weight": 1,
+      "source": "negro",
+      "target": "tariff"
+    },
+    {
+      "weight": 1,
+      "source": "negro",
+      "target": "amendment"
+    },
+    {
+      "weight": 1,
+      "source": "congress",
+      "target": "inhabitant"
+    },
+    {
+      "weight": 1,
+      "source": "congress",
+      "target": "island"
+    },
+    {
+      "weight": 1,
+      "source": "congress",
+      "target": "cuba"
+    },
+    {
+      "weight": 1,
+      "source": "congress",
+      "target": "loan"
+    },
+    {
+      "weight": 1,
+      "source": "cuba",
+      "target": "inhabitant"
+    },
+    {
+      "weight": 1,
+      "source": "cuba",
+      "target": "island"
+    },
+    {
+      "weight": 1,
+      "source": "inhabitant",
+      "target": "island"
+    },
+    {
+      "weight": 1,
+      "source": "aright",
+      "target": "problem"
+    },
+    {
+      "weight": 1,
+      "source": "amendment",
+      "target": "interstate"
+    },
+    {
+      "weight": 1,
+      "source": "amendment",
+      "target": "tariff"
+    },
+    {
+      "weight": 1,
+      "source": "amendment",
+      "target": "business"
+    },
+    {
+      "weight": 1,
+      "source": "business",
+      "target": "interstate"
+    },
+    {
+      "weight": 1,
+      "source": "business",
+      "target": "tariff"
+    },
+    {
+      "weight": 1,
+      "source": "interstate",
+      "target": "tariff"
+    },
+    {
+      "weight": 1,
+      "source": "familiar",
+      "target": "life"
+    },
+    {
+      "weight": 1,
+      "source": "familiar",
+      "target": "man"
+    },
+    {
+      "weight": 1,
+      "source": "life",
+      "target": "man"
+    },
+    {
+      "weight": 1,
+      "source": "life",
+      "target": "democracy"
+    },
+    {
+      "weight": 1,
+      "source": "life",
+      "target": "america"
+    },
+    {
+      "weight": 1,
+      "source": "man",
+      "target": "mastery"
+    },
+    {
+      "weight": 1,
+      "source": "man",
+      "target": "covenant"
+    },
+    {
+      "weight": 1,
+      "source": "man",
+      "target": "change"
+    },
+    {
+      "weight": 1,
+      "source": "action",
+      "target": "counsel"
+    },
+    {
+      "weight": 1,
+      "source": "action",
+      "target": "purpose"
+    },
+    {
+      "weight": 1,
+      "source": "action",
+      "target": "stand"
+    },
+    {
+      "weight": 1,
+      "source": "action",
+      "target": "thought"
+    },
+    {
+      "weight": 1,
+      "source": "counsel",
+      "target": "stand"
+    },
+    {
+      "weight": 1,
+      "source": "counsel",
+      "target": "purpose"
+    },
+    {
+      "weight": 1,
+      "source": "counsel",
+      "target": "thought"
+    },
+    {
+      "weight": 1,
+      "source": "purpose",
+      "target": "stand"
+    },
+    {
+      "weight": 1,
+      "source": "purpose",
+      "target": "thought"
+    },
+    {
+      "weight": 1,
+      "source": "stand",
+      "target": "thought"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "commitment"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "civility"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "liberty"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "american"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "promise"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "peace"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "story"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "obama"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "today"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "challenge"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "change"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "journey"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "creed"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "role"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "relationship"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "civilization"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "century"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "responsibility"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "era"
+    },
+    {
+      "weight": 2,
+      "source": "america",
+      "target": "americans"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "idea"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "job"
+    },
+    {
+      "weight": 2,
+      "source": "america",
+      "target": "dream"
+    },
+    {
+      "weight": 1,
+      "source": "america",
+      "target": "democracy"
+    },
+    {
+      "weight": 1,
+      "source": "civilization",
+      "target": "relationship"
+    },
+    {
+      "weight": 1,
+      "source": "criminal",
+      "target": "enforcement"
+    },
+    {
+      "weight": 1,
+      "source": "criminal",
+      "target": "progress"
+    },
+    {
+      "weight": 1,
+      "source": "enforcement",
+      "target": "progress"
+    },
+    {
+      "weight": 1,
+      "source": "leadership",
+      "target": "stricken"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "economic"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "disaster"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "agreement"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "nations"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "peace"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "communism"
+    },
+    {
+      "weight": 1,
+      "source": "democracy",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "disaster",
+      "target": "economic"
+    },
+    {
+      "weight": 1,
+      "source": "learn",
+      "target": "mistake"
+    },
+    {
+      "weight": 1,
+      "source": "learn",
+      "target": "trend"
+    },
+    {
+      "weight": 1,
+      "source": "learn",
+      "target": "test"
+    },
+    {
+      "weight": 1,
+      "source": "learn",
+      "target": "peace"
+    },
+    {
+      "weight": 1,
+      "source": "learn",
+      "target": "today"
+    },
+    {
+      "weight": 1,
+      "source": "learn",
+      "target": "upward"
+    },
+    {
+      "weight": 1,
+      "source": "mistake",
+      "target": "trend"
+    },
+    {
+      "weight": 1,
+      "source": "mistake",
+      "target": "test"
+    },
+    {
+      "weight": 1,
+      "source": "mistake",
+      "target": "peace"
+    },
+    {
+      "weight": 1,
+      "source": "mistake",
+      "target": "today"
+    },
+    {
+      "weight": 1,
+      "source": "mistake",
+      "target": "upward"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "recovery"
+    },
+    {
+      "weight": 2,
+      "source": "peace",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "test"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "strive"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "voice"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "agreement"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "seek"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "today"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "upward"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "earth"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "role"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "trend"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "catch"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "responsibility"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "era"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "nations"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "moment"
+    },
+    {
+      "weight": 1,
+      "source": "peace",
+      "target": "communism"
+    },
+    {
+      "weight": 1,
+      "source": "test",
+      "target": "trend"
+    },
+    {
+      "weight": 1,
+      "source": "test",
+      "target": "today"
+    },
+    {
+      "weight": 1,
+      "source": "test",
+      "target": "upward"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "trend"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "americans"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "upward"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "idea"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "challenge"
+    },
+    {
+      "weight": 1,
+      "source": "today",
+      "target": "change"
+    },
+    {
+      "weight": 1,
+      "source": "trend",
+      "target": "upward"
+    },
+    {
+      "weight": 1,
+      "source": "agreement",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "agreement",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "agreement",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "agreement",
+      "target": "nations"
+    },
+    {
+      "weight": 1,
+      "source": "agreement",
+      "target": "communism"
+    },
+    {
+      "weight": 1,
+      "source": "communism",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "communism",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "communism",
+      "target": "freedom"
+    },
+    {
+      "weight": 1,
+      "source": "communism",
+      "target": "nations"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "liberty"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "weapon"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "strive"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "seek"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "nuclear"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "americans"
+    },
+    {
+      "weight": 1,
+      "source": "freedom",
+      "target": "nations"
+    },
+    {
+      "weight": 1,
+      "source": "nations",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "nations",
+      "target": "program"
+    },
+    {
+      "weight": 1,
+      "source": "program",
+      "target": "recovery"
+    },
+    {
+      "weight": 1,
+      "source": "faith",
+      "target": "strength"
+    },
+    {
+      "weight": 1,
+      "source": "faith",
+      "target": "productivity"
+    },
+    {
+      "weight": 1,
+      "source": "faith",
+      "target": "free"
+    },
+    {
+      "weight": 1,
+      "source": "free",
+      "target": "strength"
+    },
+    {
+      "weight": 1,
+      "source": "free",
+      "target": "productivity"
+    },
+    {
+      "weight": 1,
+      "source": "productivity",
+      "target": "strength"
+    },
+    {
+      "weight": 1,
+      "source": "strength",
+      "target": "enhance"
+    },
+    {
+      "weight": 1,
+      "source": "strength",
+      "target": "dream"
+    },
+    {
+      "weight": 1,
+      "source": "seek",
+      "target": "strive"
+    },
+    {
+      "weight": 1,
+      "source": "change",
+      "target": "mastery"
+    },
+    {
+      "weight": 1,
+      "source": "change",
+      "target": "covenant"
+    },
+    {
+      "weight": 1,
+      "source": "change",
+      "target": "americans"
+    },
+    {
+      "weight": 1,
+      "source": "change",
+      "target": "idea"
+    },
+    {
+      "weight": 1,
+      "source": "change",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "change",
+      "target": "challenge"
+    },
+    {
+      "weight": 1,
+      "source": "covenant",
+      "target": "mastery"
+    },
+    {
+      "weight": 1,
+      "source": "catch",
+      "target": "voice"
+    },
+    {
+      "weight": 1,
+      "source": "catch",
+      "target": "moment"
+    },
+    {
+      "weight": 1,
+      "source": "catch",
+      "target": "earth"
+    },
+    {
+      "weight": 1,
+      "source": "earth",
+      "target": "voice"
+    },
+    {
+      "weight": 1,
+      "source": "earth",
+      "target": "moment"
+    },
+    {
+      "weight": 1,
+      "source": "moment",
+      "target": "voice"
+    },
+    {
+      "weight": 1,
+      "source": "era",
+      "target": "role"
+    },
+    {
+      "weight": 1,
+      "source": "era",
+      "target": "responsibility"
+    },
+    {
+      "weight": 1,
+      "source": "responsibility",
+      "target": "role"
+    },
+    {
+      "weight": 1,
+      "source": "dream",
+      "target": "american"
+    },
+    {
+      "weight": 1,
+      "source": "dream",
+      "target": "century"
+    },
+    {
+      "weight": 1,
+      "source": "dream",
+      "target": "enhance"
+    },
+    {
+      "weight": 1,
+      "source": "dream",
+      "target": "promise"
+    },
+    {
+      "weight": 1,
+      "source": "dream",
+      "target": "job"
+    },
+    {
+      "weight": 1,
+      "source": "dream",
+      "target": "obama"
+    },
+    {
+      "weight": 1,
+      "source": "americans",
+      "target": "liberty"
+    },
+    {
+      "weight": 1,
+      "source": "americans",
+      "target": "idea"
+    },
+    {
+      "weight": 1,
+      "source": "americans",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "americans",
+      "target": "hero"
+    },
+    {
+      "weight": 1,
+      "source": "americans",
+      "target": "challenge"
+    },
+    {
+      "weight": 1,
+      "source": "nuclear",
+      "target": "weapon"
+    },
+    {
+      "weight": 1,
+      "source": "blow",
+      "target": "breeze"
+    },
+    {
+      "weight": 1,
+      "source": "blow",
+      "target": "friend"
+    },
+    {
+      "weight": 1,
+      "source": "blow",
+      "target": "word"
+    },
+    {
+      "weight": 1,
+      "source": "breeze",
+      "target": "friend"
+    },
+    {
+      "weight": 1,
+      "source": "breeze",
+      "target": "word"
+    },
+    {
+      "weight": 1,
+      "source": "friend",
+      "target": "word"
+    },
+    {
+      "weight": 1,
+      "source": "challenge",
+      "target": "idea"
+    },
+    {
+      "weight": 1,
+      "source": "challenge",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "idea",
+      "target": "renewal"
+    },
+    {
+      "weight": 1,
+      "source": "century",
+      "target": "promise"
+    },
+    {
+      "weight": 1,
+      "source": "civility",
+      "target": "story"
+    },
+    {
+      "weight": 1,
+      "source": "civility",
+      "target": "commitment"
+    },
+    {
+      "weight": 1,
+      "source": "commitment",
+      "target": "story"
+    },
+    {
+      "weight": 1,
+      "source": "creed",
+      "target": "journey"
+    },
+    {
+      "weight": 1,
+      "source": "american",
+      "target": "job"
+    },
+    {
+      "weight": 1,
+      "source": "american",
+      "target": "obama"
+    },
+    {
+      "weight": 1,
+      "source": "job",
+      "target": "obama"
+    }
+  ]
+}
