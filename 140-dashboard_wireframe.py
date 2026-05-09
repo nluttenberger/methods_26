@@ -13,7 +13,7 @@ def make_graph():
     print(G)
     return G
 
-def create_sample_graph(G=None):
+def viz_graph(G=None):
     pos = nx.spring_layout(G)
     edge_x = []
     edge_y = []
@@ -33,12 +33,11 @@ def create_sample_graph(G=None):
         hoverinfo='none',
         mode='lines')
 
-    node_x = []
-    node_y = []
-    for node in G.nodes():
-        x, y = pos[node]
-        node_x.append(x)
-        node_y.append(y)
+    node_degree = dict(G.degree())
+    sorted_nodes = sorted(G.nodes(), key=lambda n: node_degree[n])
+    node_x = [pos[node][0] for node in sorted_nodes]
+    node_y = [pos[node][1] for node in sorted_nodes]
+    node_degrees = [node_degree[node] for node in sorted_nodes]
 
     node_trace = go.Scatter(
         x=node_x, y=node_y,
@@ -51,10 +50,10 @@ def create_sample_graph(G=None):
             #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
             #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
             colorscale='YlGnBu',
-            reversescale=True,
             color=[],
             size=10,
             colorbar=dict(
+                y=4,
                 thickness=15,
                 title=dict(
                 text='Node degree',
@@ -62,7 +61,11 @@ def create_sample_graph(G=None):
                 ),
                 xanchor='left',
             ),
-            line_width=2))
+            line_width=0.5))
+
+    node_trace.marker.color = node_degrees
+    node_trace.text = [f"{node}<br>degree: {degree}" for node, degree in zip(sorted_nodes, node_degrees)]
+
     fig = go.Figure(data=[edge_trace, node_trace],
                 layout=go.Layout(
                     showlegend=False,
@@ -83,9 +86,6 @@ st.markdown(
     <style>
     body {  
         color: #f5f7fb;
-    }
-    .title-block {
-        padding: 12px;
     }
     .dashboard-card {
         border: 1px solid rgba(255, 255, 255, 0.12);
@@ -164,12 +164,13 @@ with left_column:
 
         submit_button = st.form_submit_button(label="Apply filters")
 
+G = make_graph()
 
 with center_column:
 
-    st.markdown("<div class='title-block'><h1>US Presidents' Inauguration Addresses</h1><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
+    st.markdown("<div><h3>US Presidents' Inauguration Addresses</h3><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
     with st.container(horizontal_alignment="center", vertical_alignment="top", width=1000, height=1000):
-        st.plotly_chart(create_sample_graph())
+        st.plotly_chart(viz_graph(G))
 
 with right_column:
 
