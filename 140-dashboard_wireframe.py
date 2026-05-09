@@ -1,4 +1,25 @@
+
 import streamlit as st
+import plotly.figure_factory as ff
+from numpy.random import default_rng as rng
+import plotly.graph_objects as go
+import networkx as nx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 st.set_page_config(
     page_title="Inauguration Addresses Dashboard",
@@ -51,7 +72,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-left_column, center_column, right_column = st.columns([2, 8, 4])
+left_column, center_column, right_column = st.columns([2, 10, 4])
 
 with left_column:
     
@@ -64,29 +85,29 @@ with left_column:
             value=(1789, 2017),
             step=4,
         )
+        history = st.selectbox(
+            "History",
+            ["None", "Civil War", "WW-1", "WW-2","Great Depression", "Cold War"],
+        )
         party = st.selectbox(
             "Party",
             ["All", "Democrat", "Republican", "Whig", "Federalist", "Independent"],
         )
-        history = st.selectbox(
-            "History",
-            ["All", "Civil War", "WWI", "Great Depression", "Cold War"],
-        )
-
-        st.markdown("#### Graph construction")
+        
+        st.markdown("#### Graph view")
         node_coloring = st.selectbox(
             "Node coloring",
             ["by party", "by year of first use"],
         )
         node_sizing = st.selectbox(
             "Node sizing",
+            ["doc_freq", "term_freq", "degree"],
+        )
+        node_size_growth = st.selectbox(
+            "Node size growth",
             ["proportional", "radix"],
         )
-        keyword_score = st.text_input("Required keyword score")
-
-        st.markdown("#### View")
-        keyword_select = st.text_input("Select single keyword")
-
+        keyword_score = st.text_input("Required keyword score", value="0.14")
         show_labels = st.radio("Node label", ["yes", "no"], index=1)
 
         submit_button = st.form_submit_button(label="Apply filters")
@@ -95,10 +116,79 @@ with left_column:
 with center_column:
 
     st.markdown("<div class='title-block'><h1>US Presidents' Inauguration Addresses</h1><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
-    with st.container(horizontal_alignment="center", vertical_alignment="top"):
-        st.image("graphs/USPresInaugAddr_0.14.bokeh.svg")
+    with st.container(horizontal_alignment="center", vertical_alignment="top", width="stretch"):
+        G = nx.random_geometric_graph(200, 0.125)
+        edge_x = []
+        edge_y = []
+        for edge in G.edges():
+            x0, y0 = G.nodes[edge[0]]['pos']
+            x1, y1 = G.nodes[edge[1]]['pos']
+            edge_x.append(x0)
+            edge_x.append(x1)
+            edge_x.append(None)
+            edge_y.append(y0)
+            edge_y.append(y1)
+            edge_y.append(None)
+
+        edge_trace = go.Scatter(
+            x=edge_x, y=edge_y,
+            line=dict(width=0.5, color='#888'),
+            hoverinfo='none',
+            mode='lines')
+
+        node_x = []
+        node_y = []
+        for node in G.nodes():
+            x, y = G.nodes[node]['pos']
+            node_x.append(x)
+            node_y.append(y)
+
+        node_trace = go.Scatter(
+            x=node_x, y=node_y,
+            mode='markers',
+            hoverinfo='text',
+            marker=dict(
+                showscale=True,
+                # colorscale options
+                #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
+                #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
+                #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
+                colorscale='YlGnBu',
+                reversescale=True,
+                color=[],
+                size=10,
+                colorbar=dict(
+                    thickness=15,
+                    title=dict(
+                    text='Node Connections',
+                    side='right'
+                    ),
+                    xanchor='left',
+                ),
+                line_width=2))
+        fig = go.Figure(data=[edge_trace, node_trace],
+                    layout=go.Layout(
+                        title=dict(
+                            text="<br>Network graph made with Python",
+                            font=dict(
+                                size=16
+                            )
+                        ),
+                        showlegend=False,
+                        hovermode='closest',
+                        margin=dict(b=20,l=5,r=5,t=40),
+                        annotations=[ dict(
+                            text="Python code: <a href='https://plotly.com/python/network-graphs/'> https://plotly.com/python/network-graphs/</a>",
+                            showarrow=False,
+                            xref="paper", yref="paper",
+                            x=0.005, y=-0.002 ) ],
+                        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
+                        )
+        st.plotly_chart(fig)
 
 with right_column:
+
     st.markdown("<div class='dashboard-card'><h3>key graph data</h3><p>Summary details for the selected graph, number of nodes, edges, and filters used.</p></div>", unsafe_allow_html=True)
     st.markdown("<div class='dashboard-card'><h3>degree distribution in selection</h3><p>Histogram or aggregated distribution metrics for node degrees in the current selection.</p></div>", unsafe_allow_html=True)
     st.markdown("<div class='dashboard-card'><h3>doc. freq. distribution in selection</h3><p>Document frequency distribution over the filtered address selection.</p></div>", unsafe_allow_html=True)
@@ -109,11 +199,11 @@ st.markdown("---")
 st.markdown(
     "#### Debug & state preview\n"
     f"**Years:** {year_range}  \n"
-    f"**Party:** {party}  \n"
     f"**History:** {history}  \n"
+    f"**Party:** {party}  \n"
     f"**Node coloring:** {node_coloring}  \n"
     f"**Node sizing:** {node_sizing}  \n"
+    f"**Node size growth:** {node_size_growth}  \n"
     f"**Keyword score:** {keyword_score or 'None'}  \n"
-    f"**Single keyword:** {keyword_select or 'None'}  \n"
     f"**Node labels:** {show_labels}",
 )
