@@ -1,25 +1,77 @@
-
 import streamlit as st
 import plotly.figure_factory as ff
 from numpy.random import default_rng as rng
 import plotly.graph_objects as go
 import networkx as nx
+import json
 
+def make_graph():
+    # Reconstruct the graph
+    with open('graphs/USPresInaugAddr_0.14.json', 'r', encoding='utf-8') as f:
+        InaugAddr_json = json.load(f)
+    G = nx.node_link_graph(InaugAddr_json)
+    print(G)
+    return G
 
+def create_sample_graph(G=None):
+    pos = nx.spring_layout(G)
+    edge_x = []
+    edge_y = []
+    for edge in G.edges():
+        x0, y0 = pos[edge[0]]
+        x1, y1 = pos[edge[1]]
+        edge_x.append(x0)
+        edge_x.append(x1)
+        edge_x.append(None)
+        edge_y.append(y0)
+        edge_y.append(y1)
+        edge_y.append(None)
 
+    edge_trace = go.Scatter(
+        x=edge_x, y=edge_y,
+        line=dict(width=0.5, color='#888'),
+        hoverinfo='none',
+        mode='lines')
 
+    node_x = []
+    node_y = []
+    for node in G.nodes():
+        x, y = pos[node]
+        node_x.append(x)
+        node_y.append(y)
 
-
-
-
-
-
-
-
-
-
-
-
+    node_trace = go.Scatter(
+        x=node_x, y=node_y,
+        mode='markers',
+        hoverinfo='text',
+        marker=dict(
+            showscale=True,
+            # colorscale options
+            #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
+            #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
+            #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
+            colorscale='YlGnBu',
+            reversescale=True,
+            color=[],
+            size=10,
+            colorbar=dict(
+                thickness=15,
+                title=dict(
+                text='Node degree',
+                side='right'
+                ),
+                xanchor='left',
+            ),
+            line_width=2))
+    fig = go.Figure(data=[edge_trace, node_trace],
+                layout=go.Layout(
+                    showlegend=False,
+                    hovermode='closest',
+                    margin=dict(b=8,l=2,r=2,t=8),
+                    xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                    yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
+                    )
+    return fig
 
 st.set_page_config(
     page_title="Inauguration Addresses Dashboard",
@@ -72,7 +124,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-left_column, center_column, right_column = st.columns([2, 10, 4])
+left_column, center_column, right_column = st.columns([3, 10, 3])
 
 with left_column:
     
@@ -116,76 +168,8 @@ with left_column:
 with center_column:
 
     st.markdown("<div class='title-block'><h1>US Presidents' Inauguration Addresses</h1><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
-    with st.container(horizontal_alignment="center", vertical_alignment="top", width="stretch"):
-        G = nx.random_geometric_graph(200, 0.125)
-        edge_x = []
-        edge_y = []
-        for edge in G.edges():
-            x0, y0 = G.nodes[edge[0]]['pos']
-            x1, y1 = G.nodes[edge[1]]['pos']
-            edge_x.append(x0)
-            edge_x.append(x1)
-            edge_x.append(None)
-            edge_y.append(y0)
-            edge_y.append(y1)
-            edge_y.append(None)
-
-        edge_trace = go.Scatter(
-            x=edge_x, y=edge_y,
-            line=dict(width=0.5, color='#888'),
-            hoverinfo='none',
-            mode='lines')
-
-        node_x = []
-        node_y = []
-        for node in G.nodes():
-            x, y = G.nodes[node]['pos']
-            node_x.append(x)
-            node_y.append(y)
-
-        node_trace = go.Scatter(
-            x=node_x, y=node_y,
-            mode='markers',
-            hoverinfo='text',
-            marker=dict(
-                showscale=True,
-                # colorscale options
-                #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
-                #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
-                #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
-                colorscale='YlGnBu',
-                reversescale=True,
-                color=[],
-                size=10,
-                colorbar=dict(
-                    thickness=15,
-                    title=dict(
-                    text='Node Connections',
-                    side='right'
-                    ),
-                    xanchor='left',
-                ),
-                line_width=2))
-        fig = go.Figure(data=[edge_trace, node_trace],
-                    layout=go.Layout(
-                        title=dict(
-                            text="<br>Network graph made with Python",
-                            font=dict(
-                                size=16
-                            )
-                        ),
-                        showlegend=False,
-                        hovermode='closest',
-                        margin=dict(b=20,l=5,r=5,t=40),
-                        annotations=[ dict(
-                            text="Python code: <a href='https://plotly.com/python/network-graphs/'> https://plotly.com/python/network-graphs/</a>",
-                            showarrow=False,
-                            xref="paper", yref="paper",
-                            x=0.005, y=-0.002 ) ],
-                        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-                        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
-                        )
-        st.plotly_chart(fig)
+    with st.container(horizontal_alignment="center", vertical_alignment="top", width=1000, height=1000):
+        st.plotly_chart(create_sample_graph())
 
 with right_column:
 
