@@ -4,6 +4,30 @@ from numpy.random import default_rng as rng
 import plotly.graph_objects as go
 import networkx as nx
 import json
+import pymongo
+import sys
+
+# MongoDB connection URI (set your credentials here)
+MONGO_URI = "mongodb+srv://nluttenberger:Ii5K!dQ%40F3txZ3D7@methods26-cluster.f7nz9hl.mongodb.net/?appName=methods26-cluster"
+
+# Historical periods mapping to year ranges
+HISTORY_PERIODS = {
+    "None": (None, None),
+    "Civil War": (1861, 1865),
+    "WW-1": (1914, 1918),
+    "WW-2": (1939, 1945),
+    "Great Depression": (1929, 1939),
+    "Cold War": (1947, 1991),
+}
+
+# Party label mapping for UI values to stored MongoDB values
+PARTY_MAP = {
+    "Democrat": ["Demokrat", "Democrat"],
+    "Republican": ["Republikaner", "Republican"],
+    "Whig": ["Whig"],
+    "Federalist": ["Föderalist", "Federalist"],
+    "Independent": ["parteilos", "Independent"],
+}
 
 def make_graph():
     # Reconstruct the graph
@@ -12,6 +36,70 @@ def make_graph():
     G = nx.node_link_graph(InaugAddr_json)
     print(G)
     return G
+
+def get_texts(time=None, history=None, party=None):
+    """
+    Retrieve inauguration address texts from MongoDB based on filters.
+    
+    Parameters:
+    - time: tuple (min_year, max_year) from year range slider
+    - history: str, historical period name
+    - party: str, political party name
+    
+    Returns:
+    - list of documents containing text excerpts matching the filters
+    """
+    try:
+        client = pymongo.MongoClient(MONGO_URI)
+        db = client.myDatabase
+        coll = db.inaug_addresses
+        print("Connected to MongoDB successfully.")
+    except pymongo.errors.ConfigurationError:
+        print("Invalid MongoDB URI or connection failed.")
+        return []
+    
+    query_filter = {}
+    year_filter = {}
+
+    # Handle year range from time slider
+    if time:
+        min_year, max_year = time
+        year_filter["$gte"] = str(min_year)
+        year_filter["$lte"] = str(max_year)
+
+    # Handle historical period filter
+    if history != "None":
+        start_year, end_year = HISTORY_PERIODS.get(history, (None, None))
+        if start_year and end_year:
+            year_filter["$gte"] = str(start_year)
+            year_filter["$lte"] = str(end_year)
+
+    if year_filter:
+        query_filter["year"] = year_filter
+
+    # Handle party filter
+    if party != "All":
+        mapped = PARTY_MAP.get(party, [party])
+        query_filter["party"] = {"$in": mapped}
+
+    print(f"Constructed query filter: {query_filter}")
+
+    try:
+        q_cursor = coll.find(query_filter, {
+            "_id": 0,
+            "pres_name": 1,
+            "year": 1,
+            "party": 1,
+            "date": 1,
+            "txt": 1
+        })
+        results = list(q_cursor)
+        return results
+    except pymongo.errors.OperationFailure as e:
+        print(f"Database operation failed: {e}")
+        return []
+    finally:
+        client.close()
 
 def viz_graph(G=None):
     pos = nx.spring_layout(G)
@@ -53,7 +141,6 @@ def viz_graph(G=None):
             color=[],
             size=10,
             colorbar=dict(
-                y=4,
                 thickness=15,
                 title=dict(
                 text='Node degree',
@@ -70,7 +157,7 @@ def viz_graph(G=None):
                 layout=go.Layout(
                     showlegend=False,
                     hovermode='closest',
-                    margin=dict(b=8,l=2,r=2,t=8),
+                    margin=dict(b=8,l=2,r=100,t=50),
                     xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
                     yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
                     )
@@ -124,6 +211,10 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
+
+######### streamlit app layout #########
+
 left_column, center_column, right_column = st.columns([3, 10, 3])
 
 with left_column:
@@ -143,7 +234,7 @@ with left_column:
         )
         party = st.selectbox(
             "Party",
-            ["All", "Democrat", "Republican", "Whig", "Federalist", "Independent"],
+            ["All", "Demokrat", "Republikaner", "Whig", "Federalist", "Independent"],
         )
         
         st.markdown("#### Graph view")
@@ -178,9 +269,17 @@ with right_column:
     st.markdown("<div class='dashboard-card'><h3>degree distribution in selection</h3><p>Histogram or aggregated distribution metrics for node degrees in the current selection.</p></div>", unsafe_allow_html=True)
     st.markdown("<div class='dashboard-card'><h3>doc. freq. distribution in selection</h3><p>Document frequency distribution over the filtered address selection.</p></div>", unsafe_allow_html=True)
     st.markdown("<div class='dashboard-card'><h3>term freq. distribution in selection</h3><p>Term frequency distribution showing how often keywords appear in the selected corpus.</p></div>", unsafe_allow_html=True)
-    st.markdown("<div class='dashboard-card'><h3>short text</h3><p>Short excerpt or observation related to the current filter and graph view.</p></div>", unsafe_allow_html=True)
+    st.markdown("<div class='dashboard-card'><h3>short text excerpts</h3><p>Short excerpt or observation related to the current filter and graph view.</p></div>", unsafe_allow_html=True)
 
 st.markdown("---")
+
+#### Debug & state preview (for development purposes, can be removed in final version) ####
+
+texts = get_texts(time=year_range, history=history, party=party)
+# st.write(f"Number of texts found: {len(texts)}")
+for doc in texts:  # Display results for verification
+    st.write(f"{doc.get('year', 'N/A')}, {doc.get('pres_name', 'N/A')}, {doc.get('party', 'N/A')}")
+
 st.markdown(
     "#### Debug & state preview\n"
     f"**Years:** {year_range}  \n"
