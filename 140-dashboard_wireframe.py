@@ -255,7 +255,12 @@ with left_column:
 
         submit_button = st.form_submit_button(label="Apply filters")
 
-G = make_graph()
+if submit_button:
+    texts = get_texts(time=year_range, history=history, party=party)
+    G = make_graph()
+else:
+    texts = []
+    G = make_graph()
 
 with center_column:
 
@@ -275,7 +280,6 @@ st.markdown("---")
 
 #### Debug & state preview (for development purposes, can be removed in final version) ####
 
-texts = get_texts(time=year_range, history=history, party=party)
 # st.write(f"Number of texts found: {len(texts)}")
 for doc in texts:  # Display results for verification
     st.write(f"{doc.get('year', 'N/A')}, {doc.get('pres_name', 'N/A')}, {doc.get('party', 'N/A')}")
