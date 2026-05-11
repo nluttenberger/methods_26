@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import streamlit as st
 import plotly.figure_factory as ff
 from numpy.random import default_rng as rng
@@ -6,6 +7,8 @@ import networkx as nx
 import json
 import pymongo
 import sys
+
+########## Configuration and constants 
 
 # MongoDB connection URI (set your credentials here)
 MONGO_URI = "mongodb+srv://nluttenberger:Ii5K!dQ%40F3txZ3D7@methods26-cluster.f7nz9hl.mongodb.net/?appName=methods26-cluster"
@@ -29,19 +32,13 @@ PARTY_MAP = {
     "Independent": ["parteilos", "Independent"],
 }
 
-def make_graph():
-    # Reconstruct the graph
-    with open('graphs/USPresInaugAddr_0.14.json', 'r', encoding='utf-8') as f:
-        InaugAddr_json = json.load(f)
-    G = nx.node_link_graph(InaugAddr_json)
-    print(G)
-    return G
+########## Functions
 
+### Make corpus 
 def get_texts(time=None, history=None, party=None):
     """
     Retrieve inauguration address texts from MongoDB based on filters.
-    
-    Parameters:
+        Parameters:
     - time: tuple (min_year, max_year) from year range slider
     - history: str, historical period name
     - party: str, political party name
@@ -62,20 +59,17 @@ def get_texts(time=None, history=None, party=None):
     year_filter = {}
 
     # Handle year range from time slider
-    if time:
-        min_year, max_year = time
-        year_filter["$gte"] = str(min_year)
-        year_filter["$lte"] = str(max_year)
+    min_year, max_year = time
+    year_filter["$gte"] = str(min_year)
+    year_filter["$lte"] = str(max_year)
 
     # Handle historical period filter
     if history != "None":
         start_year, end_year = HISTORY_PERIODS.get(history, (None, None))
-        if start_year and end_year:
-            year_filter["$gte"] = str(start_year)
-            year_filter["$lte"] = str(end_year)
+        year_filter["$gte"] = str(start_year)
+        year_filter["$lte"] = str(end_year)
 
-    if year_filter:
-        query_filter["year"] = year_filter
+    query_filter["year"] = year_filter
 
     # Handle party filter
     if party != "All":
@@ -101,6 +95,50 @@ def get_texts(time=None, history=None, party=None):
     finally:
         client.close()
 
+### Extract keywords from corpus
+def extract_keywords(corpus, keyword_score=0.14):
+    texts =  [doc['txt'] for doc in corpus]
+    titles = [doc['year'] + "_" + doc['pres_name'] for doc in corpus]
+    addresses = []
+    add_concat = []
+    xx = []
+    yy = []
+    for text in texts:
+        content = text.lower()
+        content = content.split('\t')[2].replace('\n',' ')
+        soup = BeautifulSoup(content, 'html.parser')
+        text_no_tags = soup.get_text()
+        #print(f"\nLength before stopword removal and lemmatization: {len(text_no_tags)} for {Path(text_file).stem}")
+        xx.append(len(text_no_tags))
+        doc = nlp(text_no_tags)
+        text_lemmatized_list = [token.lemma_ for token in doc if token.text not in stopw and not token.is_punct and not token.lemma_ in stopw]
+        text_lemmatized = ' '.join(text_lemmatized_list)
+        text = re.sub(r'\$?\s*\d+[,\d+]+', '', text_lemmatized)
+        #print (text)
+        #print(f"Length after stopw removal and lemmatization:  {len(text)}")
+        yy.append(len(text))
+        addresses.append(text)
+        file.close()
+    txt_reduct_df = pd.DataFrame({'address' : text_titles, 'before': xx, 'after': yy})
+    num_nodes_to_inspect = 40
+
+
+
+
+
+
+    return 'ok'
+
+### Graph construction
+def make_graph():
+    # Reconstruct the graph
+    with open('graphs/USPresInaugAddr_0.14.json', 'r', encoding='utf-8') as f:
+        InaugAddr_json = json.load(f)
+    G = nx.node_link_graph(InaugAddr_json)
+    print(G)
+    return G
+
+### Graph visualization function using Plotly and NetworkX
 def viz_graph(G=None):
     pos = nx.spring_layout(G)
     edge_x = []
@@ -163,6 +201,8 @@ def viz_graph(G=None):
                     )
     return fig
 
+########## Streamlit app layout and interactivity
+
 st.set_page_config(
     page_title="Inauguration Addresses Dashboard",
     layout="wide"
@@ -211,14 +251,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
-
-######### streamlit app layout #########
-
 left_column, center_column, right_column = st.columns([3, 10, 3])
 
 with left_column:
-    
     with st.form("data_select"):
         st.markdown("#### Data selection")
         year_range = st.slider(
@@ -255,21 +290,13 @@ with left_column:
 
         submit_button = st.form_submit_button(label="Apply filters")
 
-if submit_button:
-    texts = get_texts(time=year_range, history=history, party=party)
-    G = make_graph()
-else:
-    texts = []
-    G = make_graph()
-
 with center_column:
-
     st.markdown("<div><h3>US Presidents' Inauguration Addresses</h3><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
     with st.container(horizontal_alignment="center", vertical_alignment="top", width=1000, height=1000):
+        G = make_graph()
         st.plotly_chart(viz_graph(G))
 
 with right_column:
-
     st.markdown("<div class='dashboard-card'><h3>key graph data</h3><p>Summary details for the selected graph, number of nodes, edges, and filters used.</p></div>", unsafe_allow_html=True)
     st.markdown("<div class='dashboard-card'><h3>degree distribution in selection</h3><p>Histogram or aggregated distribution metrics for node degrees in the current selection.</p></div>", unsafe_allow_html=True)
     st.markdown("<div class='dashboard-card'><h3>doc. freq. distribution in selection</h3><p>Document frequency distribution over the filtered address selection.</p></div>", unsafe_allow_html=True)
@@ -278,8 +305,10 @@ with right_column:
 
 st.markdown("---")
 
-#### Debug & state preview (for development purposes, can be removed in final version) ####
-
+########## Debug & state preview
+texts = []
+if submit_button:
+    texts = get_texts(time=year_range, history=history, party=party)
 # st.write(f"Number of texts found: {len(texts)}")
 for doc in texts:  # Display results for verification
     st.write(f"{doc.get('year', 'N/A')}, {doc.get('pres_name', 'N/A')}, {doc.get('party', 'N/A')}")
