@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import spacy
 import streamlit as st
 import plotly.figure_factory as ff
 from numpy.random import default_rng as rng
@@ -6,7 +7,8 @@ import plotly.graph_objects as go
 import networkx as nx
 import json
 import pymongo
-import sys
+import re
+import pandas as pd
 
 ########## Configuration and constants 
 
@@ -32,10 +34,19 @@ PARTY_MAP = {
     "Independent": ["parteilos", "Independent"],
 }
 
+# Load stopwords for lemmatization from file
+file = 'stopwords/stopwords_en_nl'
+with open(file, 'r', encoding='utf-8') as stop:
+    stopw = stop.read()
+stopw = stopw.split('\n')
+
+# Load spaCy model for NLP processing
+nlp = spacy.load("en_core_web_sm")
+
 ########## Functions
 
 ### Make corpus 
-def get_texts(time=None, history=None, party=None):
+def make_corpus(time=None, history=None, party=None):
     """
     Retrieve inauguration address texts from MongoDB based on filters.
         Parameters:
@@ -81,6 +92,7 @@ def get_texts(time=None, history=None, party=None):
     try:
         q_cursor = coll.find(query_filter, {
             "_id": 0,
+            "addr_id": 1,
             "pres_name": 1,
             "year": 1,
             "party": 1,
@@ -97,30 +109,28 @@ def get_texts(time=None, history=None, party=None):
 
 ### Extract keywords from corpus
 def extract_keywords(corpus, keyword_score=0.14):
+    print(f"Extracting keywords with score threshold: {keyword_score}")
     texts =  [doc['txt'] for doc in corpus]
-    titles = [doc['year'] + "_" + doc['pres_name'] for doc in corpus]
+    titles = [doc['addr_id'] for doc in corpus]
     addresses = []
     add_concat = []
-    xx = []
-    yy = []
-    for text in texts:
-        content = text.lower()
-        content = content.split('\t')[2].replace('\n',' ')
+    
+    yy = dict()
+    for doc in corpus:
+        content = doc['txt'].lower()
+        content = content.replace('\n',' ')
         soup = BeautifulSoup(content, 'html.parser')
         text_no_tags = soup.get_text()
-        #print(f"\nLength before stopword removal and lemmatization: {len(text_no_tags)} for {Path(text_file).stem}")
-        xx.append(len(text_no_tags))
         doc = nlp(text_no_tags)
         text_lemmatized_list = [token.lemma_ for token in doc if token.text not in stopw and not token.is_punct and not token.lemma_ in stopw]
         text_lemmatized = ' '.join(text_lemmatized_list)
         text = re.sub(r'\$?\s*\d+[,\d+]+', '', text_lemmatized)
-        #print (text)
-        #print(f"Length after stopw removal and lemmatization:  {len(text)}")
-        yy.append(len(text))
+        yy[doc['addr_id']] = len(text)
         addresses.append(text)
-        file.close()
-    txt_reduct_df = pd.DataFrame({'address' : text_titles, 'before': xx, 'after': yy})
-    num_nodes_to_inspect = 40
+        
+    txt_reduct_df = pd.DataFrame(index=list(yy.keys()), columns=[list(yy.values())])
+    print(txt_reduct_df)
+        
 
 
 
@@ -193,6 +203,7 @@ def viz_graph(G=None):
 
     fig = go.Figure(data=[edge_trace, node_trace],
                 layout=go.Layout(
+                    width=850, height=770,
                     showlegend=False,
                     hovermode='closest',
                     margin=dict(b=8,l=2,r=100,t=50),
@@ -242,10 +253,6 @@ st.markdown(
         margin-top: 0;
         color: #f5f7fb;
     }
-    .graph-placeholder p {
-        color: #cfd8ff;
-        opacity: 0.8;
-    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -292,7 +299,7 @@ with left_column:
 
 with center_column:
     st.markdown("<div><h3>US Presidents' Inauguration Addresses</h3><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
-    with st.container(horizontal_alignment="center", vertical_alignment="top", width=1000, height=1000):
+    with st.container(horizontal_alignment="center", width=int(1.5*850), height=1000, border=True):
         G = make_graph()
         st.plotly_chart(viz_graph(G))
 
@@ -308,10 +315,9 @@ st.markdown("---")
 ########## Debug & state preview
 texts = []
 if submit_button:
-    texts = get_texts(time=year_range, history=history, party=party)
-# st.write(f"Number of texts found: {len(texts)}")
-for doc in texts:  # Display results for verification
-    st.write(f"{doc.get('year', 'N/A')}, {doc.get('pres_name', 'N/A')}, {doc.get('party', 'N/A')}")
+    texts = make_corpus(time=year_range, history=history, party=party)
+    st.write(f"Number of texts found: {len(texts)}")
+    st.write(f"{extract_keywords(texts, keyword_score=keyword_score)}")
 
 st.markdown(
     "#### Debug & state preview\n"
