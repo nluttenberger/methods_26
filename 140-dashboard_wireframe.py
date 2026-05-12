@@ -5,10 +5,15 @@ import plotly.figure_factory as ff
 from numpy.random import default_rng as rng
 import plotly.graph_objects as go
 import networkx as nx
+from networkx.algorithms import bipartite
 import json
 import pymongo
 import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from collections import Counter 
 import pandas as pd
+pd.options.display.max_rows = 600
 
 ########## Configuration and constants 
 
@@ -109,38 +114,81 @@ def make_corpus(time=None, history=None, party=None):
 
 ### Extract keywords from corpus
 def extract_keywords(corpus, keyword_score=0.14):
-    print(f"Extracting keywords with score threshold: {keyword_score}")
-    texts =  [doc['txt'] for doc in corpus]
-    titles = [doc['addr_id'] for doc in corpus]
-    addresses = []
-    add_concat = []
     
-    yy = dict()
+    """
+    Extract keywords from the given corpus of texts using spaCy for NLP processing,
+    and TF-IDF for term vectorization. Impose a threshold on the TF-IDF scores to filter relevant keywords.
+    Parameters: 
+    - corpus: list of documents, each document is a dict with 'txt' field containing the text
+    - keyword_score: float, threshold for keyword relevance (not implemented in this example, placeholder for future scoring mechanism)
+    Returns:
+    - DataFrame with columns 'addr_id', 'text_len', and 'text' containing the processed text for each document
+    """
+
+    # Lemmatization
+    print(f"Extracting keywords with score threshold: {keyword_score}")
+    lemmatized_df = pd.DataFrame(columns=['addr_id', 'text_len', 'text'])
     for doc in corpus:
         content = doc['txt'].lower()
         content = content.replace('\n',' ')
         soup = BeautifulSoup(content, 'html.parser')
         text_no_tags = soup.get_text()
-        doc = nlp(text_no_tags)
-        text_lemmatized_list = [token.lemma_ for token in doc if token.text not in stopw and not token.is_punct and not token.lemma_ in stopw]
-        text_lemmatized = ' '.join(text_lemmatized_list)
-        text = re.sub(r'\$?\s*\d+[,\d+]+', '', text_lemmatized)
-        yy[doc['addr_id']] = len(text)
-        addresses.append(text)
-        
-    txt_reduct_df = pd.DataFrame(index=list(yy.keys()), columns=[list(yy.values())])
-    print(txt_reduct_df)
-        
+        cleaned = nlp(text_no_tags)
+        text_lemmata = [token.lemma_ for token in cleaned if token.text not in stopw and not token.is_punct and not token.lemma_ in stopw]
+        text_lemmatized = ' '.join(text_lemmata)
+        text = re.sub(r'\$?\s*\d+[,\d+]+', '', text_lemmatized)     
+        lemmatized_df.loc[len(lemmatized_df)] = [doc.get('addr_id'), len(text), text]
+    lemmatized_df = lemmatized_df.sort_values('addr_id').reset_index(drop=True)
 
+    # TF-IDF vectorization
+    addresses = lemmatized_df['text'].tolist()
+    text_titles = lemmatized_df['addr_id'].tolist()
+    tfidf_vectorizer = TfidfVectorizer(input='content')
+    tfidf_vector = tfidf_vectorizer.fit_transform(addresses)
+    # Make a DataFrame out of the resulting tf–idf vector, setting the "feature names" (terms) as columns and the address titles (i.e. file names) as rows
+    tfidf_df = pd.DataFrame(tfidf_vector.toarray(), index=text_titles, columns=tfidf_vectorizer.get_feature_names_out())
 
+    # Reframe the tfidf dataFrame so that the terms are in rows rather than columns.
+    df_stacked = tfidf_df.stack().reset_index().rename(columns={0:'tfidf', 'level_0': 'address','level_1': 'term'})
 
+    # Set threshold for TF-IDF values and determine remaining terms
+    thres_tfidf = df_stacked[df_stacked['tfidf'] >= float(keyword_score)]
+    print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
 
+    return thres_tfidf
 
+### Create bipartite graph from stacked tf-idf DataFrame
+def create_bipartite_graph(thres_tfidf):
+    """
+    Create a bipartite graph where one set of nodes represents addresses and the other set represents terms, 
+    with edges indicating the presence of a term in an address based on the thresholded TF-IDF values.
+    Parameters:
+    - thres_tfidf: DataFrame with columns 'address', 'term', and 'tfidf'
+    Returns:
+    - B: bipartite graph
+    """
+    B = nx.Graph()
+    for _, row in thres_tfidf.iterrows():
+        address_node = row['address']
+        term_node = row['term']
+        B.add_node(address_node, type='address')
+        B.add_node(term_node, type='term')
+        B.add_edge(address_node, term_node)
+    return B
 
-    return 'ok'
+### Create keyword graph from bipartite graph by projection
+def create_keyword_graph(B):
+    """
+    Create a keyword graph by projecting the bipartite graph onto the term nodes, 
+    where edges between terms indicate co-occurrence in the same address.
+       Parameters:
+       - B: bipartite graph
+       Returns:
+       - G: keyword graph
+    """
+    return bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'term'])
 
-### Graph construction
-def make_graph():
+def x_create_keyword_graph():
     # Reconstruct the graph
     with open('graphs/USPresInaugAddr_0.14.json', 'r', encoding='utf-8') as f:
         InaugAddr_json = json.load(f)
@@ -300,7 +348,7 @@ with left_column:
 with center_column:
     st.markdown("<div><h3>US Presidents' Inauguration Addresses</h3><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
     with st.container(horizontal_alignment="center", width=int(1.5*850), height=1000, border=True):
-        G = make_graph()
+        G = x_create_keyword_graph()
         st.plotly_chart(viz_graph(G))
 
 with right_column:
@@ -317,7 +365,13 @@ texts = []
 if submit_button:
     texts = make_corpus(time=year_range, history=history, party=party)
     st.write(f"Number of texts found: {len(texts)}")
-    st.write(f"{extract_keywords(texts, keyword_score=keyword_score)}")
+    thres_tfidf = extract_keywords(texts, keyword_score=keyword_score)
+    B = create_bipartite_graph(thres_tfidf)
+    st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
+    st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
+    G = create_keyword_graph(B)
+    st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
+    st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
 
 st.markdown(
     "#### Debug & state preview\n"
