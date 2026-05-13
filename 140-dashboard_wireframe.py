@@ -147,22 +147,23 @@ def vectorize_corpus(corpus):
     tfidf_vector = tfidf_vectorizer.fit_transform(addresses)
     # Make a DataFrame out of the resulting tf–idf vector, setting the "feature names" (terms) as columns and the address titles (i.e. file names) as rows
     tfidf_df = pd.DataFrame(tfidf_vector.toarray(), index=text_titles, columns=tfidf_vectorizer.get_feature_names_out())
+    
+    return tfidf_df
 
-    # Reframe the tfidf dataFrame so that the terms are in rows rather than columns.
-    stacked_df = tfidf_df.stack().reset_index().rename(columns={0:'tfidf', 'level_0': 'address','level_1': 'term'})
-    return stacked_df
-
-### Create bipartite graph from stacked tf-idf DataFrame
-def create_bipartite_graph(stacked_df, keyword_score):
+### Create bipartite graph from tf-idf DataFrame
+def create_bipartite_graph(tfidf_df, keyword_score):
     """
     Create a bipartite graph where one set of nodes represents addresses and the other set represents terms, 
     with edges indicating the presence of a term in an address based on the thresholded TF-IDF values.
     Parameters:
-    - stacked_df: DataFrame with columns 'address', 'term', and 'tfidf'
+    - tfidf_df: DataFrame wiht addresses as rows and terms as columns, containing TF-IDF scores
     - keyword_score: float, threshold for keyword relevance
     Returns:
     - B: bipartite graph
     """
+    # Reframe the tfidf dataFrame so that the terms are in rows rather than columns.
+    stacked_df = tfidf_df.stack().reset_index().rename(columns={0:'tfidf', 'level_0': 'address','level_1': 'term'})
+
     # Set threshold for TF-IDF values and determine remaining terms
     thres_tfidf = stacked_df[stacked_df['tfidf'] >= float(keyword_score)]
     print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
@@ -178,17 +179,18 @@ def create_bipartite_graph(stacked_df, keyword_score):
     return B
 
 ### Create document frequency dict
-def create_doc_freq_dict(stacked_df, keyword_score):
+def create_doc_freq_dict(tfidf_df, keyword_score):
     """
     Create a dictionary mapping each term to its document frequency (number of addresses it appears in).
     Parameters:
-    - stacked_df: DataFrame with columns 'address', 'term', and 'tfidf'
+    - tfidf_df: DataFrame with addresses as rows and terms as columns, containing TF-IDF scores
     - keyword_score: float, threshold for keyword relevance
     Returns:
     - doc_freq_dict: dict mapping term to document frequency
     """
-    doc_freq_dict = stacked_df['term'].value_counts().to_dict()
-    print(f"Created document frequency dictionary:\n {doc_freq_dict} ")
+    tfidf_df.loc['doc_freq'] = tfidf_df.mask(tfidf_df > 0, 1).sum()
+    doc_freq_dict = tfidf_df.loc['doc_freq'].to_dict()
+    print(doc_freq_dict)
     return doc_freq_dict
 
 ### Create keyword graph from bipartite graph by projection
@@ -379,14 +381,14 @@ st.markdown("---")
 if submit_button:
     corpus = make_corpus(time=year_range, history=history, party=party)
     st.write(f"Number of texts found: {len(corpus)}")
-    stacked_df = vectorize_corpus(corpus)
-    B = create_bipartite_graph(stacked_df, keyword_score=keyword_score)
+    tfidf_df = vectorize_corpus(corpus)
+    B = create_bipartite_graph(tfidf_df, keyword_score)
     st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
     st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
     G = create_keyword_graph(B)
     st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
     st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
-    print(create_doc_freq_dict(stacked_df, keyword_score))
+    print(create_doc_freq_dict(tfidf_df, keyword_score))
 
 st.markdown(
     "#### Debug & state preview\n"
