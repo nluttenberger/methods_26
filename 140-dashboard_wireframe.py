@@ -113,7 +113,7 @@ def make_corpus(time=None, history=None, party=None):
         client.close()
 
 ### Extract keywords from corpus
-def extract_keywords(corpus, keyword_score=0.14):
+def vectorize_corpus(corpus):
     
     """
     Extract keywords from the given corpus of texts using spaCy for NLP processing,
@@ -149,24 +149,25 @@ def extract_keywords(corpus, keyword_score=0.14):
     tfidf_df = pd.DataFrame(tfidf_vector.toarray(), index=text_titles, columns=tfidf_vectorizer.get_feature_names_out())
 
     # Reframe the tfidf dataFrame so that the terms are in rows rather than columns.
-    df_stacked = tfidf_df.stack().reset_index().rename(columns={0:'tfidf', 'level_0': 'address','level_1': 'term'})
-
-    # Set threshold for TF-IDF values and determine remaining terms
-    thres_tfidf = df_stacked[df_stacked['tfidf'] >= float(keyword_score)]
-    print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
-
-    return thres_tfidf
+    stacked_df = tfidf_df.stack().reset_index().rename(columns={0:'tfidf', 'level_0': 'address','level_1': 'term'})
+    return stacked_df
 
 ### Create bipartite graph from stacked tf-idf DataFrame
-def create_bipartite_graph(thres_tfidf):
+def create_bipartite_graph(stacked_df, keyword_score):
     """
     Create a bipartite graph where one set of nodes represents addresses and the other set represents terms, 
     with edges indicating the presence of a term in an address based on the thresholded TF-IDF values.
     Parameters:
-    - thres_tfidf: DataFrame with columns 'address', 'term', and 'tfidf'
+    - stacked_df: DataFrame with columns 'address', 'term', and 'tfidf'
+    - keyword_score: float, threshold for keyword relevance
     Returns:
     - B: bipartite graph
     """
+    # Set threshold for TF-IDF values and determine remaining terms
+    thres_tfidf = stacked_df[stacked_df['tfidf'] >= float(keyword_score)]
+    print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
+
+    # Create bipartite graph B from the thresholded DataFrame
     B = nx.Graph()
     for _, row in thres_tfidf.iterrows():
         address_node = row['address']
@@ -175,6 +176,20 @@ def create_bipartite_graph(thres_tfidf):
         B.add_node(term_node, type='term')
         B.add_edge(address_node, term_node)
     return B
+
+### Create document frequency dict
+def create_doc_freq_dict(stacked_df, keyword_score):
+    """
+    Create a dictionary mapping each term to its document frequency (number of addresses it appears in).
+    Parameters:
+    - stacked_df: DataFrame with columns 'address', 'term', and 'tfidf'
+    - keyword_score: float, threshold for keyword relevance
+    Returns:
+    - doc_freq_dict: dict mapping term to document frequency
+    """
+    doc_freq_dict = stacked_df['term'].value_counts().to_dict()
+    print(f"Created document frequency dictionary:\n {doc_freq_dict} ")
+    return doc_freq_dict
 
 ### Create keyword graph from bipartite graph by projection
 def create_keyword_graph(B):
@@ -361,17 +376,17 @@ with right_column:
 st.markdown("---")
 
 ########## Debug & state preview
-texts = []
 if submit_button:
-    texts = make_corpus(time=year_range, history=history, party=party)
-    st.write(f"Number of texts found: {len(texts)}")
-    thres_tfidf = extract_keywords(texts, keyword_score=keyword_score)
-    B = create_bipartite_graph(thres_tfidf)
+    corpus = make_corpus(time=year_range, history=history, party=party)
+    st.write(f"Number of texts found: {len(corpus)}")
+    stacked_df = vectorize_corpus(corpus)
+    B = create_bipartite_graph(stacked_df, keyword_score=keyword_score)
     st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
     st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
     G = create_keyword_graph(B)
     st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
     st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
+    print(create_doc_freq_dict(stacked_df, keyword_score))
 
 st.markdown(
     "#### Debug & state preview\n"
