@@ -154,14 +154,17 @@ def vectorize_corpus(corpus):
     
     return tfidf_df
 
-### Create bipartite graph from tf-idf DataFrame
-def create_bipartite_graph(tfidf_df, keyword_score):
+### Create bipartite graph from tf-idf DataFrame and set node attributes based on corpus metadata
+def create_bipartite_graph(tfidf_df, keyword_score, corpus):
     """
     Create a bipartite graph where one set of nodes represents addresses and the other set represents terms, 
     with edges indicating the presence of a term in an address based on the thresholded TF-IDF values.
+    Set node attributes for the bipartite graph, such as party affiliation and year of first use for term nodes, 
+    based on the original corpus data.
     Parameters:
     - tfidf_df: DataFrame wiht addresses as rows and terms as columns, containing TF-IDF scores
     - keyword_score: float, threshold for keyword relevance
+    - corpus: list of documents containing metadata for addresses
     Returns:
     - B: bipartite graph
     """
@@ -180,7 +183,30 @@ def create_bipartite_graph(tfidf_df, keyword_score):
         B.add_node(address_node, type='address')
         B.add_node(term_node, type='term')
         B.add_edge(address_node, term_node)
+    
+    # Create a mapping from address ID to party and year
+    addr_metadata = {doc['addr_id']: {'party': doc['party'], 'year': int(doc['year'])} for doc in corpus}
+    
+    # Set attributes for address nodes
+    for node in B.nodes():
+        if B.nodes[node]['type'] == 'address':
+            metadata = addr_metadata.get(node, {})
+            B.nodes[node]['party'] = metadata.get('party', 'Unknown')
+            B.nodes[node]['year'] = metadata.get('year', None)
+    
+    # Set attributes for term nodes (year of first use)
+    for node in B.nodes():
+        if B.nodes[node]['type'] == 'term':
+            connected_addresses = [n for n in B.neighbors(node) if B.nodes[n]['type'] == 'address']
+            years = [B.nodes[addr].get('year') for addr in connected_addresses if B.nodes[addr].get('year') is not None]
+            parties = [B.nodes[addr].get('party') for addr in connected_addresses if B.nodes[addr].get('party') is not None]
+            if years:
+                B.nodes[node]['year'] = min(years)
+            else:
+                B.nodes[node]['year'] = None
+            B.nodes[node]['party'] = parties[years.index(B.nodes[node]['year'])] if years else None
     return B
+    
 
 ### Create document frequency dict
 def create_doc_freq_dict(tfidf_df, keyword_score):
@@ -208,7 +234,9 @@ def create_keyword_graph(B):
        Returns:
        - G: keyword graph
     """
-    return bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'term'])
+    X = bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'term'])
+    # print (X.nodes(data=True))
+    return X
 
 ### Graph visualization function using Plotly and NetworkX
 def viz_graph(G=None):
@@ -350,7 +378,7 @@ with center_column:
         if st.session_state.submitted:
             corpus = make_corpus(time=year_range, history=history, party=party)
             tfidf_df = vectorize_corpus(corpus)
-            B = create_bipartite_graph(tfidf_df, keyword_score)
+            B = create_bipartite_graph(tfidf_df, keyword_score, corpus)
             #st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
             #st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
             G = create_keyword_graph(B)
