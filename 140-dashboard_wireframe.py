@@ -50,6 +50,10 @@ nlp = spacy.load("en_core_web_sm")
 
 ########## Functions
 
+### Callback function for form submission to set session state
+def submitted():
+    st.session_state.submitted = True
+
 ### Make corpus 
 def make_corpus(time=None, history=None, party=None):
     """
@@ -188,8 +192,9 @@ def create_doc_freq_dict(tfidf_df, keyword_score):
     Returns:
     - doc_freq_dict: dict mapping term to document frequency
     """
-    tfidf_df.loc['doc_freq'] = tfidf_df.mask(tfidf_df > 0, 1).sum()
-    doc_freq_dict = tfidf_df.loc['doc_freq'].to_dict()
+    reduced_df = tfidf_df.loc[:, (tfidf_df >= float(keyword_score)).any(axis=0)] # Filter columnwise based on keyword score threshold
+    reduced_df.loc['doc_freq'] = reduced_df.mask(reduced_df > 0, 1).sum()
+    doc_freq_dict = {k: int(v) for k, v in reduced_df.loc['doc_freq'].to_dict().items()}
     print(doc_freq_dict)
     return doc_freq_dict
 
@@ -204,14 +209,6 @@ def create_keyword_graph(B):
        - G: keyword graph
     """
     return bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'term'])
-
-def x_create_keyword_graph():
-    # Reconstruct the graph
-    with open('graphs/USPresInaugAddr_0.14.json', 'r', encoding='utf-8') as f:
-        InaugAddr_json = json.load(f)
-    G = nx.node_link_graph(InaugAddr_json)
-    print(G)
-    return G
 
 ### Graph visualization function using Plotly and NetworkX
 def viz_graph(G=None):
@@ -279,6 +276,9 @@ def viz_graph(G=None):
 
 ########## Streamlit app layout and interactivity
 
+if 'submitted' not in st.session_state:
+    st.session_state.submitted = False
+
 st.set_page_config(
     page_title="Inauguration Addresses Dashboard",
     layout="wide"
@@ -289,24 +289,6 @@ st.markdown(
     <style>
     body {  
         color: #f5f7fb;
-    }
-    .dashboard-card {
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 16px;
-        padding: 18px;
-        margin-bottom: 16px;
-        min-height: 130px;
-    }
-    .dashboard-card h3 {
-        margin: 0 0 12px 0;
-        font-size: 1rem;
-        color: black;
-    }
-    .dashboard-card p {
-        margin: 0;
-        color: black;
-        opacity: .86;
-        line-height: 1.6;
     }
     .graph-placeholder {
         border: 1px solid rgba(255, 255, 255, 0.14);
@@ -360,35 +342,64 @@ with left_column:
         keyword_score = st.text_input("Required keyword score", value="0.14")
         show_labels = st.radio("Node label", ["yes", "no"], index=1)
 
-        submit_button = st.form_submit_button(label="Apply filters")
+        submit_button = st.form_submit_button(label="Apply filters", on_click=submitted)
 
 with center_column:
     st.markdown("<div><h3>US Presidents' Inauguration Addresses</h3><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
     with st.container(horizontal_alignment="center", width=int(1.5*850), height=1000, border=True):
-        G = x_create_keyword_graph()
-        st.plotly_chart(viz_graph(G))
+        if st.session_state.submitted:
+            corpus = make_corpus(time=year_range, history=history, party=party)
+            tfidf_df = vectorize_corpus(corpus)
+            B = create_bipartite_graph(tfidf_df, keyword_score)
+            #st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
+            #st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
+            G = create_keyword_graph(B)
+            #st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
+            #st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
+            st.plotly_chart(viz_graph(G))
 
 with right_column:
-    st.markdown("<div class='dashboard-card'><h3>key graph data</h3><p>Summary details for the selected graph, number of nodes, edges, and filters used.</p></div>", unsafe_allow_html=True)
-    st.markdown("<div class='dashboard-card'><h3>degree distribution in selection</h3><p>Histogram or aggregated distribution metrics for node degrees in the current selection.</p></div>", unsafe_allow_html=True)
-    st.markdown("<div class='dashboard-card'><h3>doc. freq. distribution in selection</h3><p>Document frequency distribution over the filtered address selection.</p></div>", unsafe_allow_html=True)
-    st.markdown("<div class='dashboard-card'><h3>term freq. distribution in selection</h3><p>Term frequency distribution showing how often keywords appear in the selected corpus.</p></div>", unsafe_allow_html=True)
-    st.markdown("<div class='dashboard-card'><h3>short text excerpts</h3><p>Short excerpt or observation related to the current filter and graph view.</p></div>", unsafe_allow_html=True)
+    st.markdown("##### Key graph data")
+    if st.session_state.submitted:
+        st.write(f"{len(corpus)} inauguration addresses in selection")
+        st.write(f"{G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
+        st.write(f"{nx.number_connected_components(G)} connected components")
+        st.write(f"Graph density: {nx.density(G):.4f}")
 
+    st.markdown("##### Top 20 document frequencies")
+    if st.session_state.submitted:
+        doc_freq_dict = create_doc_freq_dict(tfidf_df, keyword_score)
+        top_20 = sorted(doc_freq_dict.items(), key=lambda item: item[1], reverse=True)[:20]
+        terms = [k for k, v in top_20]
+        freqs = [v for k, v in top_20]
+        fig = go.Figure(data=[go.Bar(x=terms, y=freqs)])
+        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+        st.plotly_chart(fig)
+    
+    st.markdown("##### Top 20 betweenness values")
+    if st.session_state.submitted:
+        betweenness = nx.betweenness_centrality(G)
+        top_20 = sorted(betweenness.items(), key=lambda item: item[1], reverse=True)[:20]
+        nodes = [k for k, v in top_20]
+        values = [v for k, v in top_20]
+        fig = go.Figure(data=[go.Bar(x=nodes, y=values)])
+        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+        st.plotly_chart(fig)
+
+    st.markdown("##### Degree distribution")
+    if st.session_state.submitted:
+        hist = nx.degree_histogram(G)
+        degrees = list(range(len(hist)))
+        counts = hist
+        fig = go.Figure(data=[go.Bar(x=degrees, y=counts)])
+        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+        st.plotly_chart(fig)
+
+    st.markdown("##### Short comment")
 st.markdown("---")
 
 ########## Debug & state preview
-if submit_button:
-    corpus = make_corpus(time=year_range, history=history, party=party)
-    st.write(f"Number of texts found: {len(corpus)}")
-    tfidf_df = vectorize_corpus(corpus)
-    B = create_bipartite_graph(tfidf_df, keyword_score)
-    st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
-    st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
-    G = create_keyword_graph(B)
-    st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
-    st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
-    print(create_doc_freq_dict(tfidf_df, keyword_score))
+
 
 st.markdown(
     "#### Debug & state preview\n"
@@ -401,3 +412,5 @@ st.markdown(
     f"**Keyword score:** {keyword_score or 'None'}  \n"
     f"**Node labels:** {show_labels}",
 )
+
+del st.session_state.submitted
