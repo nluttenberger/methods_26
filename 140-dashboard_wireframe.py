@@ -194,7 +194,7 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
             B.nodes[node]['party'] = metadata.get('party', 'Unknown')
             B.nodes[node]['year'] = metadata.get('year', None)
     
-    # Set attributes for term nodes (year of first use)
+    # Set attributes for term nodes: year of first use, and party affiliation based on the address with the earliest year of use
     for node in B.nodes():
         if B.nodes[node]['type'] == 'term':
             connected_addresses = [n for n in B.neighbors(node) if B.nodes[n]['type'] == 'address']
@@ -205,6 +205,16 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
             else:
                 B.nodes[node]['year'] = None
             B.nodes[node]['party'] = parties[years.index(B.nodes[node]['year'])] if years else None
+    
+    # set attributes for all nodes: degree and doc_freq (number of addresses the term appears in)
+    for node in B.nodes():
+        if B.nodes[node]['type'] == 'term':
+            B.nodes[node]['degree'] = B.degree(node)
+            B.nodes[node]['doc_freq'] = create_doc_freq_dict(tfidf_df, keyword_score).get(node)
+    # Debug: print term nodes with attributes
+    # for node in B.nodes(data=True):
+    #     if node[1]['type'] == 'term':
+    #         print(node)
     return B
     
 
@@ -221,7 +231,7 @@ def create_doc_freq_dict(tfidf_df, keyword_score):
     reduced_df = tfidf_df.loc[:, (tfidf_df >= float(keyword_score)).any(axis=0)] # Filter columnwise based on keyword score threshold
     reduced_df.loc['doc_freq'] = reduced_df.mask(reduced_df > 0, 1).sum()
     doc_freq_dict = {k: int(v) for k, v in reduced_df.loc['doc_freq'].to_dict().items()}
-    print(doc_freq_dict)
+    #print(doc_freq_dict)
     return doc_freq_dict
 
 ### Create keyword graph from bipartite graph by projection
@@ -238,8 +248,46 @@ def create_keyword_graph(B):
     # print (X.nodes(data=True))
     return X
 
+### Node size helper based on document frequency
+def compute_node_sizes(G, nodes, node_sizing='doc_freq', node_size_growth='proportional', min_size=10, max_size=50):
+    """
+    Compute marker sizes for nodes in the graph based on the selected sizing metric.
+    Parameters:
+    - G: NetworkX graph with node attributes such as 'doc_freq' and degree
+    - nodes: ordered list of nodes to compute sizes for
+    - node_sizing: 'doc_freq' or 'degree'
+    - node_size_growth: 'proportional' or 'radix'
+    - min_size: minimum marker size
+    - max_size: maximum marker size
+    Returns:
+    - sizes: list of marker sizes in graph node order
+    """
+    values = []
+    for node in nodes:
+        if node_sizing == 'doc_freq':
+            values.append(G.nodes[node].get('doc_freq', 0))
+        elif node_sizing == 'degree':
+            values.append(G.degree(node))
+        else:
+            values.append(G.degree(node))
+
+    if not values or max(values) == min(values):
+        return [min_size for _ in values]
+
+    if node_size_growth == 'radix':
+        transformed = [v ** 0.5 for v in values]
+    else:
+        transformed = values
+
+    min_val = min(transformed)
+    max_val = max(transformed)
+    range_val = max_val - min_val if max_val != min_val else 1
+
+    sizes = [min_size + (value - min_val) / range_val * (max_size - min_size) for value in transformed]
+    return sizes
+
 ### Graph visualization function using Plotly and NetworkX
-def viz_graph(G=None):
+def viz_graph(G=None, node_coloring='by party', node_sizing='doc_freq', node_size_growth='proportional'):
     pos = nx.spring_layout(G)
     edge_x = []
     edge_y = []
@@ -264,6 +312,7 @@ def viz_graph(G=None):
     node_x = [pos[node][0] for node in sorted_nodes]
     node_y = [pos[node][1] for node in sorted_nodes]
     node_degrees = [node_degree[node] for node in sorted_nodes]
+    node_sizes = compute_node_sizes(G, sorted_nodes, node_sizing=node_sizing, node_size_growth=node_size_growth)
 
     node_trace = go.Scatter(
         x=node_x, y=node_y,
@@ -277,7 +326,7 @@ def viz_graph(G=None):
             #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
             colorscale='YlGnBu',
             color=[],
-            size=10,
+            size=node_sizes,
             colorbar=dict(
                 thickness=15,
                 title=dict(
@@ -288,7 +337,30 @@ def viz_graph(G=None):
             ),
             line_width=0.5))
 
-    node_trace.marker.color = node_degrees
+    if node_coloring == 'by party':
+        parties = [G.nodes[node].get('party', 'Unknown') for node in sorted_nodes]
+        palette = {
+            'Democrat': 'blue',
+            'Republican': 'red',
+            'Whig': 'green',
+            'Federalist': 'purple',
+            'Independent': 'orange',
+            'Unknown': 'gray'
+        }
+        node_colors = [palette.get(p, 'gray') for p in parties]
+        node_trace.marker.showscale = False
+        node_trace.marker.colorbar = None
+    elif node_coloring == 'by year of first use':
+        years = [G.nodes[node].get('year') for node in sorted_nodes]
+        node_colors = [year if year is not None else min([y for y in years if y is not None], default=0) for year in years]
+        node_trace.marker.colorscale = 'Viridis'
+        node_trace.marker.colorbar.title.text = 'Year of first use'
+    else:
+        node_colors = node_degrees
+        node_trace.marker.colorscale = 'YlGnBu'
+        node_trace.marker.colorbar.title.text = 'Node degree'
+
+    node_trace.marker.color = node_colors
     node_trace.text = [f"{node}<br>degree: {degree}" for node, degree in zip(sorted_nodes, node_degrees)]
 
     fig = go.Figure(data=[edge_trace, node_trace],
@@ -351,7 +423,7 @@ with left_column:
         )
         party = st.selectbox(
             "Party",
-            ["All", "Demokrat", "Republikaner", "Whig", "Federalist", "Independent"],
+            ["All", "Democrat", "Republican", "Whig", "Federalist", "Independent"],
         )
         
         st.markdown("#### Graph view")
@@ -384,7 +456,7 @@ with center_column:
             G = create_keyword_graph(B)
             #st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
             #st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
-            st.plotly_chart(viz_graph(G))
+            st.plotly_chart(viz_graph(G, node_coloring, node_sizing, node_size_growth))
 
 with right_column:
     st.markdown("##### Key graph data")
