@@ -1,8 +1,12 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import networkx as nx
-import pydot
+import pygraphviz as pgv
 import json
 import math
+import os
+import re
+import tempfile
 from collections import Counter
 
 ##### Helper functions for graph visualization
@@ -151,5 +155,85 @@ G = nx.node_link_graph(InaugAddr_json)
 # Convert graph to dot format
 dot = graphToDot(G)
 
-# Render graph in streamlit
-st.container(width=2400).graphviz_chart(dot)
+st.set_page_config(layout="wide")
+left, right = st.columns([3, 1])
+
+
+# Allow the user to select the pygraphviz layout engine
+layout_engine = st.selectbox(
+    "Layout engine",
+    ["sfdp", "neato", "dot", "fdp", "twopi"],
+    index=0,
+)
+
+B = pgv.AGraph(string=dot)
+B.layout(prog=layout_engine)
+
+# Render the pygraphviz layout directly as interactive SVG so tooltip attributes work.
+fd, svg_path = tempfile.mkstemp(suffix=".svg")
+os.close(fd)
+try:
+    B.draw(svg_path, format="svg")
+    with open(svg_path, "r", encoding="utf-8") as f:
+        svg_text = f.read()
+
+    # Give the SVG an ID so svg-pan-zoom can attach to it, and remove fixed width/height.
+    svg_text = svg_text.replace('<svg ', '<svg id="graph-svg" preserveAspectRatio="xMidYMid meet" ', 1)
+    svg_text = re.sub(r'\s(width|height)="[^"]+"', '', svg_text)
+
+    st.markdown("Hover over nodes to see tooltips if your browser supports it.")
+    svg_html = f"""
+<div id='svg-container' style='width:100%; border:1px solid #ddd;'>
+  <div style='display:flex; gap:8px; padding:8px; background:#f8f8f8; border-bottom:1px solid #ddd;'>
+    <button id='zoom-in' style='padding:6px 12px;'>Zoom +</button>
+    <button id='zoom-out' style='padding:6px 12px;'>Zoom -</button>
+    <button id='reset-view' style='padding:6px 12px;'>Reset view</button>
+    <button id='fit-view' style='padding:6px 12px;'>Fit view</button>
+  </div>
+  <div id='svg-wrapper' style='width:100%; height:900px; overflow:hidden;'>
+    {svg_text}
+  </div>
+</div>
+<script src='https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js'></script>
+<script>
+  const panZoom = svgPanZoom('#graph-svg', {{
+    zoomEnabled: true,
+    controlIconsEnabled: true,
+    fit: false,
+    center: false,
+    minZoom: 0.01,
+    maxZoom: 10,
+    zoomScaleSensitivity: 0.2,
+    dblClickZoomEnabled: true,
+    mouseWheelZoomEnabled: true,
+    preventMouseEventsDefault: true,
+  }});
+
+  const svg = document.getElementById('graph-svg');
+  const wrapper = document.getElementById('svg-wrapper');
+  svg.style.width = '100%';
+  svg.style.height = '100%';
+  svg.style.display = 'block';
+
+  function fitGraph() {{
+    panZoom.resize();
+    panZoom.fit();
+    panZoom.center();
+  }}
+
+  window.addEventListener('load', () => {{
+    fitGraph();
+    setTimeout(fitGraph, 100);
+    setTimeout(fitGraph, 300);
+  }});
+
+  document.getElementById('zoom-in').addEventListener('click', () => panZoom.zoomIn());
+  document.getElementById('zoom-out').addEventListener('click', () => panZoom.zoomOut());
+  document.getElementById('reset-view').addEventListener('click', () => {{ panZoom.resetZoom(); panZoom.resetPan(); panZoom.center(); }});
+  document.getElementById('fit-view').addEventListener('click', () => {{ panZoom.fit(); panZoom.center(); }});
+</script>
+"""
+    with left:
+        components.html(svg_html, height=950, width=1600, scrolling=True)
+finally:
+    os.remove(svg_path)
