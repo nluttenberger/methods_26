@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import spacy
+import base64
 import streamlit as st
 import plotly.figure_factory as ff
 from numpy.random import default_rng as rng
@@ -159,6 +160,36 @@ def vectorize_corpus(corpus):
     
     return tfidf_df
 
+### Create document frequency dict
+def create_doc_freq_dict(tfidf_df, keyword_score):
+    """
+    Create a dictionary mapping each term to its document frequency (number of addresses it appears in).
+    Parameters:
+    - tfidf_df: DataFrame with addresses as rows and terms as columns, containing TF-IDF scores
+    - keyword_score: float, threshold for keyword relevance
+    Returns:
+    - doc_freq_dict: dict mapping term to document frequency
+    """
+    reduced_df = tfidf_df.where(tfidf_df >= float(keyword_score), other=0) 
+    reduced_df.loc['doc_freq'] = reduced_df.mask(reduced_df > 0, 1).sum()
+    doc_freq_dict = {k: int(v) for k, v in reduced_df.loc['doc_freq'].to_dict().items()}
+    #print(reduced_df[['arrive', 'repose', 'punishment', 'magistrate', 'incur', 'official']])
+    return doc_freq_dict
+
+### Create tf-idf dict for each term in graph
+def create_tfidf_dict(tfidf_df, keyword_score):
+    """
+    Create a dictionary mapping each term to its maximum TF-IDF score in the final graph.
+    Parameters:
+    - tfidf_df: DataFrame with addresses as rows and terms as columns, containing TF-IDF scores
+    - keyword_score: float, threshold for keyword relevance
+    Returns:
+    - tfidf_dict: dict mapping term to TF-IDF score
+    """
+    reduced_df = tfidf_df.where(tfidf_df >= float(keyword_score), other=0) 
+    tfidf_dict = reduced_df.max().to_dict()
+    return tfidf_dict
+
 ### Create bipartite graph from tf-idf DataFrame and set node attributes based on corpus metadata
 def create_bipartite_graph(tfidf_df, keyword_score, corpus):
     """
@@ -178,7 +209,7 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
 
     # Set threshold for TF-IDF values and determine remaining terms
     thres_tfidf = stacked_df[stacked_df['tfidf'] >= float(keyword_score)]
-    print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
+    #print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
 
     # Create bipartite graph B from the thresholded DataFrame
     B = nx.Graph()
@@ -199,6 +230,10 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
             B.nodes[node]['party'] = metadata.get('party', 'Unknown')
             B.nodes[node]['year'] = metadata.get('year', None)
     
+    # Create document frequency dict for terms
+    doc_freq_dict = create_doc_freq_dict(tfidf_df, keyword_score)
+    tf_idf_dict = create_tfidf_dict(tfidf_df, keyword_score)
+    
     # Set attributes for term nodes: year of first use, and party affiliation based on the address with the earliest year of use
     for node in B.nodes():
         if B.nodes[node]['type'] == 'term':
@@ -211,174 +246,29 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
                 B.nodes[node]['year'] = None
             B.nodes[node]['party'] = parties[years.index(B.nodes[node]['year'])] if years else None
             B.nodes[node]['used_in'] = connected_addresses
-    
-    # set attributes for all nodes: degree and doc_freq (number of addresses the term appears in)
-    for node in B.nodes():
-        if B.nodes[node]['type'] == 'term':
-            B.nodes[node]['degree'] = B.degree(node)
-            B.nodes[node]['doc_freq'] = create_doc_freq_dict(tfidf_df, keyword_score).get(node)
-            print(f"Node: {node}, Year: {B.nodes[node]['year']}, Party: {B.nodes[node]['party']}, Doc freq: {B.nodes[node]['doc_freq']}, Degree: {B.nodes[node]['degree']}")
+            B.nodes[node]['doc_freq'] = doc_freq_dict[node]
+            B.nodes[node]['term_frq'] = tf_idf_dict[node]
     return B
-    
 
-### Create document frequency dict
-def create_doc_freq_dict(tfidf_df, keyword_score):
-    """
-    Create a dictionary mapping each term to its document frequency (number of addresses it appears in).
-    Parameters:
-    - tfidf_df: DataFrame with addresses as rows and terms as columns, containing TF-IDF scores
-    - keyword_score: float, threshold for keyword relevance
-    Returns:
-    - doc_freq_dict: dict mapping term to document frequency
-    """
-    reduced_df = tfidf_df.where(tfidf_df >= float(keyword_score), other=0) # Filter columnwise based on keyword score threshold
-    reduced_df.loc['doc_freq'] = reduced_df.mask(reduced_df > 0, 1).sum()
-    doc_freq_dict = {k: int(v) for k, v in reduced_df.loc['doc_freq'].to_dict().items()}
-    print(reduced_df[['arrive', 'repose', 'punishment', 'magistrate', 'incur', 'official']])
-    return doc_freq_dict
-
-### Create keyword graph from bipartite graph by projection
+### Create (term-to-term) keyword graph from (term-to-address) bipartite graph by projection
 def create_keyword_graph(B):
     """
     Create a keyword graph by projecting the bipartite graph onto the term nodes, 
-    where edges between terms indicate co-occurrence in the same address.
+    where edges between terms indicate co-occurrence in the same address. Additionally,
+    set degree attribute for nodes of the keyword graph based on the number of connections in the projected graph.
        Parameters:
        - B: bipartite graph
        Returns:
        - G: keyword graph
     """
     X = bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'term'])
-    # print (X.nodes(data=True))
+    # set degree attribute
+    for node in X.nodes():
+        if X.nodes[node]['type'] == 'term':
+            X.nodes[node]['degree'] = X.degree(node)
+            #print(f"Node: {node}, Year: {X.nodes[node]['year']}, Party: {X.nodes[node]['party']}, Doc freq: {X.nodes[node]['doc_freq']}, Degree: {X.nodes[node]['degree']}")
+   
     return X
-
-### Node size helper based on document frequency
-def compute_node_sizes(G, nodes, node_sizing='doc_freq', node_size_growth='proportional', min_size=10, max_size=50):
-    """
-    Compute marker sizes for nodes in the graph based on the selected sizing metric.
-    Parameters:
-    - G: NetworkX graph with node attributes such as 'doc_freq' and degree
-    - nodes: ordered list of nodes to compute sizes for
-    - node_sizing: 'doc_freq' or 'degree'
-    - node_size_growth: 'proportional' or 'radix'
-    - min_size: minimum marker size
-    - max_size: maximum marker size
-    Returns:
-    - sizes: list of marker sizes in graph node order
-    """
-    values = []
-    for node in nodes:
-        if node_sizing == 'doc_freq':
-            values.append(G.nodes[node].get('doc_freq', 0))
-        elif node_sizing == 'degree':
-            values.append(G.degree(node))
-        else:
-            values.append(G.degree(node))
-
-    if not values or max(values) == min(values):
-        return [min_size for _ in values]
-
-    if node_size_growth == 'radix':
-        transformed = [v ** 0.5 for v in values]
-    else:
-        transformed = values
-
-    min_val = min(transformed)
-    max_val = max(transformed)
-    range_val = max_val - min_val if max_val != min_val else 1
-
-    sizes = [min_size + (value - min_val) / range_val * (max_size - min_size) for value in transformed]
-    return sizes
-
-### Graph visualization function using Plotly and NetworkX
-def viz_graph(G=None, node_coloring='by party', node_sizing='doc_freq', node_size_growth='proportional'):
-    pos = nx.spring_layout(G)
-    edge_x = []
-    edge_y = []
-    for edge in G.edges():
-        x0, y0 = pos[edge[0]]
-        x1, y1 = pos[edge[1]]
-        edge_x.append(x0)
-        edge_x.append(x1)
-        edge_x.append(None)
-        edge_y.append(y0)
-        edge_y.append(y1)
-        edge_y.append(None)
-
-    edge_trace = go.Scatter(
-        x=edge_x, y=edge_y,
-        line=dict(width=0.5, color='#888'),
-        hoverinfo='none',
-        mode='lines')
-
-    node_degree = dict(G.degree())
-    sorted_nodes = sorted(G.nodes(), key=lambda n: node_degree[n])
-    node_x = [pos[node][0] for node in sorted_nodes]
-    node_y = [pos[node][1] for node in sorted_nodes]
-    node_degrees = [node_degree[node] for node in sorted_nodes]
-    node_sizes = compute_node_sizes(G, sorted_nodes, node_sizing=node_sizing, node_size_growth=node_size_growth)
-
-    node_trace = go.Scatter(
-        x=node_x, y=node_y,
-        mode='markers',
-        hoverinfo='text',
-        marker=dict(
-            showscale=True,
-            # colorscale options
-            #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
-            #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
-            #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
-            colorscale='YlGnBu',
-            color=[],
-            size=node_sizes,
-            colorbar=dict(
-                thickness=15,
-                title=dict(
-                text='Node degree',
-                side='right'
-                ),
-                xanchor='left',
-            ),
-            line_width=0.5))
-
-    if node_coloring == 'by party':
-        parties = [G.nodes[node].get('party', 'Unknown') for node in sorted_nodes]
-        palette = {
-            'Democrat': 'blue',
-            'Republican': 'red',
-            'Whig': 'green',
-            'Federalist': 'purple',
-            'Independent': 'orange',
-            'Unknown': 'gray'
-        }
-        node_colors = [palette.get(p, 'gray') for p in parties]
-        node_trace.marker.showscale = False
-        node_trace.marker.colorbar = None
-    elif node_coloring == 'by year of first use':
-        years = [G.nodes[node].get('year') for node in sorted_nodes]
-        node_colors = [year if year is not None else min([y for y in years if y is not None], default=0) for year in years]
-        node_trace.marker.colorscale = 'Viridis'
-        node_trace.marker.colorbar.title.text = 'Year of first use'
-    else:
-        node_colors = node_degrees
-        node_trace.marker.colorscale = 'YlGnBu'
-        node_trace.marker.colorbar.title.text = 'Node degree'
-
-    node_trace.marker.color = node_colors
-    node_trace.text = [f"{node}<br>degree: {degree}" for node, degree in zip(sorted_nodes, node_degrees)]
-
-    fig = go.Figure(data=[edge_trace, node_trace],
-                layout=go.Layout(
-                    width=850, height=770,
-                    showlegend=False,
-                    hovermode='closest',
-                    margin=dict(b=8,l=2,r=100,t=50),
-                    xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-                    yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
-                    )
-    return fig
-
-
-
 
 ##### Helper functions for graph visualization with PyGraphviz 
 
@@ -390,20 +280,17 @@ with open(f"{directory_path_in}meta.json", 'r', encoding='utf-8') as f:
     f.close()
 #print(meta)
 
-#node_coloring = "node coloring: party"
-node_coloring = "node coloring: year"
-
 def computeNodeFillcolor_party(att):
     global dark
     xx = att['used_in']
     y = [meta[x]['party'] for x in xx]
     z = dict(Counter(y))
-    if 'Republikaner' in z and 'Demokrat' in z:
+    if 'Republican' in z and 'Democrat' in z:
         return 'Thistle'
-    elif 'Republikaner' in z:
+    elif 'Republican' in z:
         dark = True
         return '#E9141D'
-    elif 'Demokrat' in z:
+    elif 'Democrat' in z:
         dark = True
         return '#0015BC'
     else:
@@ -459,14 +346,36 @@ def computeNodeFillcolor_year(att):
     else:
         return 'lightblue'
     
-def computeNodeFillcolor(att):
-    if node_coloring == "node coloring: party":
+def computeNodeFillcolor(att, node_coloring):
+    if node_coloring == "by party":
         return computeNodeFillcolor_party(att)
-    else:
+    elif node_coloring == "by year of first use":
         return computeNodeFillcolor_year(att)
-    
-def computeNodeWidth(att):
-    w  = 1.0 + math.sqrt(0.2*(att.get('doc_freq')-1))
+    else:
+        return 'lightblue'
+
+def computeNodeWidth(att, node_sizing, node_size_growth):
+    if node_sizing == "doc_freq":
+        if node_size_growth == "proportional":
+            w = int(att.get('doc_freq')) + 2
+        elif node_size_growth == "radix":
+            w = 3.0 + math.sqrt(1.8*(att.get('doc_freq')))
+        else:
+            w = 3.0
+    elif node_sizing == "degree":
+        if node_size_growth == "proportional":
+            w = int(att.get('degree')) + 2
+        elif node_size_growth == "radix":
+            w = 3.0 + math.sqrt(1.8*(att.get('degree')))
+        else:
+            w = 3.0
+    elif node_sizing == "tf-idf":
+        if node_size_growth == "proportional":
+            w = att.get('term_frq')*10 + 2
+        elif node_size_growth == "radix":
+            w = 3.0 + math.sqrt(1.8*(att.get('term_frq')*10))
+    else:
+        w = 3.0
     return w
 
 def computeNodeFontcolor():
@@ -492,7 +401,7 @@ def computeEdgeColor(att):
     else:
         return 'black'
 
-def graphToDot(graph=None):
+def graphToDot(graph=None, node_coloring="by year of first use", node_sizing="doc_freq", node_size_growth="proportional"):
    """
    Convert a NetworkX graph with node and edge attributes into a DOT format string for 
    visualization with PyGraphviz.
@@ -503,9 +412,9 @@ def graphToDot(graph=None):
    """
 
    #dot file header
-   dot  = 'graph {\n   overlap="prism1000"\n   rankdir="LR"\n   outputorder="edgesfirst" splines="false"\n'
-   dot += '   fontsize="80"\n   fontname="Arial"\n   labelloc="t"\n   labeljust="l"'
-   dot += '   node [margin=0 fontname="Arial" fontcolor="black" fontsize=64 shape=circle style=filled];\n'
+   dot  = 'graph {\n   overlap="prism1000"\n   rankdir="LR"\n   outputorder="edgesfirst" splines="false"\n bgcolor="silver"\n ' 
+   dot += '   fontsize="60"\n   fontname="Arial"\n   labelloc="t"\n   labeljust="l"'
+   dot += '   node [margin=0 fontname="Arial" fontcolor="black" fontsize=64 shape=circle style=filled fixedsize=true];\n'
    # edges
    for u,v,att in graph.edges(data=True):
       dot += f'   {u} -- {v} [id="{u}--{v}"'
@@ -514,14 +423,13 @@ def graphToDot(graph=None):
    #nodes
    for u,att in graph.nodes(data=True):
       dot += f'   {u} [id="{u}"'
-      dot += f' fillcolor="{computeNodeFillcolor(att)}"'  
+      dot += f' fillcolor="{computeNodeFillcolor(att, node_coloring)}"'  
       dot += f' fontcolor="{computeNodeFontcolor()}"' 
-      dot += f' width={computeNodeWidth(att)}' 
+      dot += f' width={computeNodeWidth(att, node_sizing, node_size_growth)}' 
       dot += f' tooltip="{computeNodeTooltip(att)}"]\n'
    # close dot string
    dot += '}'
    return dot
-
 
 ########## Streamlit app layout and interactivity
 
@@ -531,27 +439,6 @@ if 'submitted' not in st.session_state:
 st.set_page_config(
     page_title="Inauguration Addresses Dashboard",
     layout="wide"
-)
-
-st.markdown(
-    """
-    <style>
-    body {  
-        color: #f5f7fb;
-    }
-    .graph-placeholder {
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 24px;
-        padding: 24px;
-        min-height: 650px;
-    }
-    .graph-placeholder h2 {
-        margin-top: 0;
-        color: #f5f7fb;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
 )
 
 left_column, center_column, right_column = st.columns([3, 10, 3])
@@ -571,26 +458,41 @@ with left_column:
         history = st.selectbox(
             "History",
             ["None", "Civil War", "WW-1", "WW-2","Great Depression", "Cold War"],
+            index=0,
         )
         # select party
         party = st.selectbox(
             "Party",
             ["All", "Democrat", "Republican", "Whig", "Federalist", "Independent"],
+            index=0,
         )
-        keyword_score = st.text_input("Required keyword score", value="0.14")
-        
-        st.markdown("#### Graph view")
+
+        st.markdown("#### Graph construction and visualization")
+        # select keyword score threshold
+        keyword_score = st.slider(
+            "Keyword score",
+            min_value=0.05,
+            max_value=0.5,
+            value=0.14,
+            step=0.01,
+        )
+        # select node coloring
         node_coloring = st.selectbox(
             "Node coloring",
-            ["by party", "by year of first use"],
+            ["by year of first use", "by party"],
+            index=0,
         )
+        # select node sizing
         node_sizing = st.selectbox(
             "Node sizing",
-            ["doc_freq", "term_freq", "degree"],
+            ["doc_freq", "degree", "tf-idf"],
+            index=0,
         )
+        # select algorithm for node size growth
         node_size_growth = st.selectbox(
             "Node size growth",
-            ["proportional", "radix"],
+            ["radix", "proportional"],
+            index=0,
         )
         # select the pygraphviz layout engine
         layout_engine = st.selectbox(
@@ -598,100 +500,221 @@ with left_column:
             ["sfdp", "neato", "dot", "fdp", "twopi"],
             index=0,
         )
-        show_labels = st.radio("Node label", ["yes", "no"], index=1)
 
         submit_button = st.form_submit_button(label="Apply filters", on_click=submitted)
 
 with center_column:
     st.markdown("<div><h3>US Presidents' Inauguration Addresses</h3><h4 style='margin:20px;'>Graph-based analysis</h4></div>", unsafe_allow_html=True)
-    with st.container(horizontal_alignment="center", width=int(1.5*850), height=1000, border=True):
-        if st.session_state.submitted:
-            corpus = make_corpus(time=year_range, history=history, party=party)
-            tfidf_df = vectorize_corpus(corpus)
-            B = create_bipartite_graph(tfidf_df, keyword_score, corpus)
-            #st.write(f"Number of nodes in bipartite graph: {B.number_of_nodes()}")
-            #st.write(f"Number of edges in bipartite graph: {B.number_of_edges()}")
-            G = create_keyword_graph(B)
-            #print(G.nodes(data=True))
-            #st.write(f"Number of nodes in keyword graph: {G.number_of_nodes()}")
-            #st.write(f"Number of edges in keyword graph: {G.number_of_edges()}")
-            #st.plotly_chart(viz_graph(G, node_coloring, node_sizing, node_size_growth))
-            # Convert graph to dot format
-            dot = graphToDot(G)
+    
+    if st.session_state.submitted:
+        corpus = make_corpus(time=year_range, history=history, party=party)
+        tfidf_df = vectorize_corpus(corpus)
+        B = create_bipartite_graph(tfidf_df, keyword_score, corpus)
+        G = create_keyword_graph(B)
+        
+        # Convert graph to dot format
+        dot = graphToDot(G, node_coloring, node_sizing, node_size_growth)
+        B = pgv.AGraph(string=dot)
+        B.layout(prog=layout_engine)
 
-            B = pgv.AGraph(string=dot)
-            B.layout(prog=layout_engine)
+        # Render the pygraphviz layout directly as interactive SVG so tooltip attributes work.
+        fd, svg_path = tempfile.mkstemp(suffix=".svg")
+        os.close(fd)
+        
+        B.draw(svg_path, format="svg")
+        with open(svg_path, "r", encoding="utf-8") as f:
+            graphviz_svg_output = f.read()
 
-            # Render the pygraphviz layout directly as interactive SVG so tooltip attributes work.
-            fd, svg_path = tempfile.mkstemp(suffix=".svg")
-            os.close(fd)
-            try:
-                B.draw(svg_path, format="svg")
-                with open(svg_path, "r", encoding="utf-8") as f:
-                    svg_text = f.read()
-
-                # Give the SVG an ID so svg-pan-zoom can attach to it, and remove fixed width/height.
-                svg_text = svg_text.replace('<svg ', '<svg id="graph-svg" preserveAspectRatio="xMidYMid meet" ', 1)
-                svg_text = re.sub(r'\s(width|height)="[^"]+"', '', svg_text)
-
-                st.markdown("Hover over nodes to see tooltips if your browser supports it.")
-                svg_html = f"""
-            <div id='svg-container' style='width:100%; border:1px solid #ddd;'>
-            <div style='display:flex; gap:8px; padding:8px; background:#f8f8f8; border-bottom:1px solid #ddd;'>
-                <button id='zoom-in' style='padding:6px 12px;'>Zoom +</button>
-                <button id='zoom-out' style='padding:6px 12px;'>Zoom -</button>
-                <button id='reset-view' style='padding:6px 12px;'>Reset view</button>
-                <button id='fit-view' style='padding:6px 12px;'>Fit view</button>
-            </div>
-            <div id='svg-wrapper' style='width:100%; height:900px; overflow:hidden;'>
-                {svg_text}
-            </div>
-            </div>
-            <script src='https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js'></script>
-            <script>
-            const panZoom = svgPanZoom('#graph-svg', {{
-                zoomEnabled: true,
-                controlIconsEnabled: true,
-                fit: false,
-                center: false,
-                minZoom: 0.01,
-                maxZoom: 10,
-                zoomScaleSensitivity: 0.2,
-                dblClickZoomEnabled: true,
-                mouseWheelZoomEnabled: true,
-                preventMouseEventsDefault: true,
-            }});
-
-            const svg = document.getElementById('graph-svg');
-            const wrapper = document.getElementById('svg-wrapper');
-            svg.style.width = '100%';
-            svg.style.height = '100%';
-            svg.style.display = 'block';
-
-            function fitGraph() {{
-                panZoom.resize();
-                panZoom.fit();
-                panZoom.center();
-            }}
-
-            window.addEventListener('load', () => {{
-                fitGraph();
-                setTimeout(fitGraph, 100);
-                setTimeout(fitGraph, 300);
-            }});
-
-            document.getElementById('zoom-in').addEventListener('click', () => panZoom.zoomIn());
-            document.getElementById('zoom-out').addEventListener('click', () => panZoom.zoomOut());
-            document.getElementById('reset-view').addEventListener('click', () => {{ panZoom.resetZoom(); panZoom.resetPan(); panZoom.center(); }});
-            document.getElementById('fit-view').addEventListener('click', () => {{ panZoom.fit(); panZoom.center(); }});
-            </script>
-            """
+        html_template = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                html, body {{
+                    margin: 0; padding: 0; width: 100%; height: 100%; 
+                    overflow: hidden; background-color: silver; font-family: sans-serif;
+                }}
+                .container {{ position: relative; width: 100%; height: 100%; background-color: silver; }}
+                svg {{ width: 100% !important; height: 100% !important; cursor: move; user-select: none; }}
                 
-                st.iframe(svg_html, height=950, width=1600)
-            finally:
-                os.remove(svg_path)
+                /* Steuerungs-Leiste oben links */
+                .controls {{
+                    position: absolute; top: 15px; left: 15px; 
+                    display: flex; gap: 10px; z-index: 10;
+                }}
+                .btn {{
+                    padding: 8px 14px; background-color: #ffffff; color: #31333F; 
+                    border: 1px solid #d3d3d3; border-radius: 8px; cursor: pointer; 
+                    font-size: 14px; font-weight: 500; box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+                    display: flex; align-items: center; gap: 6px; transition: background-color 0.2s;
+                }}
+                .btn:hover {{ background-color: #f0f2f6; }}
 
+                /* Fokus & Overlay Styles (unverändert) */
+                svg.fokus-aktiv .node, svg.fokus-aktiv .edge {{ opacity: 0.15; transition: opacity 0.3s ease; }}
+                svg.fokus-aktiv .node.highlight-target,
+                svg.fokus-aktiv .node.highlight-neighbor,
+                svg.fokus-aktiv .edge.highlight-connected {{ opacity: 1 !important; }}
+                .node {{ cursor: pointer; }}
+                .node:hover {{ filter: brightness(0.9); }}
+            </style>
+        </head>
+        <body>
 
+        <div class="container" id="iframe-container">
+            <!-- Flex-Leiste für beide Buttons -->
+            <div class="controls">
+                <button id="reset-btn" class="btn">Reset view</button>
+                <button id="download-btn" class="btn">Download SVG</button>
+            </div>
+            {graphviz_svg_output}
+        </div>
+
+        <script>
+            window.onload = function() {{
+                const svg = document.querySelector('svg');
+                const resetBtn = document.getElementById('reset-btn');
+                const downloadBtn = document.getElementById('download-btn');
+                if (!svg) return;
+
+                svg.setAttribute('preserveAspectRatio', 'xMidYMin meet');
+
+                const baseVB = svg.viewBox.baseVal;
+                const defaultVB = {{ x: baseVB.x, y: baseVB.y, width: baseVB.width, height: baseVB.height }};
+                let currentVB = {{ ...defaultVB }};
+                let isPanning = false;
+                let startPoint = {{ x: 0, y: 0 }};
+
+                function applyViewBox() {{
+                    svg.setAttribute('viewBox', `${{currentVB.x}} ${{currentVB.y}} ${{currentVB.width}} ${{currentVB.height}}`);
+                }}
+
+                applyViewBox();
+
+                // --- DOWNLOAD LOGIK ---
+                downloadBtn.addEventListener('click', function() {{
+                    // 1. Erstelle eine exakte Textkopie des aktuellen SVG-Elements aus dem DOM
+                    const serializer = new XMLSerializer();
+                    let svgString = serializer.serializeToString(svg);
+                    
+                    // 2. XML-Standardheader hinzufügen für maximale Kompatibilität in Illustrator/Inkscape
+                    svgString = '<?xml version="1.0" standalone="no"?>\\n' + svgString;
+                    
+                    // 3. Textdaten in ein Blob-Objekt konvertieren (MIME-Type: image/svg+xml)
+                    const blob = new Blob([svgString], {{ type: 'image/svg+xml;charset=utf-8' }});
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    // 4. Temporären Download-Link im Browser simulieren und auslösen
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = blobUrl;
+                    downloadLink.download = 'graphviz_dashboard.svg'; // Dateiname
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    
+                    // 5. Speicherbereinigung
+                    document.body.removeChild(downloadLink);
+                    URL.revokeObjectURL(blobUrl);
+                }});
+
+                // --- FOKUS-MODUS (KLICK-LOGIK) ---
+                const nodes = svg.querySelectorAll('.node');
+                const edges = svg.querySelectorAll('.edge');
+
+                nodes.forEach(node => {{
+                    node.addEventListener('click', function(e) {{
+                        e.stopPropagation();
+                        const titleEl = node.querySelector('title');
+                        if (!titleEl) return;
+                        const nodeName = titleEl.textContent.trim();
+
+                        svg.classList.add('fokus-aktiv');
+                        nodes.forEach(n => n.classList.remove('highlight-target', 'highlight-neighbor'));
+                        edges.forEach(edge => edge.classList.remove('highlight-connected'));
+                        node.classList.add('highlight-target');
+
+                        edges.forEach(edge => {{
+                            const edgeTitleEl = edge.querySelector('title');
+                            if (edgeTitleEl) {{
+                                const edgeText = edgeTitleEl.textContent.trim();
+                                if (edgeText.startsWith(nodeName + '->') || edgeText.endsWith('->' + nodeName) || 
+                                    edgeText.includes('--' + nodeName) || edgeText.includes(nodeName + '--')) {{
+                                    edge.classList.add('highlight-connected');
+                                    const parts = edgeText.split(/->|--/);
+                                    const neighborName = parts[0].trim() === nodeName ? parts[1].trim() : parts[0].trim();
+                                    nodes.forEach(n => {{
+                                        const nTitle = n.querySelector('title');
+                                        if (nTitle && nTitle.textContent.trim() === neighborName) {{
+                                            n.classList.add('highlight-neighbor');
+                                        }}
+                                    }});
+                                }}
+                            }}
+                        }});
+                    }});
+                }});
+
+                svg.addEventListener('click', function() {{
+                    svg.classList.remove('fokus-aktiv');
+                    nodes.forEach(n => n.classList.remove('highlight-target', 'highlight-neighbor'));
+                    edges.forEach(edge => edge.classList.remove('highlight-connected'));
+                }});
+
+                // --- RE-ZENTRIERUNG BEI FENSTER-RESIZE ---
+                let lastWidth = window.innerWidth;
+                let lastHeight = window.innerHeight;
+                window.addEventListener('resize', () => {{
+                    if (window.innerWidth === 0 || window.innerHeight === 0) return;
+                    const dx = window.innerWidth - lastWidth; const dy = window.innerHeight - lastHeight;
+                    currentVB.width += dx * (currentVB.width / window.innerWidth);
+                    currentVB.height += dy * (currentVB.height / window.innerHeight);
+                    lastWidth = window.innerWidth; lastHeight = window.innerHeight; applyViewBox();
+                }});
+
+                resetBtn.addEventListener('click', function() {{
+                    currentVB = {{ ...defaultVB }}; applyViewBox();
+                    svg.classList.remove('fokus-aktiv');
+                }});
+
+                // --- MAUS-INTERAKTIONEN (PAN & ZOOM) ---
+                svg.addEventListener('mousedown', function(e) {{
+                    e.preventDefault(); isPanning = true; startPoint = {{ x: e.clientX, y: e.clientY }};
+                }});
+
+                svg.addEventListener('mousemove', function(e) {{
+                    if (!isPanning) return;
+                    const rect = svg.getBoundingClientRect();
+                    const dx = (e.clientX - startPoint.x) * (currentVB.width / rect.width);
+                    const dy = (e.clientY - startPoint.y) * (currentVB.height / rect.height);
+                    currentVB.x -= dx; currentVB.y -= dy;
+                    startPoint = {{ x: e.clientX, y: e.clientY }}; applyViewBox();
+                }});
+
+                window.addEventListener('mouseup', function() {{ isPanning = false; }});
+
+                svg.addEventListener('wheel', function(e) {{
+                    e.preventDefault(); const rect = svg.getBoundingClientRect();
+                    const mouseXRatio = (e.clientX - rect.left) / rect.width;
+                    const mouseYRatio = (e.clientY - rect.top) / rect.height;
+                    const zoomFactor = e.deltaY < 0 ? 0.88 : 1.12;
+                    const newWidth = currentVB.width * zoomFactor; const newHeight = currentVB.height * zoomFactor;
+                    currentVB.x += (currentVB.width - newWidth) * mouseXRatio;
+                    currentVB.y += (currentVB.height - newHeight) * mouseYRatio;
+                    currentVB.width = newWidth; currentVB.height = newHeight; applyViewBox();
+                }}, {{ passive: false }});
+            }};
+        </script>
+        </body>
+        </html>
+        """
+
+        b64_html = base64.b64encode(html_template.encode("utf-8")).decode("utf-8")
+        src_data_uri = f"data:text/html;base64,{b64_html}"
+
+        st.iframe(
+            src=src_data_uri,
+            width="stretch",
+            height=2400
+        )
 
 with right_column:
     st.markdown("##### Key graph data")
@@ -729,23 +752,5 @@ with right_column:
         fig = go.Figure(data=[go.Bar(x=degrees, y=counts)])
         fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
         st.plotly_chart(fig)
-
-    st.markdown("##### Short comment")
-st.markdown("---")
-
-########## Debug & state preview
-
-
-st.markdown(
-    "#### Debug & state preview\n"
-    f"**Years:** {year_range}  \n"
-    f"**History:** {history}  \n"
-    f"**Party:** {party}  \n"
-    f"**Node coloring:** {node_coloring}  \n"
-    f"**Node sizing:** {node_sizing}  \n"
-    f"**Node size growth:** {node_size_growth}  \n"
-    f"**Keyword score:** {keyword_score or 'None'}  \n"
-    f"**Node labels:** {show_labels}",
-)
 
 del st.session_state.submitted

@@ -1,347 +1,347 @@
 {
-    "1789_George_Washington": {
+    "01_washington_1789": {
         "president": "George Washington",
         "party": "Independent",
         "date": "1789-04-30",
         "year": "1789"
     },
-    "1793_George_Washington": {
+    "02_washington_1793": {
         "president": "George Washington",
         "party": "Independent",
         "date": "1793-03-04",
         "year": "1793"
     },
-    "1797_John_Adams": {
+    "03_adams_john_1797": {
         "president": "John Adams",
         "party": "Federalist",
         "date": "1797-03-04",
         "year": "1797"
     },
-    "1801_Thomas_Jefferson": {
+    "04_jefferson_1801": {
         "president": "Thomas Jefferson",
         "party": "Republican",
         "date": "1801-03-04",
         "year": "1801"
     },
-    "1805_Thomas_Jefferson": {
+    "05_jefferson_1805": {
         "president": "Thomas Jefferson",
         "party": "Republican",
         "date": "1805-03-04",
         "year": "1805"
     },
-    "1809_James_Madison": {
+    "06_madison_1809": {
         "president": "James Madison",
         "party": "Republican",
         "date": "1809-03-04",
         "year": "1809"
     },
-    "1813_James_Madison": {
+    "07_madison_1813": {
         "president": "James Madison",
         "party": "Republican",
         "date": "1813-03-04",
         "year": "1813"
     },
-    "1817_James_Monroe": {
+    "08_monroe_1817": {
         "president": "James Monroe",
         "party": "Republican",
         "date": "1817-03-04",
         "year": "1817"
     },
-    "1821_James_Monroe": {
+    "09_monroe_1821": {
         "president": "James Monroe",
         "party": "Republican",
         "date": "1821-03-04",
         "year": "1821"
     },
-    "1825_John_Quincy_Adams": {
+    "10_adams_john_quincy_1825": {
         "president": "John Quincy Adams",
         "party": "Federalist",
         "date": "1825-03-04",
         "year": "1825"
     },
-    "1829_Andrew_Jackson": {
+    "11_jackson_1829": {
         "president": "Andrew Jackson",
         "party": "Democrat",
         "date": "1829-03-04",
         "year": "1829"
     },
-    "1833_Andrew_Jackson": {
+    "12_jackson_1833": {
         "president": "Andrew Jackson",
         "party": "Democrat",
         "date": "1833-03-04",
         "year": "1833"
     },
-    "1837_Martin_Van_Buren": {
+    "13_van_buren_1837": {
         "president": "Martin Van Buren",
         "party": "Democrat",
         "date": "1837-03-04",
         "year": "1837"
     },
-    "1841_William_Henry_Harrison": {
+    "14_harrison_1841": {
         "president": "William Henry Harrison",
         "party": "Whig",
         "date": "1841-03-04",
         "year": "1841"
     },
-    "1845_James_K._Polk": {
+    "15_polk_1845": {
         "president": "James K. Polk",
         "party": "Democrat",
         "date": "1845-03-04",
         "year": "1845"
     },
-    "1849_Zachary_Taylor": {
+    "16_taylor_1849": {
         "president": "Zachary Taylor",
         "party": "Whig",
         "date": "1849-03-05",
         "year": "1849"
     },
-    "1853_Franklin_Pierce": {
+    "17_pierce_1853": {
         "president": "Franklin Pierce",
         "party": "Democrat",
         "date": "1853-03-04",
         "year": "1853"
     },
-    "1857_James_Buchanan": {
+    "18_buchanan_1857": {
         "president": "James Buchanan",
         "party": "Democrat",
         "date": "1857-03-04",
         "year": "1857"
     },
-    "1861_Abraham_Lincoln": {
+    "19_lincoln_1861": {
         "president": "Abraham Lincoln",
         "party": "Republican",
         "date": "1861-03-04",
         "year": "1861"
     },
-    "1865_Abraham_Lincoln": {
+    "20_lincoln_1865": {
         "president": "Abraham Lincoln",
         "party": "Republican",
         "date": "1865-03-04",
         "year": "1865"
     },
-    "1869_Ulysses_S._Grant": {
+    "21_grant_1869": {
         "president": "Ulysses S. Grant",
         "party": "Republican",
         "date": "1869-03-04",
         "year": "1869"
     },
-    "1873_Ulysses_S._Grant": {
+    "22_grant_1873": {
         "president": "Ulysses S. Grant",
         "party": "Republican",
         "date": "1873-03-04",
         "year": "1873"
     },
-    "1877_Rutherford_B._Hayes": {
+    "23_hayes_1877": {
         "president": "Rutherford B. Hayes",
         "party": "Republican",
         "date": "1877-03-05",
         "year": "1877"
     },
-    "1881_James_A._Garfield": {
+    "24_garfield_1881": {
         "president": "James A. Garfield",
         "party": "Republican",
         "date": "1881-03-04",
         "year": "1881"
     },
-    "1885_Grover_Cleveland": {
+    "25_cleveland_1885": {
         "president": "Grover Cleveland",
         "party": "Democrat",
         "date": "1885-03-04",
         "year": "1885"
     },
-    "1889_Benjamin_Harrison": {
+    "26_harrison_1889": {
         "president": "Benjamin Harrison",
         "party": "Republican",
         "date": "1889-03-04",
         "year": "1889"
     },
-    "1893_Grover_Cleveland": {
+    "27_cleveland_1893": {
         "president": "Grover Cleveland",
         "party": "Democrat",
         "date": "1893-03-04",
         "year": "1893"
     },
-    "1897_William_McKinley": {
+    "28_mckinley_1897": {
         "president": "William McKinley",
         "party": "Republican",
         "date": "1897-03-04",
         "year": "1897"
     },
-    "1901_William_McKinley": {
+    "29_mckinley_1901": {
         "president": "William McKinley",
         "party": "Republican",
         "date": "3/4/1901",
         "year": "1901"
     },
-    "1905_Theodore_Roosevelt": {
+    "30_roosevelt_theodore_1905": {
         "president": "Theodore Roosevelt",
         "party": "Republican",
         "date": "3/4/1905",
         "year": "1905"
     },
-    "1909_William_Howard_Taft": {
+    "31_taft_1909": {
         "president": "William Howard Taft",
         "party": "Republican",
         "date": "3/4/1909",
         "year": "1909"
     },
-    "1913_Woodrow_Wilson": {
+    "32_wilson_1913": {
         "president": "Woodrow Wilson",
         "party": "Democrat",
         "date": "3/4/1913",
         "year": "1913"
     },
-    "1917_Woodrow_Wilson": {
+    "33_wilson_1917": {
         "president": "Woodrow Wilson",
         "party": "Democrat",
         "date": "3/4/1917",
         "year": "1917"
     },
-    "1921_Warren_G._Harding": {
+    "34_harding_1921": {
         "president": "Warren G. Harding",
         "party": "Republican",
         "date": "3/4/1921",
         "year": "1921"
     },
-    "1925_Calvin_Coolidge": {
+    "35_coolidge_1925": {
         "president": "Calvin Coolidge",
         "party": "Republican",
         "date": "3/4/1925",
         "year": "1925"
     },
-    "1929_Herbert_Hoover": {
+    "36_hoover_1929": {
         "president": "Herbert Hoover",
         "party": "Republican",
         "date": "3/4/1929",
         "year": "1929"
     },
-    "1933_Franklin_D._Roosevelt": {
+    "37_roosevelt_franklin_1933": {
         "president": "Franklin D. Roosevelt",
         "party": "Democrat",
         "date": "3/4/1933",
         "year": "1933"
     },
-    "1937_Franklin_D._Roosevelt": {
+    "38_roosevelt_franklin_1937": {
         "president": "Franklin D. Roosevelt",
         "party": "Democrat",
         "date": "1/20/1937",
         "year": "1937"
     },
-    "1941_Franklin_D._Roosevelt": {
+    "39_roosevelt_franklin_1941": {
         "president": "Franklin D. Roosevelt",
         "party": "Democrat",
         "date": "1/20/1941",
         "year": "1941"
     },
-    "1945_Franklin_D._Roosevelt": {
+    "40_roosevelt_franklin_1945": {
         "president": "Franklin D. Roosevelt",
         "party": "Democrat",
         "date": "1/20/1945",
         "year": "1945"
     },
-    "1949_Harry_S._Truman": {
+    "41_truman_1949": {
         "president": "Harry S. Truman",
         "party": "Democrat",
         "date": "1/20/1949",
         "year": "1949"
     },
-    "1953_Dwight_D._Eisenhower": {
+    "42_eisenhower_1953": {
         "president": "Dwight D. Eisenhower",
         "party": "Republican",
         "date": "1/20/1953",
         "year": "1953"
     },
-    "1957_Dwight_D._Eisenhower": {
+    "43_eisenhower_1957": {
         "president": "Dwight D. Eisenhower",
         "party": "Republican",
         "date": "1/21/1957",
         "year": "1957"
     },
-    "1961_John_F._Kennedy": {
+    "44_kennedy_1961": {
         "president": "John F. Kennedy",
         "party": "Democrat",
         "date": "1/20/1961",
         "year": "1961"
     },
-    "1965_Lyndon_B._Johnson": {
+    "45_johnson_1965": {
         "president": "Lyndon B. Johnson",
         "party": "Democrat",
         "date": "1/20/1965",
         "year": "1965"
     },
-    "1969_Richard_Nixon": {
+    "46_nixon_1969": {
         "president": "Richard Nixon",
         "party": "Republican",
         "date": "1/20/1969",
         "year": "1969"
     },
-    "1973_Richard_Nixon": {
+    "47_nixon_1973": {
         "president": "Richard Nixon",
         "party": "Republican",
         "date": "1/20/1973",
         "year": "1973"
     },
-    "1977_Jimmy_Carter": {
+    "48_carter_1977": {
         "president": "Jimmy Carter",
         "party": "Democrat",
         "date": "1/20/1977",
         "year": "1977"
     },
-    "1981_Ronald_Reagan": {
+    "49_reagan_1981": {
         "president": "Ronald Reagan",
         "party": "Republican",
         "date": "1/20/1981",
         "year": "1981"
     },
-    "1985_Ronald_Reagan": {
+    "50_reagan_1985": {
         "president": "Ronald Reagan",
         "party": "Republican",
         "date": "1/21/1985",
         "year": "1985"
     },
-    "1989_George_H._W._Bush": {
+    "51_bush_george_h_w_1989": {
         "president": "George H. W. Bush",
         "party": "Republican",
         "date": "1/20/1989",
         "year": "1989"
     },
-    "1993_Bill_Clinton": {
+    "52_clinton_1993": {
         "president": "Bill Clinton",
         "party": "Democrat",
         "date": "1/20/1993",
         "year": "1993"
     },
-    "1997_Bill_Clinton": {
+    "53_clinton_1997": {
         "president": "Bill Clinton",
         "party": "Democrat",
         "date": "1/20/1997",
         "year": "1997"
     },
-    "2001_George_W._Bush": {
+    "54_bush_george_w_2001": {
         "president": "George W. Bush",
         "party": "Republican",
         "date": "1/20/2001",
         "year": "2001"
     },
-    "2005_George_W._Bush": {
+    "55_bush_george_w_2005": {
         "president": "George W. Bush",
         "party": "Republican",
         "date": "1/20/2005",
         "year": "2005"
     },
-    "2009_Barack_Obama": {
+    "56_obama_2009": {
         "president": "Barack Obama",
         "party": "Democrat",
         "date": "1/20/2009",
         "year": "2009"
     },
-    "2013_Barack_Obama": {
+    "57_obama_2013": {
         "president": "Barack Obama",
         "party": "Democrat",
         "date": "1/21/2013",
         "year": "2013"
     },
-    "2017_Donald_Trump": {
+    "58_trump_2017": {
         "president": "Donald Trump",
         "party": "Republican",
         "date": "1/20/2017",
