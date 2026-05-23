@@ -1,3 +1,12 @@
+import os
+import sys
+# Pfad zu Ihren Graphviz-Binaries explizit hinzufügen
+graphviz_bin_path = r"C:\Program Files\Graphviz\bin"
+if os.path.exists(graphviz_bin_path):
+    os.add_dll_directory(graphviz_bin_path)
+# Erst danach pygraphviz importieren
+import pygraphviz as pgv
+
 from bs4 import BeautifulSoup
 import spacy
 import base64
@@ -15,9 +24,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from collections import Counter 
 import pandas as pd
 import math
-import os
 import tempfile
-import pygraphviz as pgv
 from streamlit import components
 pd.options.display.max_rows = 600
 
