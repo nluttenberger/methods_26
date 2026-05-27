@@ -596,7 +596,13 @@ with center_column:
                 downloadBtn.addEventListener('click', function() {{
                     // 1. Erstelle eine exakte Textkopie des aktuellen SVG-Elements aus dem DOM
                     const serializer = new XMLSerializer();
-                    let svgString = serializer.serializeToString(svg);
+                    const svgCopy = svg.cloneNode(true);
+
+                    const bgPolygon = svgCopy.querySelector('polygon[fill="silver"]');
+                    bgPolygon.setAttribute('fill', 'none');
+                    // Falls zusätzlich Inline-Styles gesetzt sind, diese auch überschreiben
+                    bgPolygon.style.fill = 'transparent';
+                    let svgString = serializer.serializeToString(svgCopy);
                     
                     // 2. XML-Standardheader hinzufügen für maximale Kompatibilität in Illustrator/Inkscape
                     svgString = '<?xml version="1.0" standalone="no"?>\\n' + svgString;
