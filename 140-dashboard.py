@@ -601,7 +601,7 @@ with center_column:
                     const bgPolygon = svgCopy.querySelector('polygon[fill="silver"]');
                     bgPolygon.setAttribute('fill', 'none');
                     // Falls zusätzlich Inline-Styles gesetzt sind, diese auch überschreiben
-                    bgPolygon.style.fill = 'transparent';
+                    bgPolygon.style.fill = 'none';
                     let svgString = serializer.serializeToString(svgCopy);
                     
                     // 2. XML-Standardheader hinzufügen für maximale Kompatibilität in Illustrator/Inkscape
