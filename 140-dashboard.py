@@ -158,7 +158,7 @@ def vectorize_corpus(corpus):
     tfidf_vector = tfidf_vectorizer.fit_transform(addresses)
     # Make a DataFrame out of the resulting tf–idf vector, setting the "feature names" (terms) as columns and the address titles (i.e. file names) as rows
     tfidf_df = pd.DataFrame(tfidf_vector.toarray(), index=text_titles, columns=tfidf_vectorizer.get_feature_names_out())
-    
+    print (tfidf_df.head())
     return tfidf_df
 
 ### Create document frequency dict
@@ -205,12 +205,12 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
     Returns:
     - B: bipartite graph
     """
-    # Reframe the tfidf dataFrame so that the terms are in rows rather than columns.
+    # Reframe the tfidf dataFrame so that the terms are in a single column rather than in a rows
     stacked_df = tfidf_df.stack().reset_index().rename(columns={0:'tfidf', 'level_0': 'address','level_1': 'term'})
 
     # Set threshold for TF-IDF values and determine remaining terms
     thres_tfidf = stacked_df[stacked_df['tfidf'] >= float(keyword_score)]
-    #print ('terms in reduced dataframe: ', len(thres_tfidf['term'].unique()))
+    print (thres_tfidf)
 
     # Create bipartite graph B from the thresholded DataFrame
     B = nx.Graph()
@@ -220,6 +220,9 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
         B.add_node(address_node, type='address')
         B.add_node(term_node, type='term')
         B.add_edge(address_node, term_node)
+
+    for edge in B.edges(data=True):
+        print(edge)
     
     # Create a mapping from address ID to party and year
     addr_metadata = {doc['addr_id']: {'party': doc['party'], 'year': int(doc['year'])} for doc in corpus}
