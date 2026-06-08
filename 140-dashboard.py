@@ -158,7 +158,7 @@ def vectorize_corpus(corpus):
     tfidf_vector = tfidf_vectorizer.fit_transform(addresses)
     # Make a DataFrame out of the resulting tf–idf vector, setting the "feature names" (terms) as columns and the address titles (i.e. file names) as rows
     tfidf_df = pd.DataFrame(tfidf_vector.toarray(), index=text_titles, columns=tfidf_vectorizer.get_feature_names_out())
-    print (tfidf_df.head())
+    #print (tfidf_df.head())
     return tfidf_df
 
 ### Create document frequency dict
@@ -210,7 +210,7 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
 
     # Set threshold for TF-IDF values and determine remaining terms
     thres_tfidf = stacked_df[stacked_df['tfidf'] >= float(keyword_score)]
-    print (thres_tfidf)
+    #print (thres_tfidf)
 
     # Create bipartite graph B from the thresholded DataFrame
     B = nx.Graph()
@@ -220,9 +220,6 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
         B.add_node(address_node, type='address')
         B.add_node(term_node, type='term')
         B.add_edge(address_node, term_node)
-
-    for edge in B.edges(data=True):
-        print(edge)
     
     # Create a mapping from address ID to party and year
     addr_metadata = {doc['addr_id']: {'party': doc['party'], 'year': int(doc['year'])} for doc in corpus}
@@ -518,17 +515,19 @@ with center_column:
         
         # Convert graph to dot format
         dot = graphToDot(G, node_coloring, node_sizing, node_size_growth)
-        B = pgv.AGraph(string=dot)
-        B.layout(prog=layout_engine)
+        X = pgv.AGraph(string=dot)
+        X.layout(prog=layout_engine)
 
-        # Render the pygraphviz layout directly as interactive SVG so tooltip attributes work.
+        # create temp file and write the pygraphviz layout to temp file in SVG format
         fd, svg_path = tempfile.mkstemp(suffix=".svg")
+        X.draw(svg_path, format="svg")
         os.close(fd)
-        
-        B.draw(svg_path, format="svg")
+
+        # read the SVG file back as a string for embedding it into the HTML template
         with open(svg_path, "r", encoding="utf-8") as f:
             graphviz_svg_output = f.read()
 
+        # create the HTML template with embedded SVG and JavaScript for interactivity (pan, zoom, focus mode, download)
         html_template = f"""
         <!DOCTYPE html>
         <html>
@@ -717,6 +716,7 @@ with center_column:
         </html>
         """
 
+        # Encode the HTML template as base64 to create a data URI for embedding in the iframe
         b64_html = base64.b64encode(html_template.encode("utf-8")).decode("utf-8")
         src_data_uri = f"data:text/html;base64,{b64_html}"
 
@@ -725,6 +725,10 @@ with center_column:
             width="stretch",
             height=2400
         )
+
+        # close and delete the temporary SVG file after reading its content
+        f.close()
+        os.remove(svg_path)
 
 with right_column:
     st.markdown("##### Key graph data")
