@@ -1,5 +1,6 @@
 import os
-import sys
+import itertools
+from unittest import result
 import pygraphviz as pgv
 from bs4 import BeautifulSoup
 import spacy
@@ -252,7 +253,7 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
     return B
 
 ### Create (address-to-address) address graph from (term-to-address) bipartite graph by projection
-def create_keyword_graph(B):
+def create_address_graph(B):
     """
     Create a keyword graph by projecting the bipartite graph onto the term nodes, 
     where edges between terms indicate co-occurrence in the same address. Additionally,
@@ -267,8 +268,35 @@ def create_keyword_graph(B):
     for node in X.nodes():
         if X.nodes[node]['type'] == 'address':
             X.nodes[node]['degree'] = X.degree(node)
-            #print(f"Node: {node}, Year: {X.nodes[node]['year']}, Party: {X.nodes[node]['party']}, Doc freq: {X.nodes[node]['doc_freq']}, Degree: {X.nodes[node]['degree']}")
-   
+    
+    # create lists of shared terms for each edge in the address graph and set as edge attribute
+    a_nodes = [n for n, d in B.nodes(data=True) if d['type'] == 'address']
+    for u, v in itertools.combinations(a_nodes, 2):
+        # Schnittmenge aller gemeinsamen Nachbarn bilden
+        #print(u,list(B.neighbors(u)))
+        shared_terms = set(B.neighbors(u)) & set(B.neighbors(v))
+        shared_terms_list = list(shared_terms) if shared_terms else []
+        if X.has_edge(u, v):
+            X.edges[(u, v)]['common_terms'] = shared_terms_list
+
+    return X
+
+### Create (term-to-term) keyword graph from (term-to-address) bipartite graph by projection
+def create_keyword_graph(B):
+    """
+    Create a keyword graph by projecting the bipartite graph onto the term nodes, 
+    where edges between terms indicate co-occurrence in the same address. Additionally,
+    set degree attribute for nodes of the keyword graph based on the number of connections in the projected graph.
+       Parameters:
+       - B: bipartite graph
+       Returns:
+       - G: keyword graph
+    """
+    X = bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'term'])
+    # set degree attribute
+    for node in X.nodes():
+        if X.nodes[node]['type'] == 'term':
+            X.nodes[node]['degree'] = X.degree(node)
     return X
 
 ##### Helper functions for graph visualization with PyGraphviz 
@@ -312,48 +340,45 @@ def XcomputeNodeFillcolor_party(att):
 
 def computeNodeFillcolor_year(att):
     global dark
-    xx = att['used_in']
-    ix = xx[0].split('_')
-    year = ix[0]
-    #print(year)
+    year = int(att['year'])
     blue2yellow = [('#081d58ff','dark'), ('#253494ff', 'dark'), ('#225ea8ff', 'dark'), ('#1d91c0ff', 'light'), \
                    ('#41b6c4ff', 'light'), ('#7fcdbbff', 'light'), ('#c7e9b4ff', 'light'), ('#edf8b1ff', 'light'), ('#ffffd9ff', 'light')]
     pastell   = [('#fbb4aeff', 'light'), ('#b3cde3ff', 'light'), ('#ccebc5ff', 'light'), ('#decbe4ff', 'light'), \
                  ('#fed9a6ff', 'light'), ('#ffffccff', 'light'), ('#e5d8bdff', 'light'), ('#fddaecff', 'light'), ('#f2f2f2ff', 'light')]
     palette = blue2yellow
-    if year == '1789' or year == '1793':  # G. Washington's addresses
+    if year == 1789 or year == 1793:  # G. Washington's addresses
         if palette[0][1] == "dark":
             dark = True
         return palette[0][0]
-    elif year >  '1793' and year < '1805':
+    elif year >  1793 and year < 1805:
         if palette[1][1] == "dark":
             dark = True
         return palette[1][0]
-    elif year >= '1805' and year < '1833':
+    elif year >= 1805 and year < 1833:
         if palette[2][1] == "dark":
             dark = True
         return palette[2][0]
-    elif year >= '1833' and year < '1866':
+    elif year >= 1833 and year < 1866:
         if palette[3][1] == "dark":
             dark = True
         return palette[3][0]
-    elif year >= '1866' and year < '1905':
+    elif year >= 1866 and year < 1905:
         if palette[4][1] == "dark":
             dark = True
         return palette[4][0]
-    elif year >= '1905' and year < '1933':
+    elif year >= 1905 and year < 1933:
         if palette[5][1] == "dark":
             dark = True
         return palette[5][0]
-    elif year >= '1933' and year < '1965':
+    elif year >= 1933 and year < 1965:
         if palette[6][1] == "dark":
             dark = True
         return palette[6][0]
-    elif year >= '1965' and year < '2001':
+    elif year >= 1965 and year < 2001:
         if palette[7][1] == "dark":
             dark = True
         return palette[7][0]
-    elif year >= '2001':
+    elif year >= 2001:
         if palette[8][1] == "dark":
             dark = True
         return palette[8][0]
@@ -369,27 +394,37 @@ def computeNodeFillcolor(att, node_coloring):
         return 'lightblue'
 
 def computeNodeWidth(att, node_sizing, node_size_growth):
-    if node_sizing == "doc_freq":
+    if att['type'] == 'address':
         if node_size_growth == "proportional":
-            w = int(att.get('doc_freq')) + 2
+            w = max(64, 8.0*int(att.get('degree')))
         elif node_size_growth == "radix":
-            w = 3.0 + math.sqrt(1.8*(att.get('doc_freq')))
+            w = max(64, 32.0*math.sqrt(int(att.get('degree'))))
         else:
-            w = 3.0
-    elif node_sizing == "degree":
-        if node_size_growth == "proportional":
-            w = int(att.get('degree')) + 2
-        elif node_size_growth == "radix":
-            w = 3.0 + math.sqrt(1.8*(att.get('degree')))
+            st.error("Invalid node size growth option selected.")
+    elif att['type'] == 'term':
+        if node_sizing == "doc_freq":
+            if node_size_growth == "proportional":
+                w = max(48, 8.0*int(att.get('doc_freq')))
+            elif node_size_growth == "radix":
+                w = max(48, 32.0*math.sqrt((att.get('doc_freq'))))
+            else:
+                st.error("Invalid node size growth option selected.")
+        elif node_sizing == "degree":
+            if node_size_growth == "proportional":
+                w = max(64, 8.0*int(att.get('degree')))
+            elif node_size_growth == "radix":
+                w = max(64, 32.0*math.sqrt(int(att.get('degree'))))
+            else:
+                st.error("Invalid node size growth option selected.")
+        elif node_sizing == "tf-idf":
+            if node_size_growth == "proportional":
+                w = max(48, 8.0*att.get('term_frq'))
+            elif node_size_growth == "radix":
+                w = max(48, 32.0*math.sqrt((att.get('term_frq'))))
         else:
-            w = 3.0
-    elif node_sizing == "tf-idf":
-        if node_size_growth == "proportional":
-            w = att.get('term_frq')*10 + 2
-        elif node_size_growth == "radix":
-            w = 3.0 + math.sqrt(1.8*(att.get('term_frq')*10))
+            st.error("Invalid node sizing option selected.")
     else:
-        w = 3.0
+        st.error("Invalid node type.")
     return w
 
 def computeNodeFontcolor():
@@ -407,39 +442,44 @@ def computeNodeTooltip(att):
 # Functions to compute edge attributes
 
 def computeEdgePenwidth(att):
-    return str(att.get('weight')) 
+    return str(max(4, 16*att.get('weight'))) 
 
 def computeEdgeColor(att):
     if att.get('weight') > 1:
-        return 'red'
+        return 'SlateGray'
     else:
         return 'black'
 
+def computeEdgeTooltip(att):
+    xx = str(att['common_terms'])
+    return xx.replace("[", "").replace("]", "").replace(", ", "\n") 
+
 def graphToDot(graph=None, node_coloring="by year of first use", node_sizing="doc_freq", node_size_growth="proportional"):
    """
-   Convert a NetworkX graph with node and edge attributes into a DOT format string for 
-   visualization with PyGraphviz.
+   Convert a NetworkX graph with node and edge attributes into a DOT format string for visualization with PyGraphviz.
    Parameters:
    - graph: NetworkX graph with node attributes (e.g., 'term_frq', 'used_in') and edge attributes (e.g., 'weight')
    Returns:
    - dot: A string containing the graph in DOT format
    """
-   
-   print (G.nodes(data=True))
 
    #dot file header
    dot  = 'graph {\n   overlap="prism1000" rankdir="LR" outputorder="edgesfirst" splines="false" bgcolor="silver" fontsize="60" fontname="Arial" labelloc="t" labeljust="l"\n'
-   dot += '   node [margin=0 fontname="Arial" fontcolor="black" fontsize="120" shape=circle style=filled fixedsize=true];\n'
+   dot += '   node [margin=0 fontname="Arial" fontcolor="black" shape=circle style=filled fixedsize=true];\n'
    # edges
    for u,v,att in graph.edges(data=True):
-      dot += f'   "{u}" -- "{v}" [id="{u}--{v}", penwidth=4]\n'
-      #dot += f' penwidth={computeEdgePenwidth(att)}'
+      dot += f'   "{u}" -- "{v}" [id="{u}--{v}"'
+      dot += f' penwidth={computeEdgePenwidth(att)}, tooltip="{computeEdgeTooltip(att)}"]\n'
       #dot += f' color="{computeEdgeColor(att)}"]\n'
    #nodes
    for u,att in graph.nodes(data=True):
-      dot += f'   "{u}" [id="{u}", label="{u.split("_")[0]}_{u.split("_")[-1]}", width={8+G.degree(u)}, fontsize={max(G.degree(u)*12, 180)}, fillcolor="{computeNodeFillcolor_party(att)}", fontcolor="{computeNodeFontcolor()}"]\n'
-      #dot += f' fillcolor="{computeNodeFillcolor(att, node_coloring)}"'  
-      #dot += f' fontcolor="{computeNodeFontcolor()}"' 
+      # set two part label for address nodes, and single part label for term nodes
+      lbl = u.split("_")[0] + "_" + u.split("_")[-1] if att['type'] == 'address' else u
+      dot += f'   "{u}" [id="{u}", label="{lbl}", '
+      wdth = computeNodeWidth(att, node_sizing, node_size_growth)
+      dot += f' width={wdth}, fontsize={max(64, wdth*12)}, '
+      dot += f' fillcolor="{computeNodeFillcolor(att, node_coloring)}"'  
+      dot += f' fontcolor="{computeNodeFontcolor()}"]\n' 
       #dot += f' tooltip="{computeNodeTooltip(att)}"]\n'
    # close dot string
    dot += '}'
@@ -482,7 +522,11 @@ with left_column:
             index=0,
         )
 
-        st.markdown("#### Graph construction and visualization")
+        st.markdown("#### Graph construction")
+
+        # select type of graph
+        graph_type = st.radio("Type of graph", options=["Keyword graph", "Address graph"], horizontal=True, index=0)
+
         # select keyword score threshold
         keyword_score = st.slider(
             "Keyword score",
@@ -491,6 +535,9 @@ with left_column:
             value=0.14,
             step=0.01,
         )
+
+        st.markdown("#### Graph visualization")
+
         # select node coloring
         node_coloring = st.selectbox(
             "Node coloring",
@@ -525,7 +572,14 @@ with center_column:
         corpus = make_corpus(time=year_range, history=history, party=party)
         tfidf_df = vectorize_corpus(corpus)
         B = create_bipartite_graph(tfidf_df, keyword_score, corpus)
-        G = create_keyword_graph(B)
+        if graph_type == "Address graph":
+            G = create_address_graph(B)
+            print(G.nodes(data=True))
+            print(G.edges(data=True))
+        elif graph_type == "Keyword graph":
+            G = create_keyword_graph(B)
+        else:
+            st.error("Invalid graph type selected.")
         
         # Convert graph to dot format
         dot = graphToDot(G, node_coloring, node_sizing, node_size_growth)
@@ -745,7 +799,7 @@ with center_column:
         os.remove(svg_path)
 
 with right_column:
-    st.markdown("##### Key graph data")
+    st.markdown("##### Key graph metrics")
     if st.session_state.submitted:
         st.write(f"{len(corpus)} inauguration addresses in selection")
         st.write(f"{G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
