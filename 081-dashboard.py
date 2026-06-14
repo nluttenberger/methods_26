@@ -1,5 +1,6 @@
 import os
-import sys
+import itertools
+from unittest import result
 import pygraphviz as pgv
 from bs4 import BeautifulSoup
 import spacy
@@ -188,7 +189,7 @@ def create_tfidf_dict(tfidf_df, keyword_score):
     - tfidf_dict: dict mapping term to TF-IDF score
     """
     reduced_df = tfidf_df.where(tfidf_df >= float(keyword_score), other=0) 
-    tfidf_dict = reduced_df.max().to_dict()
+    tfidf_dict = {k: float(v) for k, v in reduced_df.max().to_dict().items()}
     return tfidf_dict
 
 ### Create bipartite graph from tf-idf DataFrame and set node attributes based on corpus metadata
@@ -248,8 +249,37 @@ def create_bipartite_graph(tfidf_df, keyword_score, corpus):
             B.nodes[node]['party'] = parties[years.index(B.nodes[node]['year'])] if years else None
             B.nodes[node]['used_in'] = connected_addresses
             B.nodes[node]['doc_freq'] = doc_freq_dict[node]
-            B.nodes[node]['term_frq'] = tf_idf_dict[node]
+            B.nodes[node]['tf_idf'] = tf_idf_dict[node]
     return B
+
+### Create (address-to-address) address graph from (term-to-address) bipartite graph by projection
+def create_address_graph(B):
+    """
+    Create a keyword graph by projecting the bipartite graph onto the term nodes, 
+    where edges between terms indicate co-occurrence in the same address. Additionally,
+    set degree attribute for nodes of the keyword graph based on the number of connections in the projected graph.
+       Parameters:
+       - B: bipartite graph
+       Returns:
+       - X: address graph
+    """
+    X = bipartite.weighted_projected_graph(B, [n for n, d in B.nodes(data=True) if d['type'] == 'address'])
+    # set degree attribute
+    for node in X.nodes():
+        if X.nodes[node]['type'] == 'address':
+            X.nodes[node]['degree'] = X.degree(node)
+    
+    # create lists of shared terms for each edge in the address graph and set as edge attribute
+    a_nodes = [n for n, d in B.nodes(data=True) if d['type'] == 'address']
+    for u, v in itertools.combinations(a_nodes, 2):
+        # Schnittmenge aller gemeinsamen Nachbarn bilden
+        #print(u,list(B.neighbors(u)))
+        shared_terms = set(B.neighbors(u)) & set(B.neighbors(v))
+        shared_terms_list = list(shared_terms) if shared_terms else []
+        if X.has_edge(u, v):
+            X.edges[(u, v)]['common_terms'] = shared_terms_list
+
+    return X
 
 ### Create (term-to-term) keyword graph from (term-to-address) bipartite graph by projection
 def create_keyword_graph(B):
@@ -267,8 +297,6 @@ def create_keyword_graph(B):
     for node in X.nodes():
         if X.nodes[node]['type'] == 'term':
             X.nodes[node]['degree'] = X.degree(node)
-            #print(f"Node: {node}, Year: {X.nodes[node]['year']}, Party: {X.nodes[node]['party']}, Doc freq: {X.nodes[node]['doc_freq']}, Degree: {X.nodes[node]['degree']}")
-   
     return X
 
 ##### Helper functions for graph visualization with PyGraphviz 
@@ -282,6 +310,18 @@ with open(f"{directory_path_in}meta.json", 'r', encoding='utf-8') as f:
 #print(meta)
 
 def computeNodeFillcolor_party(att):
+    global dark
+    xx = att['party']
+    if xx == 'Republican':
+        dark = True
+        return '#E9141D'
+    elif xx == 'Democrat':
+        dark = True
+        return '#0015BC'
+    else:
+        return 'lightblue'
+
+def XcomputeNodeFillcolor_party(att):
     global dark
     xx = att['used_in']
     y = [meta[x]['party'] for x in xx]
@@ -297,50 +337,48 @@ def computeNodeFillcolor_party(att):
     else:
         return 'lightblue'
 
+
 def computeNodeFillcolor_year(att):
     global dark
-    xx = att['used_in']
-    ix = xx[0].split('_')
-    year = ix[0]
-    #print(year)
+    year = int(att['year'])
     blue2yellow = [('#081d58ff','dark'), ('#253494ff', 'dark'), ('#225ea8ff', 'dark'), ('#1d91c0ff', 'light'), \
                    ('#41b6c4ff', 'light'), ('#7fcdbbff', 'light'), ('#c7e9b4ff', 'light'), ('#edf8b1ff', 'light'), ('#ffffd9ff', 'light')]
     pastell   = [('#fbb4aeff', 'light'), ('#b3cde3ff', 'light'), ('#ccebc5ff', 'light'), ('#decbe4ff', 'light'), \
                  ('#fed9a6ff', 'light'), ('#ffffccff', 'light'), ('#e5d8bdff', 'light'), ('#fddaecff', 'light'), ('#f2f2f2ff', 'light')]
     palette = blue2yellow
-    if year == '1789' or year == '1793':  # G. Washington's addresses
+    if year == 1789 or year == 1793:  # G. Washington's addresses
         if palette[0][1] == "dark":
             dark = True
         return palette[0][0]
-    elif year >  '1793' and year < '1805':
+    elif year >  1793 and year < 1805:
         if palette[1][1] == "dark":
             dark = True
         return palette[1][0]
-    elif year >= '1805' and year < '1833':
+    elif year >= 1805 and year < 1833:
         if palette[2][1] == "dark":
             dark = True
         return palette[2][0]
-    elif year >= '1833' and year < '1866':
+    elif year >= 1833 and year < 1866:
         if palette[3][1] == "dark":
             dark = True
         return palette[3][0]
-    elif year >= '1866' and year < '1905':
+    elif year >= 1866 and year < 1905:
         if palette[4][1] == "dark":
             dark = True
         return palette[4][0]
-    elif year >= '1905' and year < '1933':
+    elif year >= 1905 and year < 1933:
         if palette[5][1] == "dark":
             dark = True
         return palette[5][0]
-    elif year >= '1933' and year < '1965':
+    elif year >= 1933 and year < 1965:
         if palette[6][1] == "dark":
             dark = True
         return palette[6][0]
-    elif year >= '1965' and year < '2001':
+    elif year >= 1965 and year < 2001:
         if palette[7][1] == "dark":
             dark = True
         return palette[7][0]
-    elif year >= '2001':
+    elif year >= 2001:
         if palette[8][1] == "dark":
             dark = True
         return palette[8][0]
@@ -354,30 +392,30 @@ def computeNodeFillcolor(att, node_coloring):
         return computeNodeFillcolor_year(att)
     else:
         return 'lightblue'
+    
+def width(metric, prop_factor, growth, min_width):
+    if growth == "proportional":
+        return max(min_width, prop_factor*(metric))
+    elif growth == "radix":
+        return max(min_width, 4*prop_factor*math.sqrt(metric))
+    else:
+        st.error("Invalid node size growth option selected.")
 
 def computeNodeWidth(att, node_sizing, node_size_growth):
-    if node_sizing == "doc_freq":
-        if node_size_growth == "proportional":
-            w = int(att.get('doc_freq')) + 2
-        elif node_size_growth == "radix":
-            w = 3.0 + math.sqrt(1.8*(att.get('doc_freq')))
+    if att['type'] == 'address':
+        return width(int(att.get('degree')), 8.0, node_size_growth, 64)  
+    elif att['type'] == 'term':
+        if node_sizing == "doc_freq":
+            return width(int(att.get('doc_freq')), 8.0, node_size_growth, 48)
+        elif node_sizing == "degree":
+            return width(int(att.get('degree')), 8.0, node_size_growth, 64)
+        elif node_sizing == "tf-idf":
+            return width(float(att.get('tf_idf')), 16.0, node_size_growth, 48)
         else:
-            w = 3.0
-    elif node_sizing == "degree":
-        if node_size_growth == "proportional":
-            w = int(att.get('degree')) + 2
-        elif node_size_growth == "radix":
-            w = 3.0 + math.sqrt(1.8*(att.get('degree')))
-        else:
-            w = 3.0
-    elif node_sizing == "tf-idf":
-        if node_size_growth == "proportional":
-            w = att.get('term_frq')*10 + 2
-        elif node_size_growth == "radix":
-            w = 3.0 + math.sqrt(1.8*(att.get('term_frq')*10))
+            st.error("Invalid node sizing option selected.")
+            return
     else:
-        w = 3.0
-    return w
+        st.error("Invalid node type.")
 
 def computeNodeFontcolor():
     global dark
@@ -394,18 +432,21 @@ def computeNodeTooltip(att):
 # Functions to compute edge attributes
 
 def computeEdgePenwidth(att):
-    return str(att.get('weight')) 
+    return str(96*att.get('weight')) 
 
 def computeEdgeColor(att):
     if att.get('weight') > 1:
-        return 'red'
+        return 'DarkRed'
     else:
-        return 'black'
+        return 'DarkSlateGray'
+
+def computeEdgeTooltip(att):
+    xx = str(att.get("common_terms"))
+    return xx.replace("[", "").replace("]", "").replace(", ", "\n") 
 
 def graphToDot(graph=None, node_coloring="by year of first use", node_sizing="doc_freq", node_size_growth="proportional"):
    """
-   Convert a NetworkX graph with node and edge attributes into a DOT format string for 
-   visualization with PyGraphviz.
+   Convert a NetworkX graph with node and edge attributes into a DOT format string for visualization with PyGraphviz.
    Parameters:
    - graph: NetworkX graph with node attributes (e.g., 'term_frq', 'used_in') and edge attributes (e.g., 'weight')
    Returns:
@@ -413,21 +454,28 @@ def graphToDot(graph=None, node_coloring="by year of first use", node_sizing="do
    """
 
    #dot file header
-   dot  = 'graph {\n   overlap="prism1000"\n   rankdir="LR"\n   outputorder="edgesfirst" splines="false"\n bgcolor="silver"\n ' 
-   dot += '   fontsize="60"\n   fontname="Arial"\n   labelloc="t"\n   labeljust="l"'
-   dot += '   node [margin=0 fontname="Arial" fontcolor="black" fontsize=64 shape=circle style=filled fixedsize=true];\n'
+   dot  = 'graph {\n   overlap="prism1000" rankdir="LR" outputorder="edgesfirst" splines="false" bgcolor="silver" fontsize="60" fontname="Arial" labelloc="t" labeljust="l"\n'
+   dot += '   node [margin=0 fontname="Arial" fontcolor="black" shape=circle style=filled fixedsize=true];\n'
    # edges
    for u,v,att in graph.edges(data=True):
-      dot += f'   {u} -- {v} [id="{u}--{v}"'
-      dot += f' penwidth={computeEdgePenwidth(att)}'
-      dot += f' color="{computeEdgeColor(att)}"]\n'
+      dot += f'   "{u}" -- "{v}" [id="{u}--{v}"'
+      dot += f' penwidth={computeEdgePenwidth(att)} '
+      if graph_type == "Address graph":
+        dot += f' tooltip="{computeEdgeTooltip(att)}" '
+      dot += f' color="{computeEdgeColor(att)}" '
+      dot += ']\n'
    #nodes
    for u,att in graph.nodes(data=True):
-      dot += f'   {u} [id="{u}"'
-      dot += f' fillcolor="{computeNodeFillcolor(att, node_coloring)}"'  
-      dot += f' fontcolor="{computeNodeFontcolor()}"' 
-      dot += f' width={computeNodeWidth(att, node_sizing, node_size_growth)}' 
-      dot += f' tooltip="{computeNodeTooltip(att)}"]\n'
+      # set two part label for address nodes, and single part label for term nodes
+      lbl = u.split("_")[0] + "_" + u.split("_")[-1] if att['type'] == 'address' else u
+      dot += f'   "{u}" [id="{u}", label="{lbl}", '
+      wdth = computeNodeWidth(att, node_sizing, node_size_growth)
+      dot += f' width={wdth}, fontsize={max(64, 12*wdth)} '
+      dot += f' fillcolor="{computeNodeFillcolor(att, node_coloring)}" '  
+      dot += f' fontcolor="{computeNodeFontcolor()}" ' 
+      if graph_type == "Keyword graph":
+        dot += f' tooltip="{computeNodeTooltip(att)}" '
+      dot += ']\n'
    # close dot string
    dot += '}'
    return dot
@@ -468,7 +516,11 @@ with left_column:
             index=0,
         )
 
-        st.markdown("#### Graph construction and visualization")
+        st.markdown("#### Graph construction")
+
+        # select type of graph
+        graph_type = st.radio("Type of graph", options=["Keyword graph", "Address graph"], horizontal=True, index=0)
+
         # select keyword score threshold
         keyword_score = st.slider(
             "Keyword score",
@@ -477,6 +529,9 @@ with left_column:
             value=0.14,
             step=0.01,
         )
+
+        st.markdown("#### Graph visualization")
+
         # select node coloring
         node_coloring = st.selectbox(
             "Node coloring",
@@ -511,7 +566,12 @@ with center_column:
         corpus = make_corpus(time=year_range, history=history, party=party)
         tfidf_df = vectorize_corpus(corpus)
         B = create_bipartite_graph(tfidf_df, keyword_score, corpus)
-        G = create_keyword_graph(B)
+        if graph_type == "Address graph":
+            G = create_address_graph(B)
+        elif graph_type == "Keyword graph":
+            G = create_keyword_graph(B)
+        else:
+            st.error("Invalid graph type selected.")
         
         # Convert graph to dot format
         dot = graphToDot(G, node_coloring, node_sizing, node_size_growth)
@@ -646,7 +706,7 @@ with center_column:
                             if (edgeTitleEl) {{
                                 const edgeText = edgeTitleEl.textContent.trim();
                                 if (edgeText.startsWith(nodeName + '->') || edgeText.endsWith('->' + nodeName) || 
-                                    edgeText.includes('--' + nodeName) || edgeText.includes(nodeName + '--')) {{
+                                    edgeText.endsWith('--' + nodeName) || edgeText.startsWith(nodeName + '--')) {{
                                     edge.classList.add('highlight-connected');
                                     const parts = edgeText.split(/->|--/);
                                     const neighborName = parts[0].trim() === nodeName ? parts[1].trim() : parts[0].trim();
@@ -719,19 +779,14 @@ with center_column:
         # Encode the HTML template as base64 to create a data URI for embedding in the iframe
         b64_html = base64.b64encode(html_template.encode("utf-8")).decode("utf-8")
         src_data_uri = f"data:text/html;base64,{b64_html}"
-
-        st.iframe(
-            src=src_data_uri,
-            width="stretch",
-            height=2400
-        )
+        st.iframe(src=src_data_uri, width="stretch", height=2400)
 
         # close and delete the temporary SVG file after reading its content
         f.close()
         os.remove(svg_path)
 
 with right_column:
-    st.markdown("##### Key graph data")
+    st.markdown("##### Key graph metrics")
     if st.session_state.submitted:
         st.write(f"{len(corpus)} inauguration addresses in selection")
         st.write(f"{G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
