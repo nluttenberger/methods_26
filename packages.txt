@@ -1,5 +1,2 @@
 graphviz
 graphviz-dev
-freeglut3-dev
-libgtk2.0-dev
-libgl1-mesa-glx
