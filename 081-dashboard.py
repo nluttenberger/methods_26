@@ -1,6 +1,5 @@
 import os
 import itertools
-from unittest import result
 import pygraphviz as pgv
 from bs4 import BeautifulSoup
 import spacy
@@ -20,7 +19,6 @@ from collections import Counter
 import pandas as pd
 import math
 import tempfile
-from streamlit import components
 pd.options.display.max_rows = 600
 
 ########## Configuration and constants 
