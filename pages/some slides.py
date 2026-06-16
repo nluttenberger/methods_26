@@ -6,6 +6,8 @@ from streamlit.components.v1 import html
 from streamlit_keypress import key_press_events
 from streamlit_pdf_viewer import pdf_viewer
 
+st.set_page_config(layout="wide")
+
 st.title("Some slides")
 st.write(
     'from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
@@ -40,19 +42,19 @@ else:
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-# 3. DER REINE KEY-LISTENER (Steuert nun Tasten und Swipes!)
+# 3. DER REINE KEY-LISTENER
+# Wichtig: KEIN st.rerun() hier nutzen! Das Plugin löst das Neuladen selbst aus.
 key = key_press_events()
 
-if key == "ArrowRight" and st.session_state.current_page < total_pages:
-    st.session_state.current_page += 1
-    st.rerun()
-elif key == "ArrowLeft" and st.session_state.current_page > 1:
-    st.session_state.current_page -= 1
-    st.rerun()
+if key:
+    if key == "ArrowRight" and st.session_state.current_page < total_pages:
+        st.session_state.current_page += 1
+    elif key == "ArrowLeft" and st.session_state.current_page > 1:
+        st.session_state.current_page -= 1
 
 
 # --- ELEGANTER JAVASCRIPT GESTURE LISTENER ---
-# Übersetzt Wischgesten in native Events, die key_press_events direkt versteht
+# Erzeugt native Tastaturevents auf dem richtigen Fenster-Element
 gesture_js = """
 <script>
     let touchstartX = 0;
@@ -64,20 +66,21 @@ gesture_js = """
         let swipeDistance = touchendX - touchstartX;
         if (Math.abs(swipeDistance) > minSwipeDistance) {
             
-            // Bestimme die simulierte Taste basierend auf der Wischrichtung
             // Nach LINKS wischen -> Weiterblättern (ArrowRight)
             // Nach RECHTS wischen -> Zurückblättern (ArrowLeft)
             let simulatedKey = swipeDistance > 0 ? "ArrowLeft" : "ArrowRight";
             
-            // Erzeuge ein Event, das exakt so aussieht, als hätte der Nutzer eine Taste gedrückt
+            // Native Event-Erstellung für das Hauptfenster
             let event = new mainWin.KeyboardEvent('keydown', {
                 key: simulatedKey,
                 code: simulatedKey,
+                keyCode: simulatedKey === "ArrowLeft" ? 37 : 39,
+                which: simulatedKey === "ArrowLeft" ? 37 : 39,
                 bubbles: true,
                 composed: true
             });
             
-            // Sende es an das Hauptfenster, wo streamlit_keypress darauf lauscht
+            // An den globalen Window-Listener senden
             mainWin.dispatchEvent(event);
         }
     }
