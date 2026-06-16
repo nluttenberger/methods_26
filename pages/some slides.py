@@ -8,7 +8,7 @@ from streamlit.components.v1 import html
 
 st.title("Some slides")
 st.write("from my presentation at the KIT \"Bundestagsreden-Seminar\" in June 2026\n\n")
-st.write("Use the left and right arrow keys to navigate through the slides.")
+st.write("Use the left and right arrow keys/use swipe left, swipe right to navigate through the slides.")
 
 # Verwende die direkte Raw-Download-URL von GitHub
 pdf_url = "https://raw.githubusercontent.com/nluttenberger/methods_26/local/Dashboard%2007.pdf"
