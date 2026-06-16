@@ -92,7 +92,7 @@ st.markdown(
 )
 
 # 5. LAYOUT: Button links | PDF Mitte | Button rechts
-col_left, col_pdf, col_right = st.columns([1, 10, 1])  # Exakte Spaltenbreiten
+col_left, col_pdf, col_right = st.columns([1, 12, 1])  # Exakte Spaltenbreiten
 
 with col_left:
     st.write("<div style='height: 120px;'></div>", unsafe_allow_html=True)
@@ -104,7 +104,7 @@ with col_pdf:
     # Der Key muss sich pro Seite ändern, damit das PDF neu geladen wird
     pdf_viewer(
         input=pdf_bytes,
-        width=1000,
+        width=960,
         pages_to_render=[st.session_state.current_page],
         key=f"pdf_viewer_page_{st.session_state.current_page}",
     )
