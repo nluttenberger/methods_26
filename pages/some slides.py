@@ -5,7 +5,7 @@ from pypdf import PdfReader
 from streamlit_keypress import key_press_events
 from streamlit_pdf_viewer import pdf_viewer
 
-# 1. SEITEN-KONFIGURATION (Wide-Mode schöpft die volle Displaybreite aus)
+# 1. SEITEN-KONFIGURATION
 st.set_page_config(layout="wide")
 
 st.title("Some slides")
@@ -43,7 +43,7 @@ if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
 
-# Navigations-Logikfunktionen (Aktualisieren NUR den Session State)
+# Navigations-Logikfunktionen
 def next_page():
     if st.session_state.current_page < total_pages:
         st.session_state.current_page += 1
@@ -54,12 +54,11 @@ def prev_page():
         st.session_state.current_page -= 1
 
 
-# 4. TASTATUR-STEUERUNG (PC-Kanal)
+# 4. TASTATUR-STEUERUNG
 key = key_press_events()
 if "last_key" not in st.session_state:
     st.session_state.last_key = None
 
-# Nur reagieren, wenn eine NEUE Taste gedrückt wurde (verhindert Loops)
 if key and key != st.session_state.last_key:
     st.session_state.last_key = key
     if key == "ArrowRight":
@@ -70,23 +69,31 @@ elif not key:
     st.session_state.last_key = None
 
 
-# --- CSS FÜR RESPONSIVE TOUCH-BUTTONS ---
+# --- CSS FÜR VERTIKALE ZENTRIERUNG ---
 st.markdown(
     """
     <style>
-        /* Blockiert unnötige Ränder des Streamlit-Hauptcontainers für maximale Fläche */
         .block-container {
             padding-left: 2rem !important;
             padding-right: 2rem !important;
         }
-        /* Maximiert die Buttons an den Seitenrändern */
+        
+        /* Zwingt die Streamlit-Spalten, sich vertikal mittig auszurichten */
+        div[data-testid="stHorizontalBlock"] {
+            align-items: center !important;
+        }
+
+        /* Styling für die Dreiecks-Buttons */
         div[data-testid="stColumn"] button {
             width: 100% !important;
-            height: 600px !important; /* Riesige, intuitive Touch-Fläche fürs Tablet */
+            height: 350px !important; /* Angenehme Höhe zum Greifen */
             font-size: 45px !important;
             background-color: rgba(240, 242, 246, 0.6) !important;
             border-radius: 12px !important;
             border: 1px solid #ddd !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
         div[data-testid="stColumn"] button:active {
             background-color: #d0d2d6 !important;
@@ -97,18 +104,14 @@ st.markdown(
 )
 
 # 5. DYNAMISCHES SPALTEN-LAYOUT
-# Proportionale Gewichtung: 1 Teil links, 14 Teile Mitte (PDF), 1 Teil rechts
 col_left, col_pdf, col_right = st.columns([1, 14, 1])
 
 with col_left:
-    st.write("<div style='height: 180px;'></div>", unsafe_allow_html=True)
-    # Zurück-Button (on_click ändert den State sicher vor dem Rendering)
+    # Der leere HTML-Abstandhalter wurde gelöscht, CSS übernimmt das Zentrieren
     if st.button("◀", key="btn_prev_tablet", on_click=prev_page):
         pass
 
 with col_pdf:
-    # WICHTIG: width=None entfernt das starre Pixelmaß!
-    # Das PDF dehnt sich nun automatisch exakt bis zum Rand aus.
     pdf_viewer(
         input=pdf_bytes,
         width=None,
@@ -117,8 +120,6 @@ with col_pdf:
     )
 
 with col_right:
-    st.write("<div style='height: 180px;'></div>", unsafe_allow_html=True)
-    # Vorwärts-Button
     if st.button("▶", key="btn_next_tablet", on_click=next_page):
         pass
 
