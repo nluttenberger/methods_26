@@ -9,16 +9,11 @@ from streamlit_pdf_viewer import pdf_viewer
 st.set_page_config(layout="wide")
 
 st.title("Some slides")
-st.write(
-    'from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
-)
-st.write(
-    "Use the left and right arrow keys on your PC or the triangle buttons on your tablet to navigate."
+st.write('from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
 )
 
 # 1. DATEINAME DEFINIEREN (Lokal & Cloud-kompatibel)
 pdf_filename = "Dashboard 07.pdf"
-
 
 @st.cache_data(show_spinner=False)
 def load_pdf_file(filename):
@@ -42,17 +37,14 @@ else:
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-
 # Navigations-Logikfunktionen
 def next_page():
     if st.session_state.current_page < total_pages:
         st.session_state.current_page += 1
 
-
 def prev_page():
     if st.session_state.current_page > 1:
         st.session_state.current_page -= 1
-
 
 # 3. TASTATUR-STEUERUNG (PC-Kanal via key_press_events)
 key = key_press_events()
@@ -84,8 +76,8 @@ st.markdown(
 )
 
 # 4. LAYOUT: DREI SPALTEN (Button links | PDF Mitte | Button rechts)
-# Proportionale Aufteilung: 1 Teil links, 10 Teile Mitte, 1 Teil rechts
-col_left, col_pdf, col_right = st.columns([1, 10, 1])
+# Proportionale Aufteilung: 1 Teil links, 12 Teile Mitte, 1 Teil rechts
+col_left, col_pdf, col_right = st.columns([1, 12, 1])
 
 with col_left:
     # Zurück-Button (Linkes Dreieck)
@@ -96,7 +88,7 @@ with col_left:
         prev_page()
 
 with col_pdf:
-    # PDF in der Mitte rendern (Breite leicht reduziert für die Spalten)
+    # PDF in der Mitte rendern 
     pdf_viewer(
         input=pdf_bytes,
         width=1000,
