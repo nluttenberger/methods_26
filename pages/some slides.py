@@ -5,7 +5,7 @@ from pypdf import PdfReader
 from streamlit_keypress import key_press_events
 from streamlit_pdf_viewer import pdf_viewer
 
-# 1. SEITEN-KONFIGURATION (Wide-Mode für die seitlichen Buttons)
+# 1. SEITEN-KONFIGURATION (Wide-Mode schöpft die volle Displaybreite aus)
 st.set_page_config(layout="wide")
 
 st.title("Some slides")
@@ -55,12 +55,11 @@ def prev_page():
 
 
 # 4. TASTATUR-STEUERUNG (PC-Kanal)
-# Wir prüfen, ob sich der Tastatur-Wert geändert hat, um Rücksprünge zu verhindern
 key = key_press_events()
 if "last_key" not in st.session_state:
     st.session_state.last_key = None
 
-# Nur reagieren, wenn eine NEUE Taste gedrückt wurde
+# Nur reagieren, wenn eine NEUE Taste gedrückt wurde (verhindert Loops)
 if key and key != st.session_state.last_key:
     st.session_state.last_key = key
     if key == "ArrowRight":
@@ -71,16 +70,22 @@ elif not key:
     st.session_state.last_key = None
 
 
-# --- CSS FÜR DIE DREIECKS-TOUCH-BUTTONS ---
+# --- CSS FÜR RESPONSIVE TOUCH-BUTTONS ---
 st.markdown(
     """
     <style>
+        /* Blockiert unnötige Ränder des Streamlit-Hauptcontainers für maximale Fläche */
+        .block-container {
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
+        }
+        /* Maximiert die Buttons an den Seitenrändern */
         div[data-testid="stColumn"] button {
             width: 100% !important;
-            height: 500px !important; /* Riesige Klickfläche fürs Tablet */
-            font-size: 50px !important;
-            background-color: rgba(240, 242, 246, 0.7) !important;
-            border-radius: 15px !important;
+            height: 600px !important; /* Riesige, intuitive Touch-Fläche fürs Tablet */
+            font-size: 45px !important;
+            background-color: rgba(240, 242, 246, 0.6) !important;
+            border-radius: 12px !important;
             border: 1px solid #ddd !important;
         }
         div[data-testid="stColumn"] button:active {
@@ -91,32 +96,34 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# 5. LAYOUT: Button links | PDF Mitte | Button rechts
-col_left, col_pdf, col_right = st.columns([1, 12, 1])  # Exakte Spaltenbreiten
+# 5. DYNAMISCHES SPALTEN-LAYOUT
+# Proportionale Gewichtung: 1 Teil links, 14 Teile Mitte (PDF), 1 Teil rechts
+col_left, col_pdf, col_right = st.columns([1, 14, 1])
 
 with col_left:
-    st.write("<div style='height: 120px;'></div>", unsafe_allow_html=True)
+    st.write("<div style='height: 180px;'></div>", unsafe_allow_html=True)
     # Zurück-Button (on_click ändert den State sicher vor dem Rendering)
     if st.button("◀", key="btn_prev_tablet", on_click=prev_page):
         pass
 
 with col_pdf:
-    # Der Key muss sich pro Seite ändern, damit das PDF neu geladen wird
+    # WICHTIG: width=None entfernt das starre Pixelmaß!
+    # Das PDF dehnt sich nun automatisch exakt bis zum Rand aus.
     pdf_viewer(
         input=pdf_bytes,
-        width=960,
+        width=None,
         pages_to_render=[st.session_state.current_page],
         key=f"pdf_viewer_page_{st.session_state.current_page}",
     )
 
 with col_right:
-    st.write("<div style='height: 120px;'></div>", unsafe_allow_html=True)
-    # Vorwärts-Button (Nutzt on_click für verlässliche State-Updates)
+    st.write("<div style='height: 180px;'></div>", unsafe_allow_html=True)
+    # Vorwärts-Button
     if st.button("▶", key="btn_next_tablet", on_click=next_page):
         pass
 
-# Seitenzahlanzeige zur Kontrolle
+# Seitenzahlanzeige zur zentrierten Kontrolle unter den Slides
 st.markdown(
-    f"<h3 style='text-align: center; color: gray;'>Folie {st.session_state.current_page} von {total_pages}</h3>",
+    f"<h3 style='text-align: center; color: gray; margin-top: 20px;'>Folie {st.session_state.current_page} von {total_pages}</h3>",
     unsafe_allow_html=True,
 )
