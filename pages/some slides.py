@@ -59,6 +59,15 @@ gesture_js = """
                 // Wisch nach LINKS -> Simuliert Pfeiltaste Rechts (Vorwärtsblättern)
                 doc.dispatchEvent(new KeyboardEvent('keydown', {'key': 'ArrowRight'}));
             }
+
+            // Wichtig: Eingabe-Event auslösen, damit Streamlit den neuen Wert bemerkt
+            targetInput.dispatchEvent(new Event('input', { bubbles: true }));
+            
+            // Feld direkt wieder leeren, damit die gleiche Geste mehrmals hintereinander geht
+            setTimeout(() => {
+                targetInput.value = "";
+                targetInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }, 100);           
         }
     }
 
