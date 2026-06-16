@@ -5,15 +5,20 @@ from pypdf import PdfReader
 from streamlit_keypress import key_press_events
 from streamlit_pdf_viewer import pdf_viewer
 
-# Seitenlayout auf Wide-Mode stellen, damit Platz für die seitlichen Buttons ist
+# 1. SEITEN-KONFIGURATION (Wide-Mode für die seitlichen Buttons)
 st.set_page_config(layout="wide")
 
 st.title("Some slides")
-st.write('from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
+st.write(
+    'from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
+)
+st.write(
+    "Use the arrow keys on your PC or the triangle buttons on your tablet to navigate."
 )
 
-# 1. DATEINAME DEFINIEREN (Lokal & Cloud-kompatibel)
+# 2. DATEINAME DEFINIEREN (Lokal & Cloud-kompatibel)
 pdf_filename = "Dashboard 07.pdf"
+
 
 @st.cache_data(show_spinner=False)
 def load_pdf_file(filename):
@@ -33,73 +38,85 @@ else:
     )
     st.stop()
 
-# 2. AKTULLE SEITE INITIALISIEREN
+# 3. AKTULLE SEITE INITIALISIEREN
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-# Navigations-Logikfunktionen
+
+# Navigations-Logikfunktionen (Aktualisieren NUR den Session State)
 def next_page():
     if st.session_state.current_page < total_pages:
         st.session_state.current_page += 1
+
 
 def prev_page():
     if st.session_state.current_page > 1:
         st.session_state.current_page -= 1
 
-# 3. TASTATUR-STEUERUNG (PC-Kanal via key_press_events)
-key = key_press_events()
-if key == "ArrowRight":
-    next_page()
-elif key == "ArrowLeft":
-    prev_page()
 
-# --- CSS FÜR GROSSE DREIECKIGE NAVIGATIONBUTTONS ---
+# 4. TASTATUR-STEUERUNG (PC-Kanal)
+# Wir prüfen, ob sich der Tastatur-Wert geändert hat, um Rücksprünge zu verhindern
+key = key_press_events()
+if "last_key" not in st.session_state:
+    st.session_state.last_key = None
+
+# Nur reagieren, wenn eine NEUE Taste gedrückt wurde
+if key and key != st.session_state.last_key:
+    st.session_state.last_key = key
+    if key == "ArrowRight":
+        next_page()
+    elif key == "ArrowLeft":
+        prev_page()
+elif not key:
+    st.session_state.last_key = None
+
+
+# --- CSS FÜR DIE DREIECKS-TOUCH-BUTTONS ---
 st.markdown(
     """
     <style>
-        /* Macht die Buttons groß, zentriert und passt sie an Präsentationen an */
         div[data-testid="stColumn"] button {
             width: 100% !important;
-            height: 400px !important; /* Große Touch-Fläche fürs Tablet */
-            font-size: 40px !important; /* Macht die Dreiecke riesig */
-            background-color: rgba(240, 242, 246, 0.6) !important;
-            border-radius: 10px !important;
-            border: 1px solid #ccc !important;
-            transition: background 0.3s;
+            height: 500px !important; /* Riesige Klickfläche fürs Tablet */
+            font-size: 50px !important;
+            background-color: rgba(240, 242, 246, 0.7) !important;
+            border-radius: 15px !important;
+            border: 1px solid #ddd !important;
         }
         div[data-testid="stColumn"] button:active {
-            background-color: #e0e0e0 !important;
+            background-color: #d0d2d6 !important;
         }
     </style>
 """,
     unsafe_allow_html=True,
 )
 
-# 4. LAYOUT: DREI SPALTEN (Button links | PDF Mitte | Button rechts)
-# Proportionale Aufteilung: 1 Teil links, 12 Teile Mitte, 1 Teil rechts
-col_left, col_pdf, col_right = st.columns([1, 12, 1])
+# 5. LAYOUT: Button links | PDF Mitte | Button rechts
+col_left, col_pdf, col_right = st.columns([1, 10, 1])  # Exakte Spaltenbreiten
 
 with col_left:
-    # Zurück-Button (Linkes Dreieck)
-    st.write(
-        "<div style='height: 100px;'></div>", unsafe_allow_html=True
-    )  # Schiebt den Button etwas nach unten
-    if st.button("◀", key="btn_prev_tablet"):
-        prev_page()
+    st.write("<div style='height: 120px;'></div>", unsafe_allow_html=True)
+    # Zurück-Button (on_click ändert den State sicher vor dem Rendering)
+    if st.button("◀", key="btn_prev_tablet", on_click=prev_page):
+        pass
 
 with col_pdf:
-    # PDF in der Mitte rendern 
+    # Der Key muss sich pro Seite ändern, damit das PDF neu geladen wird
     pdf_viewer(
         input=pdf_bytes,
         width=1000,
         pages_to_render=[st.session_state.current_page],
+        key=f"pdf_viewer_page_{st.session_state.current_page}",
     )
 
 with col_right:
-    # Vorwärts-Button (Rechtes Dreieck)
-    st.write("<div style='height: 100px;'></div>", unsafe_allow_html=True)
-    if st.button("▶", key="btn_next_tablet"):
-        next_page()
+    st.write("<div style='height: 120px;'></div>", unsafe_allow_html=True)
+    # Vorwärts-Button (Nutzt on_click für verlässliche State-Updates)
+    if st.button("▶", key="btn_next_tablet", on_click=next_page):
+        pass
 
-# Seitenzahlanzeige ganz unten zur Kontrolle
-st.caption(f"Folie {st.session_state.current_page} von {total_pages}")
+# Seitenzahlanzeige zur Kontrolle
+st.markdown(
+    f"<h3 style='text-align: center; color: gray;'>Folie {st.session_state.current_page} von {total_pages}</h3>",
+    unsafe_allow_html=True,
+)
