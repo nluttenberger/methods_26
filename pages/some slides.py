@@ -11,11 +11,10 @@ st.write(
     'from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
 )
 st.write(
-    "Use the left and right arrow keys/use swipe left, swipe right to navigate through the slides."
+    "Use the left and right arrow keys / use swipe left, swipe right to navigate."
 )
 
-# 1. DATEINAME DEFINIEREN (Relativ im selben Repository-Ordner)
-# Platzieren Sie "Dashboard 07.pdf" einfach in Ihrem Git-Repository neben der app.py
+# 1. DATEINAME DEFINIEREN (Lokal & Cloud-kompatibel)
 pdf_filename = "Dashboard 07.pdf"
 
 
@@ -29,13 +28,11 @@ def load_pdf_file(filename):
     return pdf_bytes, total_pages
 
 
-# Krisensicherer Ladevorgang ohne Internet/Netzwerk-Requests
 if os.path.exists(pdf_filename):
     pdf_bytes, total_pages = load_pdf_file(pdf_filename)
 else:
     st.error(
-        f"⚠️ Datei '{pdf_filename}' wurde im Verzeichnis nicht gefunden! "
-        "Bitte stellen Sie sicher, dass die PDF-Datei im selben Ordner wie Ihre app.py liegt."
+        f"⚠️ Datei '{pdf_filename}' nicht gefunden! Bitte in den app.py-Ordner legen."
     )
     st.stop()
 
@@ -43,55 +40,45 @@ else:
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-# --- UNSICHTBARES TEXTFELD FÜR GESTEN ---
-st.markdown(
-    "<style>div[data-testid='stTextInput'] { display: none !important; }</style>",
-    unsafe_allow_html=True,
-)
-# Empfängt die Wörter "Left" oder "Right" aus dem JavaScript
-swipe_action = st.text_input(
-    "", key="swipe_receiver", label_visibility="collapsed"
-)
-
-# 3. DIE NAVIGATIONSLOGIK (Tastatur ODER Wisch-Events)
+# 3. DER REINE KEY-LISTENER (Steuert nun Tasten und Swipes!)
 key = key_press_events()
 
-# Auswertung: Nächste Seite (PfeilRechts ODER Wisch nach Links)
-if (key == "ArrowRight" or swipe_action == "Left") and (
-    st.session_state.current_page < total_pages
-):
+if key == "ArrowRight" and st.session_state.current_page < total_pages:
     st.session_state.current_page += 1
     st.rerun()
-
-# Auswertung: Vorherige Seite (PfeilLinks ODER Wisch nach Rechts)
-elif (key == "ArrowLeft" or swipe_action == "Right") and (
-    st.session_state.current_page > 1
-):
+elif key == "ArrowLeft" and st.session_state.current_page > 1:
     st.session_state.current_page -= 1
     st.rerun()
 
 
-# --- JAVASCRIPT FOR TOUCH GESTURES (Cloud-optimiert) ---
+# --- ELEGANTER JAVASCRIPT GESTURE LISTENER ---
+# Übersetzt Wischgesten in native Events, die key_press_events direkt versteht
 gesture_js = """
 <script>
     let touchstartX = 0;
     let touchendX = 0;
     const minSwipeDistance = 50; 
-    const mainDoc = window.parent.document;
+    const mainWin = window.parent;
 
     function handleSwipe() {
         let swipeDistance = touchendX - touchstartX;
         if (Math.abs(swipeDistance) > minSwipeDistance) {
-            const targetInput = mainDoc.querySelector("input[aria-label='']");
-            if (targetInput) {
-                targetInput.value = swipeDistance > 0 ? "Right" : "Left";
-                targetInput.dispatchEvent(new Event('input', { bubbles: true }));
-                
-                setTimeout(() => {
-                    targetInput.value = "";
-                    targetInput.dispatchEvent(new Event('input', { bubbles: true }));
-                }, 100);
-            }
+            
+            // Bestimme die simulierte Taste basierend auf der Wischrichtung
+            // Nach LINKS wischen -> Weiterblättern (ArrowRight)
+            // Nach RECHTS wischen -> Zurückblättern (ArrowLeft)
+            let simulatedKey = swipeDistance > 0 ? "ArrowLeft" : "ArrowRight";
+            
+            // Erzeuge ein Event, das exakt so aussieht, als hätte der Nutzer eine Taste gedrückt
+            let event = new mainWin.KeyboardEvent('keydown', {
+                key: simulatedKey,
+                code: simulatedKey,
+                bubbles: true,
+                composed: true
+            });
+            
+            // Sende es an das Hauptfenster, wo streamlit_keypress darauf lauscht
+            mainWin.dispatchEvent(event);
         }
     }
 
@@ -106,30 +93,31 @@ gesture_js = """
                 handleSwipe();
             }, { passive: true });
         } catch (e) {
-            console.log("Konnte Listener nicht binden:", e);
+            console.log("iFrame blockiert:", e);
         }
     }
 
-    // An Hauptbildschirm binden
-    addListeners(mainDoc);
+    // Listener auf dem Haupt-Dokument aktivieren
+    addListeners(mainWin.document);
 
-    // An den iFrame des PDF-Viewers binden (Intervall fängt verzögertes Laden ab)
+    // Listener in die iFrames (PDF Viewer) injizieren
     let iframeCheckAttempts = 0;
     const iframeInterval = setInterval(() => {
         iframeCheckAttempts++;
-        const iframes = mainDoc.querySelectorAll('iframe');
+        const iframes = mainWin.document.querySelectorAll('iframe');
         if (iframes.length > 1 || iframeCheckAttempts > 10) {
             iframes.forEach(iframe => {
                 if (iframe.contentDocument) {
                     addListeners(iframe.contentDocument);
                 }
             });
-            clearInterval(iframeInterval); // Stoppen, sobald gekoppelt
+            clearInterval(iframeInterval);
         }
     }, 500); 
 </script>
 """
 
+# Rendert das JS-Skript unsichtbar im Hintergrund
 html(gesture_js, height=0, width=0)
 
 # 4. AKTULLE SEITE RENDERN
