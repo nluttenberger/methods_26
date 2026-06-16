@@ -4,6 +4,7 @@ from streamlit_pdf_viewer import pdf_viewer
 import io
 from pypdf import PdfReader
 from streamlit_keypress import key_press_events
+from streamlit.components.v1 import html
 
 st.title("Some slides")
 st.write("from my presentation at the KIT \"Bundestagsreden-Seminar\" in June 2026\n\n")
@@ -36,9 +37,48 @@ if key:
     elif key == "ArrowLeft" and st.session_state.current_page > 1:
         st.session_state.current_page -= 1
 
+# --- JAVASCRIPT GESTURE LISTENER ---
+# Lauscht auf Wischgesten und triggert ein künstliches Tastatur-Event
+gesture_js = """
+<script>
+    let touchstartX = 0;
+    let touchendX = 0;
+    const minSwipeDistance = 70; // Pixel-Mindestdistanz für einen Wisch
+
+    // Zugriff auf das Haupt-Dokument der Streamlit-App
+    const doc = window.parent.document;
+
+    function handleSwipe() {
+        let swipeDistance = touchendX - touchstartX;
+        
+        if (Math.abs(swipeDistance) > minSwipeDistance) {
+            if (swipeDistance > 0) {
+                // Wisch nach RECHTS -> Simuliert Pfeiltaste Links (Zurückblättern)
+                doc.dispatchEvent(new KeyboardEvent('keydown', {'key': 'ArrowLeft'}));
+            } else {
+                // Wisch nach LINKS -> Simuliert Pfeiltaste Rechts (Vorwärtsblättern)
+                doc.dispatchEvent(new KeyboardEvent('keydown', {'key': 'ArrowRight'}));
+            }
+        }
+    }
+
+    doc.addEventListener('touchstart', e => {
+        touchstartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    doc.addEventListener('touchend', e => {
+        touchendX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+</script>
+"""
+
+# Rendert das Skript sicher im Hintergrund (wichtig: Funktion aus dem Import!)
+html(gesture_js, height=0, width=0)
+
 # 4. Aktuelle Seite rendern
 pdf_viewer(
     input=response.content,
-    width=1600,
+    width=1200,
     pages_to_render=[st.session_state.current_page]  # Übergibt die aktuelle Seite als Liste
 )
