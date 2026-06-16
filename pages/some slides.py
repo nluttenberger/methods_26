@@ -1,5 +1,5 @@
 import io
-import requests
+import os
 import streamlit as st
 from pypdf import PdfReader
 from streamlit.components.v1 import html
@@ -14,95 +14,79 @@ st.write(
     "Use the left and right arrow keys/use swipe left, swipe right to navigate through the slides."
 )
 
-# Raw-Download-URL von GitHub
-pdf_url = "https://githubusercontent.com"
+# 1. DATEINAME DEFINIEREN (Relativ im selben Repository-Ordner)
+# Platzieren Sie "Dashboard 07.pdf" einfach in Ihrem Git-Repository neben der app.py
+pdf_filename = "Dashboard 07.pdf"
 
 
-@st.cache_data
-def load_pdf(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    pdf_file = io.BytesIO(response.content)
+@st.cache_data(show_spinner=False)
+def load_pdf_file(filename):
+    with open(filename, "rb") as f:
+        pdf_bytes = f.read()
+    pdf_file = io.BytesIO(pdf_bytes)
     reader = PdfReader(pdf_file)
     total_pages = len(reader.pages)
-    return response, total_pages
+    return pdf_bytes, total_pages
 
 
-# 1. PDF laden und Gesamtseitenzahl ermitteln
-response, total_pages = load_pdf(pdf_url)
+# Krisensicherer Ladevorgang ohne Internet/Netzwerk-Requests
+if os.path.exists(pdf_filename):
+    pdf_bytes, total_pages = load_pdf_file(pdf_filename)
+else:
+    st.error(
+        f"⚠️ Datei '{pdf_filename}' wurde im Verzeichnis nicht gefunden! "
+        "Bitte stellen Sie sicher, dass die PDF-Datei im selben Ordner wie Ihre app.py liegt."
+    )
+    st.stop()
 
-# 2. Aktuelle Seite im Session State speichern (Standard: Seite 1)
+# 2. AKTULLE SEITE INITIALISIEREN
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-# --- INPUT FÜR TABLET-GESTEN ---
-# Wir verstecken das Eingabefeld per CSS
+# --- UNSICHTBARES TEXTFELD FÜR GESTEN ---
 st.markdown(
-    """
-    <style>
-        div[data-testid="stTextInput"] {
-            display: none !important;
-        }
-    </style>
-""",
+    "<style>div[data-testid='stTextInput'] { display: none !important; }</style>",
     unsafe_allow_html=True,
 )
-
-# Dieses unsichtbare Feld fängt die Wischgesten auf
+# Empfängt die Wörter "Left" oder "Right" aus dem JavaScript
 swipe_action = st.text_input(
-    "Swipe Receiver", key="swipe_receiver", label_visibility="collapsed"
+    "", key="swipe_receiver", label_visibility="collapsed"
 )
 
-
-# Navigation-Hilfsfunktionen
-def next_page():
-    if st.session_state.current_page < total_pages:
-        st.session_state.current_page += 1
-
-
-def prev_page():
-    if st.session_state.current_page > 1:
-        st.session_state.current_page -= 1
-
-
-# 3. AUSWERTUNG DER SIGNALE (Tastatur ODER Touch)
-# Physischer Key-Listener (Pfeiltasten am PC)
+# 3. DIE NAVIGATIONSLOGIK (Tastatur ODER Wisch-Events)
 key = key_press_events()
-if key == "ArrowRight":
-    next_page()
-elif key == "ArrowLeft":
-    prev_page()
 
-# Touch-Gesten (Vom Tablet via JavaScript)
-if swipe_action == "Right":
-    prev_page()  # Nach rechts wischen = vorherige Seite
-    st.rerun()
-elif swipe_action == "Left":
-    next_page()  # Nach links wischen = nächste Seite
+# Auswertung: Nächste Seite (PfeilRechts ODER Wisch nach Links)
+if (key == "ArrowRight" or swipe_action == "Left") and (
+    st.session_state.current_page < total_pages
+):
+    st.session_state.current_page += 1
     st.rerun()
 
+# Auswertung: Vorherige Seite (PfeilLinks ODER Wisch nach Rechts)
+elif (key == "ArrowLeft" or swipe_action == "Right") and (
+    st.session_state.current_page > 1
+):
+    st.session_state.current_page -= 1
+    st.rerun()
 
-# --- NEUER, KORRIGIERTER JAVASCRIPT GESTURE LISTENER ---
-# Dieses Skript bindet sich an den Hauptbildschirm UND an alle iFrames (wie den PDF Viewer)
+
+# --- JAVASCRIPT FOR TOUCH GESTURES (Cloud-optimiert) ---
 gesture_js = """
 <script>
     let touchstartX = 0;
     let touchendX = 0;
-    const minSwipeDistance = 50; // Pixel-Mindestdistanz für einen Wisch
-
+    const minSwipeDistance = 50; 
     const mainDoc = window.parent.document;
 
     function handleSwipe() {
         let swipeDistance = touchendX - touchstartX;
         if (Math.abs(swipeDistance) > minSwipeDistance) {
-            const targetInput = mainDoc.querySelector("input[aria-label='Swipe Receiver']");
+            const targetInput = mainDoc.querySelector("input[aria-label='']");
             if (targetInput) {
-                // Wert setzen
                 targetInput.value = swipeDistance > 0 ? "Right" : "Left";
-                // Event absenden, damit Streamlit es merkt
                 targetInput.dispatchEvent(new Event('input', { bubbles: true }));
                 
-                // Feld leeren für die nächste Geste
                 setTimeout(() => {
                     targetInput.value = "";
                     targetInput.dispatchEvent(new Event('input', { bubbles: true }));
@@ -111,7 +95,6 @@ gesture_js = """
         }
     }
 
-    // Funktion registriert die Touch-Events auf einem bestimmten Dokument-Objekt
     function addListeners(targetDoc) {
         try {
             targetDoc.addEventListener('touchstart', e => {
@@ -123,32 +106,35 @@ gesture_js = """
                 handleSwipe();
             }, { passive: true });
         } catch (e) {
-            // Verhindert Abstürze, falls ein iFrame blockiert ist (Sicherheitsrichtlinien)
-            console.log("Konnte Listener nicht an iFrame binden:", e);
+            console.log("Konnte Listener nicht binden:", e);
         }
     }
 
-    # Binde an das Hauptfenster
+    // An Hauptbildschirm binden
     addListeners(mainDoc);
 
-    # SUPER-TRICK: Binde an alle iFrames (wichtig für den PDF-Viewer!)
-    setTimeout(() => {
+    // An den iFrame des PDF-Viewers binden (Intervall fängt verzögertes Laden ab)
+    let iframeCheckAttempts = 0;
+    const iframeInterval = setInterval(() => {
+        iframeCheckAttempts++;
         const iframes = mainDoc.querySelectorAll('iframe');
-        iframes.forEach(iframe => {
-            if (iframe.contentDocument) {
-                addListeners(iframe.contentDocument);
-            }
-        });
-    }, 1500); // Wartet 1.5s, bis der PDF-Viewer fertig geladen ist
+        if (iframes.length > 1 || iframeCheckAttempts > 10) {
+            iframes.forEach(iframe => {
+                if (iframe.contentDocument) {
+                    addListeners(iframe.contentDocument);
+                }
+            });
+            clearInterval(iframeInterval); // Stoppen, sobald gekoppelt
+        }
+    }, 500); 
 </script>
 """
 
-# Rendert das JS-Skript im Hintergrund
 html(gesture_js, height=0, width=0)
 
-# 4. Aktuelle Seite rendern
+# 4. AKTULLE SEITE RENDERN
 pdf_viewer(
-    input=response.content,
+    input=pdf_bytes,
     width=1200,
     pages_to_render=[st.session_state.current_page],
 )
