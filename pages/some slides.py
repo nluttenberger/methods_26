@@ -6,8 +6,6 @@ from streamlit.components.v1 import html
 from streamlit_keypress import key_press_events
 from streamlit_pdf_viewer import pdf_viewer
 
-st.set_page_config(layout="wide")
-
 st.title("Some slides")
 st.write(
     'from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
@@ -42,52 +40,72 @@ else:
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-# 3. DER REINE KEY-LISTENER
-# Wichtig: KEIN st.rerun() hier nutzen! Das Plugin löst das Neuladen selbst aus.
-key = key_press_events()
+# --- MULTI-CHANNEL NAVIGATIONSLOGIK ---
 
-if key:
-    if key == "ArrowRight" and st.session_state.current_page < total_pages:
+
+# Hilfsfunktionen für das Blättern
+def page_forward():
+    if st.session_state.current_page < total_pages:
         st.session_state.current_page += 1
-    elif key == "ArrowLeft" and st.session_state.current_page > 1:
+
+
+def page_backward():
+    if st.session_state.current_page > 1:
         st.session_state.current_page -= 1
 
 
-# --- ELEGANTER JAVASCRIPT GESTURE LISTENER ---
-# Erzeugt native Tastaturevents auf dem richtigen Fenster-Element
+# Kanal A: Physische PC-Tastatur (Über Ihren Key-Listener)
+key = key_press_events()
+if key == "ArrowRight":
+    page_forward()
+elif key == "ArrowLeft":
+    page_backward()
+
+# Kanal B: Tablet Wischgesten (Über die URL-Query-Parameter-Brücke)
+# Das JavaScript schreibt das Event direkt in die URL, Streamlit liest es aus
+query_params = st.query_params
+if "swipe" in query_params:
+    action = query_params["swipe"]
+    # Parameter sofort löschen, damit es beim nächsten Rerun nicht wieder triggert
+    st.query_params.clear()
+
+    if action == "Left":  # Wisch nach links -> Nächste Seite
+        page_forward()
+        st.rerun()
+    elif action == "Right":  # Wisch nach rechts -> Vorherige Seite
+        page_backward()
+        st.rerun()
+
+
+# --- JAVASCRIPT GESTURE LISTENER (Über Query-Parameter-Brücke) ---
+# Schreibt bei einem Swipe die Aktion direkt in die URL der Streamlit App.
+# Das funktioniert plattformübergreifend auf jedem Tablet (iPad & Android)!
 gesture_js = """
 <script>
     let touchstartX = 0;
     let touchendX = 0;
-    const minSwipeDistance = 50; 
+    const minSwipeDistance = 60; // Mindestdistanz für Wisch in Pixeln
     const mainWin = window.parent;
 
     function handleSwipe() {
         let swipeDistance = touchendX - touchstartX;
         if (Math.abs(swipeDistance) > minSwipeDistance) {
+            let direction = swipeDistance > 0 ? "Right" : "Left";
             
-            // Nach LINKS wischen -> Weiterblättern (ArrowRight)
-            // Nach RECHTS wischen -> Zurückblättern (ArrowLeft)
-            let simulatedKey = swipeDistance > 0 ? "ArrowLeft" : "ArrowRight";
+            // Ermittle die aktuelle URL des Streamlit-Hauptfensters
+            let currentUrl = new URL(mainWin.location.href);
+            // Setze den Query-Parameter ?swipe=Left oder ?swipe=Right
+            currentUrl.searchParams.set("swipe", direction);
             
-            // Native Event-Erstellung für das Hauptfenster
-            let event = new mainWin.KeyboardEvent('keydown', {
-                key: simulatedKey,
-                code: simulatedKey,
-                keyCode: simulatedKey === "ArrowLeft" ? 37 : 39,
-                which: simulatedKey === "ArrowLeft" ? 37 : 39,
-                bubbles: true,
-                composed: true
-            });
-            
-            // An den globalen Window-Listener senden
-            mainWin.dispatchEvent(event);
+            // Aktualisiere das Hauptfenster. Streamlit erkennt dies sofort als Rerun-Signal!
+            mainWin.location.replace(currentUrl.href);
         }
     }
 
     function addListeners(targetDoc) {
         try {
             targetDoc.addEventListener('touchstart', e => {
+                // screenX aus dem ersten Touch-Event auslesen
                 touchstartX = e.changedTouches[0].screenX;
             }, { passive: true });
 
@@ -96,19 +114,19 @@ gesture_js = """
                 handleSwipe();
             }, { passive: true });
         } catch (e) {
-            console.log("iFrame blockiert:", e);
+            console.log("iFrame blockiert oder noch nicht bereit:", e);
         }
     }
 
-    // Listener auf dem Haupt-Dokument aktivieren
+    // 1. An Hauptbildschirm binden
     addListeners(mainWin.document);
 
-    // Listener in die iFrames (PDF Viewer) injizieren
+    // 2. An den iFrame des PDF-Viewers binden (Scan-Schleife für verzögertes Laden)
     let iframeCheckAttempts = 0;
     const iframeInterval = setInterval(() => {
         iframeCheckAttempts++;
         const iframes = mainWin.document.querySelectorAll('iframe');
-        if (iframes.length > 1 || iframeCheckAttempts > 10) {
+        if (iframes.length > 1 || iframeCheckAttempts > 15) {
             iframes.forEach(iframe => {
                 if (iframe.contentDocument) {
                     addListeners(iframe.contentDocument);
@@ -116,7 +134,7 @@ gesture_js = """
             });
             clearInterval(iframeInterval);
         }
-    }, 500); 
+    }, 400); 
 </script>
 """
 
