@@ -5,12 +5,15 @@ from pypdf import PdfReader
 from streamlit_keypress import key_press_events
 from streamlit_pdf_viewer import pdf_viewer
 
+# Seitenlayout auf Wide-Mode stellen, damit Platz für die seitlichen Buttons ist
+st.set_page_config(layout="wide")
+
 st.title("Some slides")
 st.write(
     'from my presentation at the KIT "Bundestagsreden-Seminar" in June 2026\n\n'
 )
 st.write(
-    "Use Arrow keys on PC or Tap/Swipe Left and Right sides of the slide on Tablets."
+    "Use the left and right arrow keys on your PC or the triangle buttons on your tablet to navigate."
 )
 
 # 1. DATEINAME DEFINIEREN (Lokal & Cloud-kompatibel)
@@ -39,43 +42,8 @@ else:
 if "current_page" not in st.session_state:
     st.session_state.current_page = 1
 
-# --- DESIGN FÜR INVISIBLE TOUCH OVERLAYS (CSS) ---
-# Dieser CSS-Code legt zwei unsichtbare, riesige Klickflächen über die App
-st.markdown(
-    """
-    <style>
-        /* Container für die unsichtbaren Buttons */
-        .touch-container {
-            position: fixed;
-            top: 25%;
-            left: 0;
-            width: 100vw;
-            height: 65vh;
-            z-index: 99999; /* Liegt über dem PDF Viewer */
-            pointer-events: none; /* Lässt normales Scrollen zu */
-            display: flex;
-            justify-content: space-between;
-        }
-        /* Style für die linke und rechte Touchzone */
-        .touch-zone-left, .touch-zone-right {
-            pointer-events: auto; /* Macht die Zonen klickbar */
-            width: 20vw;         /* 20% des Bildschirms links/rechts sind Touch-Zonen */
-            height: 100%;
-            background: transparent; /* Unsichtbar */
-        }
-        /* Versteckt die echten Streamlit-Buttons, die wir als Trigger nutzen */
-        div[data-testid="stColumn"] button {
-            opacity: 0 !important;
-            position: fixed;
-            top: -100px;
-        }
-    </style>
-""",
-    unsafe_allow_html=True,
-)
 
-
-# Navigation-Logikfunktionen
+# Navigations-Logikfunktionen
 def next_page():
     if st.session_state.current_page < total_pages:
         st.session_state.current_page += 1
@@ -86,43 +54,60 @@ def prev_page():
         st.session_state.current_page -= 1
 
 
-# 3. DIE TRIGGER-STEUERUNG
-# Kanal A: Physische PC-Tastatur (Über Ihren Key-Listener)
+# 3. TASTATUR-STEUERUNG (PC-Kanal via key_press_events)
 key = key_press_events()
 if key == "ArrowRight":
     next_page()
 elif key == "ArrowLeft":
     prev_page()
 
-# Kanal B: Unsichtbare Touch-Buttons fürs Tablet
-col1, col2 = st.columns(2)
-with col1:
-    # Versteckter Button für die linke Bildschirmhälfte
-    if st.button("invisible_prev", key="btn_prev"):
-        prev_page()
-
-with col2:
-    # Versteckter Button für die rechte Bildschirmhälfte
-    if st.button("invisible_next", key="btn_next"):
-        next_page()
-
-
-# HTML-Overlay, das die unsichtbaren Zonen mit den Streamlit-Buttons verknüpft
-# Wenn man links tippt, wird der echte Streamlit-Zurück-Button geklickt!
+# --- CSS FÜR GROSSE DREIECKIGE NAVIGATIONBUTTONS ---
 st.markdown(
     """
-    <div class="touch-container">
-        <div class="touch-zone-left" onclick="window.parent.document.querySelector('button[kind=\"secondary\"]').click()"></div>
-        <div class="touch-zone-right" onclick="window.parent.document.querySelectorAll('button[kind=\"secondary\"]')[1].click()"></div>
-    </div>
+    <style>
+        /* Macht die Buttons groß, zentriert und passt sie an Präsentationen an */
+        div[data-testid="stColumn"] button {
+            width: 100% !important;
+            height: 400px !important; /* Große Touch-Fläche fürs Tablet */
+            font-size: 40px !important; /* Macht die Dreiecke riesig */
+            background-color: rgba(240, 242, 246, 0.6) !important;
+            border-radius: 10px !important;
+            border: 1px solid #ccc !important;
+            transition: background 0.3s;
+        }
+        div[data-testid="stColumn"] button:active {
+            background-color: #e0e0e0 !important;
+        }
+    </style>
 """,
     unsafe_allow_html=True,
 )
 
+# 4. LAYOUT: DREI SPALTEN (Button links | PDF Mitte | Button rechts)
+# Proportionale Aufteilung: 1 Teil links, 10 Teile Mitte, 1 Teil rechts
+col_left, col_pdf, col_right = st.columns([1, 10, 1])
 
-# 4. AKTULLE SEITE RENDERN
-pdf_viewer(
-    input=pdf_bytes,
-    width=1200,
-    pages_to_render=[st.session_state.current_page],
-)
+with col_left:
+    # Zurück-Button (Linkes Dreieck)
+    st.write(
+        "<div style='height: 100px;'></div>", unsafe_allow_html=True
+    )  # Schiebt den Button etwas nach unten
+    if st.button("◀", key="btn_prev_tablet"):
+        prev_page()
+
+with col_pdf:
+    # PDF in der Mitte rendern (Breite leicht reduziert für die Spalten)
+    pdf_viewer(
+        input=pdf_bytes,
+        width=1000,
+        pages_to_render=[st.session_state.current_page],
+    )
+
+with col_right:
+    # Vorwärts-Button (Rechtes Dreieck)
+    st.write("<div style='height: 100px;'></div>", unsafe_allow_html=True)
+    if st.button("▶", key="btn_next_tablet"):
+        next_page()
+
+# Seitenzahlanzeige ganz unten zur Kontrolle
+st.caption(f"Folie {st.session_state.current_page} von {total_pages}")
